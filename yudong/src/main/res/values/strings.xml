@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">YuDong</string>
+    <string name="app_name">鱼洞阅读</string>
+    <string name="errorMessage">不能为空</string>
 </resources>
