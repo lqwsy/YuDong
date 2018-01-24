@@ -1,7 +1,6 @@
 package com.gdou.yudong.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +9,7 @@ import android.widget.Toast;
 
 import com.gdou.yudong.R;
 import com.gdou.yudong.network.HttpConnectionManager;
+import com.gdou.yudong.utils.ActivityCollector;
 import com.gdou.yudong.utils.Common;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -44,7 +44,7 @@ public class LoginActivity extends BasicActivity implements Validator.Validation
     public EditText edt_password;
 
     private Validator validator;//UI校验器
-    private HttpConnectionManager httpConnectionManager;//网络连接
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class LoginActivity extends BasicActivity implements Validator.Validation
         ButterKnife.bind(this);//对绑定的成员赋值
         validator = new Validator(this);//初始化UI校验
         validator.setValidationListener(this);
-        httpConnectionManager = HttpConnectionManager.getIstance();//初始化网络连接类
+        clearLoginSharedPreferences();//清除登录信息
     }
 
     //注解绑定方法响应事件，响应用户登录按钮
@@ -62,18 +62,24 @@ public class LoginActivity extends BasicActivity implements Validator.Validation
         validator.validate();//调用校验
     }
 
+    //点击注册
+    @OnClick(R.id.btn_register)
+    public void registerClick(){
+        startActivity(new Intent(this,RegisterActivity.class));//跳转到注册页面
+    }
+
     //用户点击忘记密码
     @OnClick(R.id.txt_forget)
     public void forgetClick(){
-        Toast.makeText(this,"点击忘记密码",Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(LoginActivity.this,ForgetPasswordActivity.class));//跳转到重置密码页面
     }
 
     //校验监听的两个方法
     @Override
     public void onValidationSucceeded() {
         String url = Common.LOCAL_URL + "clientLoginController";
-        final String username = edt_username.getText().toString();
-        final String password = edt_password.getText().toString();
+        final String username = edt_username.getText().toString().trim();
+        final String password = edt_password.getText().toString().trim();
         //登录结果返回
         httpConnectionManager.loginConnect(url, username, password, new HttpConnectionManager.LoginResultCallBack() {
             @Override
@@ -85,13 +91,9 @@ public class LoginActivity extends BasicActivity implements Validator.Validation
                     //缓存头像和个人信息下来
 
                     //在SharedPreferences中保存登录用户数据，下次自动登录
-                    SharedPreferences sharedPreferences = getSharedPreferences("loginUser",MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("username",username);//添加用户名密码
-                    editor.putString("password",password);
-                    editor.commit();//保存到本地
+                    saveLoginToSharedPreferences(username,password);
                     startActivity(new Intent(LoginActivity.this,MainActivity.class));
-                    LoginActivity.this.finish();
+                    ActivityCollector.delActivity(LoginActivity.class);
                 }
                 else if(result == 2){
                     Toast.makeText(LoginActivity.this, "无法连接网络", Toast.LENGTH_SHORT).show();

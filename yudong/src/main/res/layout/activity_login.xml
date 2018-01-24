@@ -20,7 +20,7 @@
         android:layout_width="200dp"
         android:ems="16"
         android:background="@color/colorEditText"
-        android:hint="手机号"
+        android:hint="@string/usernameEdt"
         android:paddingLeft="8dp"
         android:layout_centerInParent="true"
         android:id="@+id/edt_username"
@@ -29,7 +29,7 @@
     <EditText
         android:layout_width="200dp"
         android:inputType="textPassword"
-        android:hint="密码"
+        android:hint="@string/passwordEdt"
         android:background="@color/colorEditText"
         android:ems="16"
         android:paddingLeft="8dp"
@@ -56,7 +56,7 @@
             <Button
                 android:id="@+id/btn_register"
                 android:layout_centerInParent="true"
-                android:text="注册"
+                android:text="@string/registerBtn"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 />
@@ -68,7 +68,7 @@
             android:layout_weight="1">
             <Button
                 android:id="@+id/btn_login"
-                android:text="登录"
+                android:text="@string/loginBtn"
                 android:layout_centerInParent="true"
                 android:layout_centerHorizontal="true"
                 android:layout_width="150dp"
@@ -80,7 +80,7 @@
 
     <TextView
         android:id="@+id/txt_forget"
-        android:text="忘记密码"
+        android:text="@string/forgetTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -90,7 +90,7 @@
         />
 
     <TextView
-        android:text="点击登录代表同意鱼洞阅读使用协议和隐私政策"
+        android:text="@string/protocolTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
