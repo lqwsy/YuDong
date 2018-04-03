@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">YuDong</string>
+    <string name="app_name">鱼洞阅读</string>
+    <string name="errorMessage">不能为空</string>
+    <string name="loginBtn">登录</string>
+    <string name="registerBtn">注册</string>
+    <string name="usernameEdt">手机号</string>
+    <string name="passwordEdt">密码</string>
+    <string name="newPasswordEdt">新密码</string>
+    <string name="verificationCodeEdt">验证码</string>
+    <string name="protocolTxt">已阅读并同意鱼洞阅读使用协议和隐私政策</string>
+    <string name="forgetTxt">忘记密码</string>
+    <string name="sendCodeBtn">发送验证码</string>
+    <string name="backBtn">返回</string>
+    <string name="resetBtn">重置密码</string>
 </resources>
