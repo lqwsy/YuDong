@@ -30,9 +30,12 @@ public class WelcomeActivity extends BasicActivity {
                     WelcomeActivity.this.startActivity(intent);
                     WelcomeActivity.this.finish();
                 }else{
-                    Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+                    /*Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
                     WelcomeActivity.this.startActivity(intent);
-                    WelcomeActivity.this.finish();
+                    WelcomeActivity.this.finish();*/
+
+                    //跳转测试，去掉登录过程
+                    WelcomeActivity.this.startActivity(new Intent(WelcomeActivity.this,HomeActivity.class));
                 }
             }
         }, Common.SPLASH_DISPLAY_LENGHT);

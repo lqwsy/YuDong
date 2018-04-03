@@ -143,7 +143,7 @@ public class ForgetPasswordActivity extends BasicActivity implements Validator.V
                     } else if (result == 2) {
                         Toast.makeText(ForgetPasswordActivity.this, "连接失败，请检查网络", Toast.LENGTH_SHORT).show();
                     } else if (result == 3) {
-                        Toast.makeText(ForgetPasswordActivity.this, "账号已存在", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ForgetPasswordActivity.this, "账号不存在", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

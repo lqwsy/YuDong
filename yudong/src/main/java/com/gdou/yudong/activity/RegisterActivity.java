@@ -142,7 +142,7 @@ public class RegisterActivity extends BasicActivity implements Validator.Validat
                     if (result == 1) {
                         //在SharedPreferences中保存登录用户数据，下次自动登录
                         saveLoginToSharedPreferences(username, password);
-                        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                        startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
                         ActivityCollector.delActivity(RegisterActivity.class);
                         ActivityCollector.delActivity(LoginActivity.class);
                     } else if (result == 2) {

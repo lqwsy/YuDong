@@ -92,7 +92,7 @@ public class LoginActivity extends BasicActivity implements Validator.Validation
 
                     //在SharedPreferences中保存登录用户数据，下次自动登录
                     saveLoginToSharedPreferences(username,password);
-                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                    startActivity(new Intent(LoginActivity.this,HomeActivity.class));
                     ActivityCollector.delActivity(LoginActivity.class);
                 }
                 else if(result == 2){

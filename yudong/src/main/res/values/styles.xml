@@ -13,8 +13,14 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <!--欢迎页主题-->
     <style name="FullScreenNoActionBar" parent="AppTheme.NoActionBar">
         <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <!--home界面主题，沉浸式透明状态栏-->
+    <style name="HomeTheme" parent="AppTheme.NoActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

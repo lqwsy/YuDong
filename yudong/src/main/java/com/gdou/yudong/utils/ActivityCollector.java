@@ -1,8 +1,6 @@
 package com.gdou.yudong.utils;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.os.Build;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,20 +46,12 @@ public class ActivityCollector {
      *isDestroyed 方法要API 17以上才能使用
      * @param key
      */
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public static void delActivity(Class<?> key) {
         Activity activity = activityMap.get(key);
         if (activity != null) {
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1){//如果当前系统API大于17
-                if (activity.isDestroyed() || activity.isFinishing()) {
-                    activityMap.remove(key);
-                    return;
-                }
-            }else{//API版本低于17则不调用isDestroyed()方法
-                if (activity.isFinishing()) {
-                    activityMap.remove(key);
-                    return;
-                }
+            if (activity.isDestroyed() || activity.isFinishing()) {
+                activityMap.remove(key);
+                return;
             }
             activity.finish();
             activityMap.remove(key);
@@ -86,6 +76,7 @@ public class ActivityCollector {
      */
     public static void removeActivity(Activity activity) {
         if (activityMap.containsValue(activity)) {
+            activity.finish();
             activityMap.remove(activity.getClass());
         }
     }
