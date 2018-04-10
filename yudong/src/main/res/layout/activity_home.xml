@@ -7,6 +7,6 @@
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.gdou.yudong.activity.HomeActivity">
+    tools:context="com.gdou.yudong.ui.activity.HomeActivity">
 
 </RelativeLayout>
