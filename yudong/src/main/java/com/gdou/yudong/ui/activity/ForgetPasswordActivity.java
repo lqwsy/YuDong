@@ -1,6 +1,5 @@
-package com.gdou.yudong.activity;
+package com.gdou.yudong.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -15,7 +14,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.gdou.yudong.R;
 import com.gdou.yudong.network.HttpConnectionManager;
 import com.gdou.yudong.network.SMSHttpManager;
-import com.gdou.yudong.utils.ActivityCollector;
 import com.gdou.yudong.utils.Common;
 import com.gdou.yudong.utils.CountTimer;
 import com.gdou.yudong.utils.VerificationCodeUtils;
@@ -30,12 +28,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 /**
- * 用户注册类
+ * 用户忘记密码类
  * */
-public class RegisterActivity extends BasicActivity implements Validator.ValidationListener {
+public class ForgetPasswordActivity extends BasicActivity implements Validator.ValidationListener {
 
-    @BindView(R.id.btn_register)
-    Button btn_register;
+    @BindView(R.id.btn_reset)
+    Button btn_reset;
 
     @BindView(R.id.btn_back)
     Button btn_back;
@@ -67,7 +65,7 @@ public class RegisterActivity extends BasicActivity implements Validator.Validat
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_forgetpassword);
         ButterKnife.bind(this);//对绑定的成员赋值
         validator = new Validator(this);//初始化UI校验
         validator.setValidationListener(this);
@@ -76,8 +74,8 @@ public class RegisterActivity extends BasicActivity implements Validator.Validat
         verificationCodeUtils = new VerificationCodeUtils(this);//验证码工具类
     }
 
-    //点击注册
-    @OnClick(R.id.btn_register)
+    //点击重置密码
+    @OnClick(R.id.btn_reset)
     public void registerClick() {
         validator.validate();//开启校验
     }
@@ -112,7 +110,7 @@ public class RegisterActivity extends BasicActivity implements Validator.Validat
                 }
             }).start();
         } else {
-            Toast.makeText(RegisterActivity.this, "手机号不正确", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ForgetPasswordActivity.this, "手机号不正确", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -120,42 +118,39 @@ public class RegisterActivity extends BasicActivity implements Validator.Validat
     @OnClick(R.id.btn_back)
     public void backClick() {
         onBackPressed();
-        RegisterActivity.this.finish();
+        ForgetPasswordActivity.this.finish();
     }
 
     //校验通过
     @Override
     public void onValidationSucceeded() {
-        //注册post请求URL
-        String url = Common.LOCAL_URL + "clientRegisterController";
+        //重置密码post请求URL
+        String url = Common.LOCAL_URL + "clientForgetController";
         final String username = edt_username.getText().toString().trim();
         final String password = edt_password.getText().toString().trim();
         final String verificationCode = edt_verificationCode.getText().toString().trim();
 
         //校验验证码是否正确
         if (verificationCodeUtils.isVerificationCodeValuable(verificationCode)) {
-            //向服务器发送注册请求
+            //向服务器发送重置密码请求
             httpConnectionManager.registerConnect(url, username, password, new HttpConnectionManager.RegisterResultCallBack() {
                 @Override
                 public void onResponse(int result) {//请求结果返回
                     //result,1:success 2:networkError 3:AccountExit
                     if (result == 1) {
-                        //在SharedPreferences中保存登录用户数据，下次自动登录
-                        saveLoginToSharedPreferences(username, password);
-                        startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
-                        ActivityCollector.delActivity(RegisterActivity.class);
-                        ActivityCollector.delActivity(LoginActivity.class);
+                        Toast.makeText(ForgetPasswordActivity.this,"重置密码成功",Toast.LENGTH_SHORT).show();
+                        backClick();//返回登录页面
                     } else if (result == 2) {
-                        Toast.makeText(RegisterActivity.this, "连接失败，请检查网络", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ForgetPasswordActivity.this, "连接失败，请检查网络", Toast.LENGTH_SHORT).show();
                     } else if (result == 3) {
-                        Toast.makeText(RegisterActivity.this, "账号已存在", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ForgetPasswordActivity.this, "账号不存在", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         }
         //验证码不正确
         else {
-            Toast.makeText(RegisterActivity.this, "验证码不正确", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ForgetPasswordActivity.this, "验证码不正确", Toast.LENGTH_SHORT).show();
         }
     }
 

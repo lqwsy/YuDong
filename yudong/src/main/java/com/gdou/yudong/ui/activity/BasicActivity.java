@@ -1,4 +1,4 @@
-package com.gdou.yudong.activity;
+package com.gdou.yudong.ui.activity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
