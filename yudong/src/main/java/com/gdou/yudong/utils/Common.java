@@ -1,5 +1,7 @@
 package com.gdou.yudong.utils;
 
+import android.os.Environment;
+
 /**
  * Created by Administrator on 2018-01-22.
  * 静态变量存储类
@@ -38,4 +40,15 @@ public class Common {
      * 响应数据类型, JSON或XML
      */
     public static final String RESP_DATA_TYPE = "json";
+
+    /**
+     * 封面保存路径:/storage/emulated/0/yudong
+     * */
+
+    public static final String BOOK_IMAGE_PATH = Environment.getExternalStorageDirectory()+"/yudong/";
+
+    /**
+     * 图书保存路径
+     * */
+    public static final String BOOK_PATH = "/data/data/com.gdou.yudong/files";
 }
