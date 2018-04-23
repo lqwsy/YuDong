@@ -9,10 +9,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.gdou.yudong.R;
 import com.gdou.yudong.adapter.BookShelfListViewAdapter;
 
@@ -26,7 +24,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2018-04-05.
  */
 
-public class BookShelfFragment extends Fragment {
+public class BookShelfFragment extends Fragment implements BookShelfListViewAdapter.InnerItemOnClickListener{
 
     @BindView(R.id.lv_mybooks)
     public ListView lv_books;
@@ -50,12 +48,16 @@ public class BookShelfFragment extends Fragment {
         bookUrlList = new ArrayList<>();
 
         String[] imageUrl = {"","",""};
-        String[] bookUrl = {"left","middle","right"};
+        String[] bookUrl = new String[3];
         for(int i=0;i<10;i++){
             imageUrlList.add(imageUrl);
+            for(int j=0;j<3;j++){
+                bookUrl[j] = "第"+i+"行，第"+j+"个";
+            }
             bookUrlList.add(bookUrl);
         }
-        bookShelfListViewAdapter = new BookShelfListViewAdapter(getActivity(),imageUrlList,bookUrlList);
+        bookShelfListViewAdapter = new BookShelfListViewAdapter(getActivity(),imageUrlList);
+        bookShelfListViewAdapter.setOnInnerItemOnClickListener(this);
         lv_books.setAdapter(bookShelfListViewAdapter);
 
 
@@ -84,4 +86,21 @@ public class BookShelfFragment extends Fragment {
         });
     }
 
+    @Override
+    public void itemClick(View view) {
+        int position = (int) view.getTag();
+        switch(view.getId()){
+            case R.id.iv_book_left:
+                Toast.makeText(getContext(),""+bookUrlList.get(position)[0],Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.iv_book_middle:
+                Toast.makeText(getContext(),""+bookUrlList.get(position)[1],Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.iv_book_right:
+                Toast.makeText(getContext(),""+bookUrlList.get(position)[2],Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+        }
+    }
 }

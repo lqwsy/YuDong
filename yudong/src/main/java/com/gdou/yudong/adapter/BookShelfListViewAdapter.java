@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.gdou.yudong.R;
 
@@ -18,17 +19,17 @@ import java.util.List;
 public class BookShelfListViewAdapter extends BaseAdapter implements View.OnClickListener{
 
     private List<String[]> imageUrlList;
-    private List<String[]> bookUrlList;
     private LayoutInflater layoutInflater;
-    private int bookPosition;
+    private Context context;
+    private InnerItemOnClickListener innerItemOnClickListener;
 
     public BookShelfListViewAdapter(){
 
     }
 
-    public BookShelfListViewAdapter(Context context,List<String[]> imageUrlList,List<String[]> bookUrlList){
+    public BookShelfListViewAdapter(Context context,List<String[]> imageUrlList){
         this.imageUrlList = imageUrlList;
-        this.bookUrlList  = bookUrlList;
+        this.context = context;
         layoutInflater = LayoutInflater.from(context);
     }
 
@@ -67,23 +68,13 @@ public class BookShelfListViewAdapter extends BaseAdapter implements View.OnClic
         imageViewHolder.iv_book_left.setOnClickListener(this);
         imageViewHolder.iv_book_middle.setOnClickListener(this);
         imageViewHolder.iv_book_right.setOnClickListener(this);
-        bookPosition = position;
+
+        imageViewHolder.iv_book_left.setTag(position);
+        imageViewHolder.iv_book_middle.setTag(position);
+        imageViewHolder.iv_book_right.setTag(position);
+
 
         return convertView;
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch(view.getId()){
-            case R.id.iv_book_left:
-                break;
-            case R.id.iv_book_middle:
-                break;
-            case R.id.iv_book_right:
-                break;
-            default:
-                break;
-        }
     }
 
     /**
@@ -93,6 +84,20 @@ public class BookShelfListViewAdapter extends BaseAdapter implements View.OnClic
         ImageView iv_book_left;
         ImageView iv_book_middle;
         ImageView iv_book_right;
+    }
+
+
+    public interface InnerItemOnClickListener{
+        void itemClick(View view);
+    }
+
+    public void setOnInnerItemOnClickListener(InnerItemOnClickListener innerItemOnClickListener){
+        this.innerItemOnClickListener = innerItemOnClickListener;
+    }
+
+    @Override
+    public void onClick(View view) {
+        innerItemOnClickListener.itemClick(view);
     }
 
 }
