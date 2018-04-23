@@ -1,10 +1,8 @@
 package com.gdou.yudong.ui.activity;
 
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -14,7 +12,6 @@ import com.gdou.yudong.ui.fragment.BookShelfFragment;
 import com.gdou.yudong.ui.fragment.BookStoreFragment;
 import com.gdou.yudong.ui.fragment.MyPageFragment;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -18,17 +18,14 @@ import java.util.List;
 
 public class BookShelfListViewAdapter extends BaseAdapter implements View.OnClickListener{
 
-    private List<String[]> imageUrlList;
+    private List<String[]> imageUrlList;//图书封面地址列表
+    private List<String[]> bookUrlList;//图书地址列表
     private LayoutInflater layoutInflater;
     private Context context;
-    private InnerItemOnClickListener innerItemOnClickListener;
 
-    public BookShelfListViewAdapter(){
-
-    }
-
-    public BookShelfListViewAdapter(Context context,List<String[]> imageUrlList){
+    public BookShelfListViewAdapter(Context context,List<String[]> imageUrlList,List<String[]> bookUrlList){
         this.imageUrlList = imageUrlList;
+        this.bookUrlList = bookUrlList;
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
     }
@@ -73,7 +70,6 @@ public class BookShelfListViewAdapter extends BaseAdapter implements View.OnClic
         imageViewHolder.iv_book_middle.setTag(position);
         imageViewHolder.iv_book_right.setTag(position);
 
-
         return convertView;
     }
 
@@ -86,18 +82,22 @@ public class BookShelfListViewAdapter extends BaseAdapter implements View.OnClic
         ImageView iv_book_right;
     }
 
-
-    public interface InnerItemOnClickListener{
-        void itemClick(View view);
-    }
-
-    public void setOnInnerItemOnClickListener(InnerItemOnClickListener innerItemOnClickListener){
-        this.innerItemOnClickListener = innerItemOnClickListener;
-    }
-
     @Override
     public void onClick(View view) {
-        innerItemOnClickListener.itemClick(view);
+        int position = (Integer) view.getTag();
+        switch(view.getId()){
+            case R.id.iv_book_left:
+                Toast.makeText(context,""+bookUrlList.get(position)[0],Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.iv_book_middle:
+                Toast.makeText(context,""+bookUrlList.get(position)[1],Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.iv_book_right:
+                Toast.makeText(context,""+bookUrlList.get(position)[2],Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+        }
     }
 
 }
