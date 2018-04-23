@@ -51,6 +51,7 @@ public class LoginActivity extends BasicActivity implements Validator.Validation
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);//对绑定的成员赋值
+
         validator = new Validator(this);//初始化UI校验
         validator.setValidationListener(this);
         clearLoginSharedPreferences();//清除登录信息
