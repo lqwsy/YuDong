@@ -47,13 +47,6 @@ public class HomeActivity extends BasicActivity implements View.OnClickListener{
         ButterKnife.bind(this);//对绑定的成员赋值
 //        clearLoginSharedPreferences();//清除登录数据
 
-        File fileDir = new File(Environment.getExternalStorageDirectory()+"/yudong/");//自定义文件存放路径:/storage/emulated/0/yudong
-        if(!fileDir.exists()){
-            fileDir.mkdir();//创建新目录
-        }
-
-        Log.i("appPath : ",fileDir.toString());
-
         initView();
         fragmentAdapter = new FragmentAdapter(this.getSupportFragmentManager(),fragmentList);
         homeViewPager.setOffscreenPageLimit(3);

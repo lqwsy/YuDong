@@ -15,17 +15,20 @@ import java.util.List;
  * Created by Administrator on 2018-04-22.
  */
 
-public class BookShelfListViewAdapter extends BaseAdapter {
+public class BookShelfListViewAdapter extends BaseAdapter implements View.OnClickListener{
 
     private List<String[]> imageUrlList;
+    private List<String[]> bookUrlList;
     private LayoutInflater layoutInflater;
+    private int bookPosition;
 
     public BookShelfListViewAdapter(){
 
     }
 
-    public BookShelfListViewAdapter(Context context,List<String[]> imageUrlList){
+    public BookShelfListViewAdapter(Context context,List<String[]> imageUrlList,List<String[]> bookUrlList){
         this.imageUrlList = imageUrlList;
+        this.bookUrlList  = bookUrlList;
         layoutInflater = LayoutInflater.from(context);
     }
 
@@ -60,7 +63,27 @@ public class BookShelfListViewAdapter extends BaseAdapter {
         imageViewHolder.iv_book_left.setImageResource(R.drawable.left);
         imageViewHolder.iv_book_middle.setImageResource(R.drawable.middle);
         imageViewHolder.iv_book_right.setImageResource(R.drawable.right);
+
+        imageViewHolder.iv_book_left.setOnClickListener(this);
+        imageViewHolder.iv_book_middle.setOnClickListener(this);
+        imageViewHolder.iv_book_right.setOnClickListener(this);
+        bookPosition = position;
+
         return convertView;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()){
+            case R.id.iv_book_left:
+                break;
+            case R.id.iv_book_middle:
+                break;
+            case R.id.iv_book_right:
+                break;
+            default:
+                break;
+        }
     }
 
     /**

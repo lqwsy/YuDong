@@ -33,6 +33,7 @@ public class BookShelfFragment extends Fragment {
     @BindView(R.id.swip_refresh_layout)
     public SwipeRefreshLayout srl;
     private List<String[]> imageUrlList;
+    private List<String[]> bookUrlList;
     private BookShelfListViewAdapter bookShelfListViewAdapter;
 
     @Nullable
@@ -46,28 +47,17 @@ public class BookShelfFragment extends Fragment {
 
     private void initData(){
         imageUrlList = new ArrayList<>();
+        bookUrlList = new ArrayList<>();
+
         String[] imageUrl = {"","",""};
+        String[] bookUrl = {"left","middle","right"};
         for(int i=0;i<10;i++){
             imageUrlList.add(imageUrl);
+            bookUrlList.add(bookUrl);
         }
-        bookShelfListViewAdapter = new BookShelfListViewAdapter(getActivity(),imageUrlList );
+        bookShelfListViewAdapter = new BookShelfListViewAdapter(getActivity(),imageUrlList,bookUrlList);
         lv_books.setAdapter(bookShelfListViewAdapter);
 
-        //单击事件
-        lv_books.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(),"点击行 "+imageUrlList.get(position),Toast.LENGTH_SHORT).show();
-            }
-        });
-        //长按事件
-        lv_books.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(),"长按行 "+imageUrlList.get(position),Toast.LENGTH_SHORT).show();
-                return true;
-            }
-        });
 
         //初始化下拉控件颜色
         srl.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
