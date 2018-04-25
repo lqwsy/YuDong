@@ -7,25 +7,53 @@
     <RelativeLayout
         android:background="@color/colorAccent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_weight="1"
+        android:layout_height="20dp">
         <EditText
             android:id="@+id/et_search"
             android:layout_width="match_parent"
-            android:layout_height="20dp" />
+            android:layout_height="match_parent" />
     </RelativeLayout>
 
     <RelativeLayout
+        android:background="@color/colorLoginBack"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:text="今日排行"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        android:layout_height="150dp">
+
+        <LinearLayout
+            android:background="#35D4A0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="今日排行"
+                android:layout_weight="1"
+                android:layout_gravity="left|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_today_lookmore"
+                android:gravity="right|center_vertical"
+                android:text="查看更多》"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+
     </RelativeLayout>
 
     <RelativeLayout
+        android:background="@color/colorLoginText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1">
 
         <ImageButton
             android:layout_width="wrap_content"
