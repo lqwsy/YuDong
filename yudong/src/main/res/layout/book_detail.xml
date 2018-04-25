@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageButton
+        android:id="@+id/ib_book_img"
+        android:background="@drawable/left"
+        android:layout_width="70dp"
+        android:layout_height="90dp" />
+
+    <TextView
+        android:id="@+id/tv_book_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/ib_book_img"
+        android:text="书名:" />
+
+    <TextView
+        android:id="@+id/tv_book_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_book_name"
+        android:layout_toEndOf="@+id/ib_book_img"
+        android:layout_marginTop="5dp"
+        android:text="作者:" />
+
+    <TextView
+        android:id="@+id/tv_book_introduce"
+        android:layout_below="@+id/tv_book_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/ib_book_img"
+        android:layout_marginTop="5dp"
+        android:text="简介:" />
+
+</RelativeLayout>

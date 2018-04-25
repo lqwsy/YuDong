@@ -50,7 +50,7 @@ public class BookShelfListViewAdapter extends BaseAdapter implements View.OnClic
         ImageViewHolder imageViewHolder;
         if(convertView == null){//第一次加载
             imageViewHolder = new ImageViewHolder();
-            convertView = layoutInflater.inflate(R.layout.item_bookshelf,null);
+            convertView = layoutInflater.inflate(R.layout.item_listview_bookshelf,null);
             imageViewHolder.iv_book_left = (ImageView) convertView.findViewById(R.id.iv_book_left);
             imageViewHolder.iv_book_middle = (ImageView) convertView.findViewById(R.id.iv_book_middle);
             imageViewHolder.iv_book_right = (ImageView) convertView.findViewById(R.id.iv_book_right);

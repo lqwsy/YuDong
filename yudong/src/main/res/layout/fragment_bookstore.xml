@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <ScrollView
         android:id="@+id/swip_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:layout_marginTop="20dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -19,7 +20,7 @@
                 android:orientation="horizontal"
                 android:layout_weight="0.3"
                 android:layout_width="match_parent"
-                android:layout_height="20dp">
+                android:layout_height="wrap_content">
                 <EditText
                     android:id="@+id/et_search_book_name"
                     android:layout_weight="1"
@@ -42,7 +43,8 @@
                 android:layout_width="match_parent"
                 android:layout_marginTop="20dp"
                 android:layout_weight="1"
-                android:layout_height="150dp">
+                android:layout_height="150dp"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:background="#35D4A0"
@@ -54,7 +56,8 @@
                         android:layout_weight="1"
                         android:layout_gravity="left|center_vertical"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/tv_today_lookmore"
@@ -62,7 +65,8 @@
                         android:text="查看更多》"
                         android:layout_weight="1"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp" />
 
 
                 </LinearLayout>
@@ -74,7 +78,7 @@
                 android:background="@color/colorLoginText"
                 android:layout_width="match_parent"
                 android:orientation="vertical"
-                android:layout_height="200dp"
+                android:layout_height="260dp"
                 android:layout_marginTop="20dp"
                 android:layout_weight="1">
 
@@ -88,143 +92,41 @@
                         android:layout_weight="1"
                         android:layout_gravity="left|center_vertical"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/tv_all_lookmore"
+                        android:id="@+id/tv_all_lookmore1"
                         android:gravity="right|center_vertical"
                         android:text="查看全部》"
                         android:layout_weight="1"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp">
+                    android:layout_height="wrap_content">
 
-                    <RelativeLayout
-                        android:layout_weight="1"
-                        android:gravity="center_vertical|center_horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageButton
-                            android:id="@+id/ib_book_left1"
-                            android:background="@drawable/left"
-                            android:layout_width="70dp"
-                            android:layout_height="90dp" />
-
-                        <TextView
-                            android:id="@+id/textView2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:layout_marginTop="15dp"
-                            android:layout_toEndOf="@+id/ib_book_left1"
-                            android:text="书名:" />
-
-                        <TextView
-                            android:id="@+id/textView1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/textView2"
-                            android:layout_toEndOf="@+id/ib_book_left1"
-                            android:text="作者:" />
-
-                        <TextView
-                            android:layout_below="@+id/textView1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toEndOf="@+id/ib_book_left1"
-                            android:text="简介:" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_weight="1"
-                        android:gravity="center_vertical|center_horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageButton
-                            android:id="@+id/ib_book_left2"
-                            android:background="@drawable/left"
-                            android:layout_width="70dp"
-                            android:layout_height="90dp" />
-
-                        <TextView
-                            android:id="@+id/textView3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:layout_marginTop="15dp"
-                            android:layout_toEndOf="@+id/ib_book_left2"
-                            android:text="书名:" />
-
-                        <TextView
-                            android:id="@+id/textView4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/textView3"
-                            android:layout_toEndOf="@+id/ib_book_left2"
-                            android:text="作者:" />
-
-                        <TextView
-                            android:layout_below="@+id/textView4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toEndOf="@+id/ib_book_left2"
-                            android:text="简介:" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_weight="1"
-                        android:gravity="center_vertical|center_horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageButton
-                            android:id="@+id/ib_book_left3"
-                            android:background="@drawable/left"
-                            android:layout_width="70dp"
-                            android:layout_height="90dp" />
-
-                        <TextView
-                            android:id="@+id/textView5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:layout_marginTop="15dp"
-                            android:layout_toEndOf="@+id/ib_book_left3"
-                            android:text="书名:" />
-
-                        <TextView
-                            android:id="@+id/textView6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/textView5"
-                            android:layout_toEndOf="@+id/ib_book_left3"
-                            android:text="作者:" />
-
-                        <TextView
-                            android:layout_below="@+id/textView6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toEndOf="@+id/ib_book_left3"
-                            android:text="简介:" />
-
-                    </RelativeLayout>
+                    <GridView
+                        android:id="@+id/gv_bookstore_classificy"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:columnWidth="80dp"
+                        android:stretchMode="spacingWidthUniform"
+                        android:numColumns="3" >
+                    </GridView>
 
                 </LinearLayout>
 
             </LinearLayout>
 
+
         </LinearLayout>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </ScrollView>
 
 </LinearLayout>
