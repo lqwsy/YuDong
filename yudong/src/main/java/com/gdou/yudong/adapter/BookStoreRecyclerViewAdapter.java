@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gdou.yudong.R;
@@ -59,8 +58,8 @@ public class BookStoreRecyclerViewAdapter extends RecyclerView.Adapter{
 
         public ToDayRecyclerViewHolder(View itemView) {
             super(itemView);
-            ib_today_book_img = itemView.findViewById(R.id.ib_today_book_img);
-            tv_today_book_name = itemView.findViewById(R.id.tv_today_book_name);
+            ib_today_book_img = (ImageButton) itemView.findViewById(R.id.ib_today_book_img);
+            tv_today_book_name = (TextView) itemView.findViewById(R.id.tv_today_book_name);
         }
 
         public void setData(String bookName,String bookImgUrl){
