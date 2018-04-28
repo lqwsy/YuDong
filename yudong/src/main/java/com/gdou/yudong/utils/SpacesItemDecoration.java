@@ -6,6 +6,7 @@ import android.view.View;
 
 /**
  * Created by admin on 2018/4/27.
+ * bookstore recyclerview padding效果
  */
 
 public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
@@ -17,12 +18,10 @@ public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        outRect.left = space;
-        outRect.right = space;
-        outRect.bottom = space;
 
-        // Add top margin only for the first item to avoid double space between items
-        if(parent.getChildPosition(view) == 0)
+        if(parent.getChildAdapterPosition(view) >= 0)
             outRect.top = space;
+            outRect.left = space;
+            outRect.right = space;
     }
 }

@@ -13,13 +13,13 @@
     <TextView
         android:id="@+id/tv_today_book_name"
         android:layout_width="90dp"
+        android:gravity="center_horizontal"
         android:layout_height="wrap_content"
         android:layout_below="@id/ib_today_book_img"
         android:ellipsize="end"
-        android:gravity="center_horizontal"
         android:maxLines="2"
         android:text="论语和我论语和我论语和我论语和我论语和我论语和我"
-        android:textSize="10sp" />
+        android:textSize="14sp" />
 
 
 </RelativeLayout>

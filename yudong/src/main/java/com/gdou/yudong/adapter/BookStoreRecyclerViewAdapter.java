@@ -23,6 +23,7 @@ public class BookStoreRecyclerViewAdapter extends RecyclerView.Adapter{
     private List<String> bookImgList;
     private List<String> bookNameList;
     private Context context;
+    private RecyclerViewOnClickListener recyclerViewOnClickListener;
 
     public BookStoreRecyclerViewAdapter(Context context,List<String> bookUrlList,List<String> bookImgList,List<String> bookNameList){
         this.context = context;
@@ -43,7 +44,7 @@ public class BookStoreRecyclerViewAdapter extends RecyclerView.Adapter{
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ToDayRecyclerViewHolder toDayRecyclerViewHolder = (ToDayRecyclerViewHolder) holder;
-        toDayRecyclerViewHolder.setData(bookNameList.get(position),bookImgList.get(position));
+        toDayRecyclerViewHolder.setData(position);
     }
 
     @Override
@@ -62,10 +63,20 @@ public class BookStoreRecyclerViewAdapter extends RecyclerView.Adapter{
             tv_today_book_name = (TextView) itemView.findViewById(R.id.tv_today_book_name);
         }
 
-        public void setData(String bookName,String bookImgUrl){
+        public void setData(final int position){
             ib_today_book_img.setImageResource(R.drawable.right);
-            tv_today_book_name.setText(bookName);
+            tv_today_book_name.setText(bookNameList.get(position));
+            ib_today_book_img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    recyclerViewOnClickListener.onItemClick(v,position);
+                }
+            });
         }
+    }
+
+    public void setRecyclerViewOnClickListener(RecyclerViewOnClickListener recyclerViewOnClickListener){
+        this.recyclerViewOnClickListener = recyclerViewOnClickListener;
     }
 
 }

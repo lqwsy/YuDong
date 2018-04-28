@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:background="#689AD3"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ScrollView
+        android:id="@+id/srl_bookstore_refresh"
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -18,7 +20,7 @@
             <LinearLayout
                 android:background="#4186D3"
                 android:orientation="horizontal"
-                android:layout_weight="0.3"
+                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <EditText
@@ -40,7 +42,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="220dp"
                 android:layout_marginTop="20dp"
                 android:layout_weight="1"
                 android:background="#fff"
@@ -82,40 +84,36 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_today_rank"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical">
+                        android:layout_height="match_parent">
                     </android.support.v7.widget.RecyclerView>
 
 
                 </LinearLayout>
 
             </LinearLayout>
-
+            <!--小说-->
             <LinearLayout
                 android:background="#fff"
                 android:layout_width="match_parent"
                 android:orientation="vertical"
-                android:layout_height="260dp"
+                android:layout_height="350dp"
                 android:layout_marginTop="20dp"
                 android:layout_weight="1">
-
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="left|center_vertical"
                         android:layout_marginLeft="5dp"
                         android:layout_weight="1"
-                        android:text="分类1"
+                        android:text="小说"
                         android:textColor="#000"
                         android:textSize="20sp" />
-
                     <TextView
-                        android:id="@+id/tv_all_lookmore1"
+                        android:id="@+id/tv_lookmore_fiction"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -124,30 +122,320 @@
                         android:text="查看全部》"
                         android:textColor="#000"
                         android:textSize="16sp" />
-
                 </LinearLayout>
-
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
                     <GridView
-                        android:id="@+id/gv_bookstore_classificy"
+                        android:id="@+id/gv_bookstore_classificy_fiction"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:columnWidth="80dp"
+                        android:columnWidth="90dp"
+                        android:verticalSpacing="10dp"
+                        android:gravity="center"
                         android:stretchMode="spacingWidthUniform"
                         android:numColumns="3" >
                     </GridView>
-
                 </LinearLayout>
-
             </LinearLayout>
-
+            <!--文学-->
+            <LinearLayout
+                android:background="#fff"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:layout_height="350dp">
+                <LinearLayout
+                    android:background="#fff"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1">
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left|center_vertical"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:text="小说"
+                            android:textColor="#000"
+                            android:textSize="20sp" />
+                        <TextView
+                            android:id="@+id/tv_lookmore_literature"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text="查看全部》"
+                            android:textColor="#000"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <GridView
+                            android:id="@+id/gv_bookstore_classificy_literature"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:columnWidth="90dp"
+                            android:verticalSpacing="10dp"
+                            android:gravity="center"
+                            android:stretchMode="spacingWidthUniform"
+                            android:numColumns="3"></GridView>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <!--传记-->
+            <LinearLayout
+                android:background="#fff"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="350dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center_vertical"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:text="传记"
+                        android:textColor="#000"
+                        android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/tv_lookmore_biography"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="查看全部》"
+                        android:textColor="#000"
+                        android:textSize="16sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <GridView
+                        android:id="@+id/gv_bookstore_classificy_biography"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:columnWidth="90dp"
+                        android:verticalSpacing="10dp"
+                        android:gravity="center"
+                        android:stretchMode="spacingWidthUniform"
+                        android:numColumns="3" >
+                    </GridView>
+                </LinearLayout>
+            </LinearLayout>
+            <!--历史-->
+            <LinearLayout
+                android:background="#fff"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="350dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center_vertical"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:text="历史"
+                        android:textColor="#000"
+                        android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/tv_lookmore_history"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="查看全部》"
+                        android:textColor="#000"
+                        android:textSize="16sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <GridView
+                        android:id="@+id/gv_bookstore_classificy_history"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:columnWidth="90dp"
+                        android:verticalSpacing="10dp"
+                        android:gravity="center"
+                        android:stretchMode="spacingWidthUniform"
+                        android:numColumns="3" >
+                    </GridView>
+                </LinearLayout>
+            </LinearLayout>
+            <!--经济-->
+            <LinearLayout
+                android:background="#fff"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="350dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center_vertical"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:text="经济"
+                        android:textColor="#000"
+                        android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/tv_lookmore_economics"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="查看全部》"
+                        android:textColor="#000"
+                        android:textSize="16sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <GridView
+                        android:id="@+id/gv_bookstore_classificy_economics"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:columnWidth="90dp"
+                        android:verticalSpacing="10dp"
+                        android:gravity="center"
+                        android:stretchMode="spacingWidthUniform"
+                        android:numColumns="3" >
+                    </GridView>
+                </LinearLayout>
+            </LinearLayout>
+            <!--管理-->
+            <LinearLayout
+                android:background="#fff"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="350dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center_vertical"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:text="管理"
+                        android:textColor="#000"
+                        android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/tv_lookmore_management"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="查看全部》"
+                        android:textColor="#000"
+                        android:textSize="16sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <GridView
+                        android:id="@+id/gv_bookstore_classificy_management"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:columnWidth="90dp"
+                        android:verticalSpacing="10dp"
+                        android:gravity="center"
+                        android:stretchMode="spacingWidthUniform"
+                        android:numColumns="3" >
+                    </GridView>
+                </LinearLayout>
+            </LinearLayout>
+            <!--励志-->
+            <LinearLayout
+                android:background="#fff"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="350dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center_vertical"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:text="励志"
+                        android:textColor="#000"
+                        android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/tv_lookmore_motivational"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="查看全部》"
+                        android:textColor="#000"
+                        android:textSize="16sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <GridView
+                        android:id="@+id/gv_bookstore_classificy_motivational"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:columnWidth="90dp"
+                        android:verticalSpacing="10dp"
+                        android:gravity="center"
+                        android:stretchMode="spacingWidthUniform"
+                        android:numColumns="3" >
+                    </GridView>
+                </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
 
     </ScrollView>
-
-</LinearLayout>
+</RelativeLayout>

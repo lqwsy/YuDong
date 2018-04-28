@@ -18,7 +18,7 @@
         android:layout_below="@id/ib_book_img"
         android:gravity="center_horizontal"
         android:ellipsize="end"
-        android:textSize="10sp"
+        android:textSize="14sp"
         android:text="论语和我论语和我论语和我论语和我论语和我论语和我" />
 
 

@@ -9,10 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gdou.yudong.R;
 import com.gdou.yudong.adapter.BookStoreGridViewAdapter;
 import com.gdou.yudong.adapter.BookStoreRecyclerViewAdapter;
+import com.gdou.yudong.adapter.RecyclerViewOnClickListener;
 import com.gdou.yudong.utils.SpacesItemDecoration;
 
 import java.util.ArrayList;
@@ -26,10 +29,38 @@ import butterknife.ButterKnife;
  * 书城fragment
  */
 
-public class BookStoreFragment extends Fragment {
+public class BookStoreFragment extends Fragment implements View.OnClickListener,RecyclerViewOnClickListener{
 
-    @BindView(R.id.gv_bookstore_classificy)
-    public GridView gv_bookstore_classificy;
+    @BindView(R.id.gv_bookstore_classificy_fiction)
+    public GridView gv_classificy_fiction;
+    @BindView(R.id.gv_bookstore_classificy_literature)
+    public GridView gv_classificy_literature;
+    @BindView(R.id.gv_bookstore_classificy_biography)
+    public GridView gv_classificy_biography;
+    @BindView(R.id.gv_bookstore_classificy_history)
+    public GridView gv_classificy_history;
+    @BindView(R.id.gv_bookstore_classificy_economics)
+    public GridView gv_classificy_economics;
+    @BindView(R.id.gv_bookstore_classificy_management)
+    public GridView gv_classificy_management;
+    @BindView(R.id.gv_bookstore_classificy_motivational)
+    public GridView gv_classificy_motivational;
+
+    @BindView(R.id.tv_lookmore_fiction)
+    public TextView tv_lookmore_fiction;
+    @BindView(R.id.tv_lookmore_literature)
+    public TextView tv_lookmore_literature;
+    @BindView(R.id.tv_lookmore_biography)
+    public TextView tv_lookmore_biography;
+    @BindView(R.id.tv_lookmore_history)
+    public TextView tv_lookmore_history;
+    @BindView(R.id.tv_lookmore_economics)
+    public TextView tv_lookmore_economics;
+    @BindView(R.id.tv_lookmore_management)
+    public TextView tv_lookmore_management;
+    @BindView(R.id.tv_lookmore_motivational)
+    public TextView tv_lookmore_motivational;
+
     @BindView(R.id.rv_today_rank)
     public RecyclerView recyclerView;
     private List<String> bookNameList;//图书封面地址列表
@@ -52,16 +83,34 @@ public class BookStoreFragment extends Fragment {
         bookImgUrlList = new ArrayList<>();
         bookUrlList = new ArrayList<>();
 
-        for(int i=0;i<7;i++){
+        for(int i=0;i<6;i++){
             bookNameList.add("bookName:"+i);
             bookImgUrlList.add("bookUrl:"+i);
             bookUrlList.add("book:"+i);
         }
 
+        //gridview初始化
         bookStoreGridViewAdapter = new BookStoreGridViewAdapter(getActivity(),bookNameList,bookImgUrlList,bookUrlList);
-        gv_bookstore_classificy.setAdapter(bookStoreGridViewAdapter);
+        gv_classificy_fiction.setAdapter(bookStoreGridViewAdapter);
+        gv_classificy_literature.setAdapter(bookStoreGridViewAdapter);
+        gv_classificy_biography.setAdapter(bookStoreGridViewAdapter);
+        gv_classificy_history.setAdapter(bookStoreGridViewAdapter);
+        gv_classificy_economics.setAdapter(bookStoreGridViewAdapter);
+        gv_classificy_management.setAdapter(bookStoreGridViewAdapter);
+        gv_classificy_motivational.setAdapter(bookStoreGridViewAdapter);
 
+        //textview初始化
+        tv_lookmore_fiction.setOnClickListener(this);
+        tv_lookmore_literature.setOnClickListener(this);
+        tv_lookmore_biography.setOnClickListener(this);
+        tv_lookmore_history.setOnClickListener(this);
+        tv_lookmore_economics.setOnClickListener(this);
+        tv_lookmore_management.setOnClickListener(this);
+        tv_lookmore_motivational.setOnClickListener(this);
+
+        //recyclerview 初始化
         bookStoreRecyclerViewAdapter = new BookStoreRecyclerViewAdapter(getActivity(),bookUrlList,bookImgUrlList,bookNameList);
+        bookStoreRecyclerViewAdapter.setRecyclerViewOnClickListener(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -69,6 +118,38 @@ public class BookStoreFragment extends Fragment {
         recyclerView.setAdapter(bookStoreRecyclerViewAdapter);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.tv_lookmore_fiction:
+                Toast.makeText(getActivity(),"查看小说",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.tv_lookmore_literature:
+                Toast.makeText(getActivity(),"查看文学",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.tv_lookmore_biography:
+                Toast.makeText(getActivity(),"查看传记",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.tv_lookmore_history:
+                Toast.makeText(getActivity(),"查看历史",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.tv_lookmore_economics:
+                Toast.makeText(getActivity(),"查看经济",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.tv_lookmore_management:
+                Toast.makeText(getActivity(),"查看管理",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.tv_lookmore_motivational:
+                Toast.makeText(getActivity(),"查看励志",Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+        }
 
+    }
 
+    @Override
+    public void onItemClick(View view, int position) {
+        Toast.makeText(getActivity(),"recycleview:"+bookNameList.get(position),Toast.LENGTH_SHORT).show();
+    }
 }
