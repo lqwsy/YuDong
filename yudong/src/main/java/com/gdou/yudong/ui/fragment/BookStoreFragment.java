@@ -1,5 +1,6 @@
 package com.gdou.yudong.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,7 +19,10 @@ import com.gdou.yudong.R;
 import com.gdou.yudong.adapter.BookStoreGridViewAdapter;
 import com.gdou.yudong.adapter.BookStoreRecyclerViewAdapter;
 import com.gdou.yudong.adapter.RecyclerViewOnClickListener;
+import com.gdou.yudong.ui.activity.BookStoreSearchActivity;
 import com.gdou.yudong.utils.SpacesItemDecoration;
+
+import org.loader.autohideime.HideIMEUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +36,11 @@ import butterknife.ButterKnife;
  */
 
 public class BookStoreFragment extends Fragment implements View.OnClickListener,RecyclerViewOnClickListener{
+
+    @BindView(R.id.et_search_book_name)
+    public EditText et_search_book_name;
+    @BindView(R.id.btn_search)
+    public Button btn_search;
 
     @BindView(R.id.gv_bookstore_classificy_fiction)
     public GridView gv_classificy_fiction;
@@ -74,6 +85,7 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bookstore,container,false);
         ButterKnife.bind(this,view);
+        HideIMEUtil.wrap(getActivity());
         initData();
         return view;
     }
@@ -107,6 +119,8 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
         tv_lookmore_economics.setOnClickListener(this);
         tv_lookmore_management.setOnClickListener(this);
         tv_lookmore_motivational.setOnClickListener(this);
+        //搜索按钮
+        btn_search.setOnClickListener(this);
 
         //recyclerview 初始化
         bookStoreRecyclerViewAdapter = new BookStoreRecyclerViewAdapter(getActivity(),bookUrlList,bookImgUrlList,bookNameList);
@@ -142,10 +156,20 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
             case R.id.tv_lookmore_motivational:
                 Toast.makeText(getActivity(),"查看励志",Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.btn_search:
+                String bookName = et_search_book_name.getText().toString();
+                if(!bookName.equals("")){
+                    Intent search_intent = new Intent();
+                    search_intent.setClass(getActivity(),BookStoreSearchActivity.class);
+                    search_intent.putExtra("search_book_name",bookName);
+                    startActivity(search_intent);//跳转到图书搜索页
+                }else{
+                    Toast.makeText(getActivity(),"请输入图书名称",Toast.LENGTH_SHORT).show();
+                }
+                break;
             default:
                 break;
         }
-
     }
 
     @Override

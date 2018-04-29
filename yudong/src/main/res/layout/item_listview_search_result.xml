@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageButton
+        android:id="@+id/ib_result_book_img"
+        android:background="@drawable/left"
+        android:layout_width="90dp"
+        android:layout_height="120dp" />
+
+    <TextView
+        android:id="@+id/tv_result_book_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textColor="#000"
+        android:textSize="18sp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="2dp"
+        android:layout_toEndOf="@+id/ib_result_book_img"
+        android:text="书名:《霸道总裁不爱你》" />
+
+    <TextView
+        android:id="@+id/tv_result_book_author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textColor="#000"
+        android:layout_below="@+id/tv_result_book_name"
+        android:layout_toEndOf="@+id/ib_result_book_img"
+        android:layout_marginTop="2dp"
+        android:text="作者:又一刀" />
+
+    <TextView
+        android:id="@+id/tv_result_book_introduce"
+        android:layout_below="@+id/tv_result_book_author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="4"
+        android:ellipsize="end"
+        android:layout_marginTop="5dp"
+        android:textColor="#000"
+        android:layout_alignLeft="@id/tv_result_book_author"
+        android:layout_alignBottom="@id/ib_result_book_img"
+        android:text="简介:你，一位实习生狗仔：白若凡，在偷拍神话集团总裁陆逸辰被父亲逼婚的现场，竟然意外暴露自己的狗仔身份。眼看就要被抓，谁知总裁大人竟公然宣布与你出柜！what？这什么情况？
+这一场契约爱情演变成假戏真做真做，让你陷入霸道总裁与温柔暖男中难以自拔！" />
+
+</RelativeLayout>
