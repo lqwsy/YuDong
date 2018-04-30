@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_book_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.gdou.yudong.ui.activity.BookDetailActivity">
+
+    <ImageButton
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/ib_bookdetail_back"
+        android:layout_width="55dp"
+        android:layout_height="55dp" />
+
+    <RelativeLayout
+        android:padding="20dp"
+        android:layout_below="@id/ib_bookdetail_back"
+        android:layout_marginBottom="55dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_bookdetail_img"
+            android:layout_width="90dp"
+            android:background="@drawable/right"
+            android:layout_height="120dp" />
+        <TextView
+            android:id="@+id/tv_bookdetail_name"
+            android:text="不赌就是输"
+            android:textSize="24sp"
+            android:layout_toRightOf="@id/iv_bookdetail_img"
+            android:layout_marginLeft="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_bookdetail_author"
+            android:text="作者：又一刀"
+            android:textSize="16sp"
+            android:layout_alignLeft="@id/tv_bookdetail_name"
+            android:layout_below="@id/tv_bookdetail_name"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_bookdetail_count"
+            android:text="阅读量：3万"
+            android:textSize="16sp"
+            android:layout_alignLeft="@id/tv_bookdetail_author"
+            android:layout_below="@id/tv_bookdetail_author"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_bookdetail_intro"
+            android:layout_marginTop="30dp"
+            android:text="简介:你，一位实习生狗仔：白若凡，在偷拍神话集团总裁陆逸辰被父亲逼婚的现场，竟然意外暴露自己的狗仔身份。眼看就要被抓，谁知总裁大人竟公然宣布与你出柜！what？这什么情况？
+这一场契约爱情演变成假戏真做真做，让你陷入霸道总裁与温柔暖男中难以自拔！"
+            android:textSize="16dp"
+            android:layout_below="@id/iv_bookdetail_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+        <Button
+            android:id="@+id/btn_bookdetail_download"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_alignParentBottom="true"
+            android:text="下载"/>
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -13,12 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.gdou.yudong.R;
 import com.gdou.yudong.adapter.BookStoreGridViewAdapter;
 import com.gdou.yudong.adapter.BookStoreRecyclerViewAdapter;
 import com.gdou.yudong.adapter.RecyclerViewOnClickListener;
+import com.gdou.yudong.ui.activity.BookDetailActivity;
 import com.gdou.yudong.ui.activity.BookStoreSearchActivity;
 import com.gdou.yudong.ui.activity.ClassificationLookMoreActivity;
 import com.gdou.yudong.utils.SpacesItemDecoration;
@@ -175,14 +175,24 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(getActivity(),"recycleview:"+bookNameList.get(position),Toast.LENGTH_SHORT).show();
+        String bookName = bookNameList.get(position);
+        turnToBookDetail(bookName);
     }
 
+    /*点击查看更多，跳转到具体分类的页面*/
     private void turnToClassificationLookMore(String classifyName){
         Intent search_intent = new Intent();
         search_intent.setClass(getActivity(),ClassificationLookMoreActivity.class);
         search_intent.putExtra("search_book_name",classifyName);
         startActivity(search_intent);//跳转到查看更多页面
+    }
+
+    /*跳转到图书详情页*/
+    private void turnToBookDetail(String bookName){
+        Intent search_intent = new Intent();
+        search_intent.setClass(getActivity(),BookDetailActivity.class);
+        search_intent.putExtra("search_book_name",bookName);
+        startActivity(search_intent);//跳转到图书页面
     }
 
 }
