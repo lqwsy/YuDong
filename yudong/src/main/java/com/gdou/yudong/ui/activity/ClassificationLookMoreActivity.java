@@ -1,40 +1,44 @@
 package com.gdou.yudong.ui.activity;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
 import com.gdou.yudong.R;
 import com.gdou.yudong.adapter.SearchResultListViewAdapter;
+
 import org.loader.autohideime.HideIMEUtil;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class BookStoreSearchActivity extends BasicActivity {
+public class ClassificationLookMoreActivity extends AppCompatActivity {
 
-    @BindView(R.id.et_result_search_book_name)
-    public EditText et_search_book_name;
-    @BindView(R.id.btn_result_search)
-    public Button btn_search;
-    @BindView(R.id.ib_search_result_back)
-    public Button ib_search_result_back;
-    @BindView(R.id.lv_bookstore_search_result)
-    public ListView result_listview;
+    @BindView(R.id.ib_classification_lookmore_back)
+    public Button ib_classification_lookmore_back;
+    @BindView(R.id.tv_classification_lookmore)
+    public TextView tv_classification_lookmore;
+    @BindView(R.id.lv_classification_lookmore)
+    public ListView lv_classification_lookmore;
     private SearchResultListViewAdapter searchResultListViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bookstore_search);
+        setContentView(R.layout.activity_classification_look_more);
         ButterKnife.bind(this);
         HideIMEUtil.wrap(this);
         initData();
     }
+
 
     private void initData(){
         List<String> bookNameList = new ArrayList<>();
@@ -52,22 +56,23 @@ public class BookStoreSearchActivity extends BasicActivity {
         }
 
         searchResultListViewAdapter = new SearchResultListViewAdapter(this,bookImgList,bookUrlList,bookNameList,bookAuthorList,bookIntroList);
-        result_listview.setAdapter(searchResultListViewAdapter);
+        lv_classification_lookmore.setAdapter(searchResultListViewAdapter);
 
         //单击事件
-        result_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lv_classification_lookmore.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(BookStoreSearchActivity.this,"点击行 "+bookUrlList.get(position),Toast.LENGTH_SHORT).show();
+                Toast.makeText(ClassificationLookMoreActivity.this,"点击行 "+bookUrlList.get(position),Toast.LENGTH_SHORT).show();
             }
         });
 
-        ib_search_result_back.setOnClickListener(new View.OnClickListener() {
+        ib_classification_lookmore_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
+
 
     }
 

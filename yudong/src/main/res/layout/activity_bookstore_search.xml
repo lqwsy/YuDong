@@ -1,49 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@color/colorWhite"
+    android:background="#689AD3"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:background="#4186D3"
-        android:layout_weight="1"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/ib_search_result_back"
-            android:text="返回"
-            android:layout_height="match_parent"
-            android:layout_width="55dp" />
-        <Button
-            android:id="@+id/btn_result_search"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_alignParentRight="true"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:text="搜索" />
-        <EditText
-            android:id="@+id/et_result_search_book_name"
-            android:layout_toRightOf="@id/ib_search_result_back"
-            android:layout_toLeftOf="@id/btn_result_search"
-            android:layout_centerInParent="true"
+        <RelativeLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:background="#689AD3"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/ib_search_result_back"
+                android:text="返回"
+                android:layout_height="wrap_content"
+                android:layout_width="55dp" />
+            <Button
+                android:id="@+id/btn_result_search"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_alignParentRight="true"
+                android:layout_alignBaseline="@id/ib_search_result_back"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="搜索" />
+            <EditText
+                android:id="@+id/et_result_search_book_name"
+                android:layout_toRightOf="@id/ib_search_result_back"
+                android:layout_toLeftOf="@id/btn_result_search"
+                android:layout_centerHorizontal="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <ListView
+                android:id="@+id/lv_bookstore_search_result"
+                android:layout_marginTop="3dp"
+                android:layout_below="@id/et_result_search_book_name"
+                android:divider="#66A1D2"
+                android:dividerHeight="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </ListView>
+        </RelativeLayout>
+
     </RelativeLayout>
-
-    <LinearLayout
-        android:layout_weight="0.1"
-        android:layout_marginTop="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ListView
-            android:id="@+id/lv_bookstore_search_result"
-            android:divider="#66A1D2"
-            android:dividerHeight="1dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </ListView>
-    </LinearLayout>
 
 </LinearLayout>

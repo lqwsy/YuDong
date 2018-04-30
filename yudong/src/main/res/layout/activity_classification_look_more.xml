@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/colorWhite"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+        <RelativeLayout
+            android:focusable="true"
+            android:layout_marginTop="20dp"
+            android:focusableInTouchMode="true"
+            android:background="@color/colorWhite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/ib_classification_lookmore_back"
+                android:text="返回"
+                android:layout_height="wrap_content"
+                android:layout_width="55dp" />
+
+            <TextView
+                android:id="@+id/tv_classification_lookmore"
+                android:text="分类"
+                android:layout_centerHorizontal="true"
+                android:textSize="24sp"
+                android:gravity="center"
+                android:layout_alignBottom="@id/ib_classification_lookmore_back"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp" />
+
+            <ListView
+                android:id="@+id/lv_classification_lookmore"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/tv_classification_lookmore"
+                android:divider="#66A1D2"
+                android:dividerHeight="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </ListView>
+        </RelativeLayout>
+</LinearLayout>

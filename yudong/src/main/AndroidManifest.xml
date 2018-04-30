@@ -32,7 +32,15 @@
         <activity
             android:name=".ui.activity.HomeActivity"
             android:theme="@style/HomeTheme" />
-        <activity android:name=".ui.activity.BookStoreSearchActivity"></activity>
+        <activity
+            android:name=".ui.activity.BookStoreSearchActivity"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".ui.activity.ClassificationLookMoreActivity"
+            android:theme="@style/HomeTheme"
+            >
+
+        </activity>
     </application>
 
 </manifest>

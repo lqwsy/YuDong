@@ -20,6 +20,7 @@ import com.gdou.yudong.adapter.BookStoreGridViewAdapter;
 import com.gdou.yudong.adapter.BookStoreRecyclerViewAdapter;
 import com.gdou.yudong.adapter.RecyclerViewOnClickListener;
 import com.gdou.yudong.ui.activity.BookStoreSearchActivity;
+import com.gdou.yudong.ui.activity.ClassificationLookMoreActivity;
 import com.gdou.yudong.utils.SpacesItemDecoration;
 
 import org.loader.autohideime.HideIMEUtil;
@@ -136,36 +137,36 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_lookmore_fiction:
-                Toast.makeText(getActivity(),"查看小说",Toast.LENGTH_SHORT).show();
+                turnToClassificationLookMore("小说");
                 break;
             case R.id.tv_lookmore_literature:
-                Toast.makeText(getActivity(),"查看文学",Toast.LENGTH_SHORT).show();
+                turnToClassificationLookMore("文学");
                 break;
             case R.id.tv_lookmore_biography:
-                Toast.makeText(getActivity(),"查看传记",Toast.LENGTH_SHORT).show();
+                turnToClassificationLookMore("传记");
                 break;
             case R.id.tv_lookmore_history:
-                Toast.makeText(getActivity(),"查看历史",Toast.LENGTH_SHORT).show();
+                turnToClassificationLookMore("历史");
                 break;
             case R.id.tv_lookmore_economics:
-                Toast.makeText(getActivity(),"查看经济",Toast.LENGTH_SHORT).show();
+                turnToClassificationLookMore("经济");
                 break;
             case R.id.tv_lookmore_management:
-                Toast.makeText(getActivity(),"查看管理",Toast.LENGTH_SHORT).show();
+                turnToClassificationLookMore("管理");
                 break;
             case R.id.tv_lookmore_motivational:
-                Toast.makeText(getActivity(),"查看励志",Toast.LENGTH_SHORT).show();
+                turnToClassificationLookMore("励志");
                 break;
             case R.id.btn_search:
                 String bookName = et_search_book_name.getText().toString();
-                if(!bookName.equals("")){
-                    Intent search_intent = new Intent();
-                    search_intent.setClass(getActivity(),BookStoreSearchActivity.class);
-                    search_intent.putExtra("search_book_name",bookName);
-                    startActivity(search_intent);//跳转到图书搜索页
+                Intent search_intent = new Intent();
+                search_intent.setClass(getActivity(),BookStoreSearchActivity.class);
+                search_intent.putExtra("search_book_name",bookName);
+                startActivity(search_intent);//跳转到图书搜索页
+                /*if(!bookName.equals("")){
                 }else{
                     Toast.makeText(getActivity(),"请输入图书名称",Toast.LENGTH_SHORT).show();
-                }
+                }*/
                 break;
             default:
                 break;
@@ -176,4 +177,12 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
     public void onItemClick(View view, int position) {
         Toast.makeText(getActivity(),"recycleview:"+bookNameList.get(position),Toast.LENGTH_SHORT).show();
     }
+
+    private void turnToClassificationLookMore(String classifyName){
+        Intent search_intent = new Intent();
+        search_intent.setClass(getActivity(),ClassificationLookMoreActivity.class);
+        search_intent.putExtra("search_book_name",classifyName);
+        startActivity(search_intent);//跳转到查看更多页面
+    }
+
 }
