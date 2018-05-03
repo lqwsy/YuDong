@@ -1,6 +1,7 @@
 package com.gdou.yudong.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.gdou.yudong.R;
+import com.hw.txtreaderlib.ui.HwTxtPlayActivity;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -87,7 +90,12 @@ public class BookShelfListViewAdapter extends BaseAdapter implements View.OnClic
         int position = (Integer) view.getTag();
         switch(view.getId()){
             case R.id.iv_book_left:
-                Toast.makeText(context,""+bookUrlList.get(position)[0],Toast.LENGTH_SHORT).show();
+                String filePath = "/storage/emulated/0/Download/text1.txt";
+                if (TextUtils.isEmpty(filePath) || !(new File(filePath)).exists()) {
+                    Toast.makeText(context,"文件不存在",Toast.LENGTH_SHORT).show();
+                } else {
+                    HwTxtPlayActivity.loadTxtFile(context, filePath);
+                }
                 break;
             case R.id.iv_book_middle:
                 Toast.makeText(context,""+bookUrlList.get(position)[1],Toast.LENGTH_SHORT).show();

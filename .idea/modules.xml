@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/YuDong.iml" filepath="$PROJECT_DIR$/YuDong.iml" />
+      <module fileurl="file://$PROJECT_DIR$/txtreaderlib/txtreaderlib.iml" filepath="$PROJECT_DIR$/txtreaderlib/txtreaderlib.iml" />
       <module fileurl="file://$PROJECT_DIR$/yudong/yudong.iml" filepath="$PROJECT_DIR$/yudong/yudong.iml" />
     </modules>
   </component>
