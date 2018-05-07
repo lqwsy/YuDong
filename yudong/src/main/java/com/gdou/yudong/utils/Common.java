@@ -12,7 +12,7 @@ public class Common {
     /**
      * 欢迎页停留时间
      * */
-    public final static int SPLASH_DISPLAY_LENGHT = 3000;  //延迟3秒
+    public final static int SPLASH_DISPLAY_LENGHT = 2000;  //延迟3秒
 
 
     /**

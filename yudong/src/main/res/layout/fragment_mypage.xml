@@ -57,6 +57,7 @@
 
         <TextView
             android:text="关于我们"
+            android:id="@+id/tv_mypage_about"
             android:textSize="18sp"
             android:layout_marginLeft="20dp"
             android:layout_centerVertical="true"

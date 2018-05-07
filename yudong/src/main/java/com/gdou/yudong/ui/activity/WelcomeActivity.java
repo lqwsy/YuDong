@@ -36,6 +36,7 @@ public class WelcomeActivity extends BasicActivity {
 
                     //跳转测试，去掉登录过程
                     WelcomeActivity.this.startActivity(new Intent(WelcomeActivity.this,HomeActivity.class));
+                    WelcomeActivity.this.finish();
                 }
             }
         }, Common.SPLASH_DISPLAY_LENGHT);
