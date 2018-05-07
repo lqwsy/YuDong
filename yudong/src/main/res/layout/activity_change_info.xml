@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorWhite"
+    tools:context="com.gdou.yudong.ui.activity.ChangeInfoActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_change_info_top"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btn_change_info_back"
+            android:text="返回"
+            android:layout_width="60dp"
+            android:layout_height="40dp" />
+        <TextView
+            android:id="@+id/tv_change_info_intro"
+            android:text="编辑个人资料"
+            android:textSize="16sp"
+            android:textColor="#000"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_below="@id/rl_change_info_top"
+        android:id="@+id/rl_change_info_middle"
+        android:orientation="horizontal"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:clickable="false"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:clickable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="60dp"
+                android:text="头像"
+                android:textColor="#000"
+                android:textSize="18sp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_weight="1"
+            android:gravity="right"
+            android:clickable="false"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_marginRight="5dp"
+                android:layout_width="80dp"
+                android:clickable="false"
+                android:layout_height="80dp"
+                android:background="@drawable/left"
+                app:riv_oval="true" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_below="@id/rl_change_info_middle"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="昵称"
+                android:textColor="#000"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:layout_marginRight="5dp"
+                android:id="@+id/et_change_info_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="一起来看流星雨"
+                android:gravity="right"
+                android:textColor="#000"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

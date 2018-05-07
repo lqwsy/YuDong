@@ -79,6 +79,7 @@ public class HomeActivity extends BasicActivity implements View.OnClickListener{
         bookShelfFragment = new BookShelfFragment();
         bookStoreFragment = new BookStoreFragment();
         myPageFragment = new MyPageFragment();
+        myPageFragment.setActivity(this);
 
         fragmentList.add(bookShelfFragment);
         fragmentList.add(bookStoreFragment);

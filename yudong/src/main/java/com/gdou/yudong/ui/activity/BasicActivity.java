@@ -45,7 +45,7 @@ public class BasicActivity extends AppCompatActivity {
      * 清除SharedPreferences中的登录数据
      */
     public void clearLoginSharedPreferences() {
-        //在SharedPreferences中保存登录用户数据，下次自动登录
+        //清空在SharedPreferences中保存的登录用户数据
         SharedPreferences sharedPreferences = getSharedPreferences("loginUser", MODE_PRIVATE);
         if (sharedPreferences != null) {
             sharedPreferences.edit().clear().commit();
