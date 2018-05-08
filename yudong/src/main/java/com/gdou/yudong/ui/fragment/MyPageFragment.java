@@ -8,11 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.gdou.yudong.R;
 import com.gdou.yudong.ui.activity.AboutActivity;
-import com.gdou.yudong.ui.activity.BasicActivity;
 import com.gdou.yudong.ui.activity.ChangeInfoActivity;
 import com.gdou.yudong.ui.activity.HomeActivity;
 import com.gdou.yudong.ui.activity.LoginActivity;
