@@ -60,13 +60,13 @@
             android:clickable="false"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <com.makeramen.roundedimageview.RoundedImageView
+            <ImageView
+                android:id="@+id/iv_change_info_img"
                 android:layout_marginRight="5dp"
                 android:layout_width="80dp"
                 android:clickable="false"
                 android:layout_height="80dp"
-                android:background="@drawable/left"
-                app:riv_oval="true" />
+                android:background="@drawable/left" />
         </RelativeLayout>
     </LinearLayout>
 
