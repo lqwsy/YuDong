@@ -18,7 +18,7 @@ public class Common {
     /**
      * 本地测试URL
      * */
-    public final static String LOCAL_URL = "http://192.168.99.183:8080/YuDongReader/";
+    public final static String LOCAL_URL = "http://172.16.0.26:8080/YuDongReader/";
 
 
     /**

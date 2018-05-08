@@ -60,7 +60,12 @@
             android:textColor="#000"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
+        <Button
+            android:id="@+id/btn_safe_confirm"
+            android:layout_below="@id/et_safe_confirmpsw"
+            android:text="确认"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 
 </RelativeLayout>

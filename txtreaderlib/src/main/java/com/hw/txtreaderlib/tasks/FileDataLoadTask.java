@@ -109,6 +109,16 @@ public class FileDataLoadTask implements ITxtTask {
             while (matcher.find()) {
                 int startIndex = 0;
                 int endIndex = data.length();
+
+                ELogger.log("章节","===============================================");
+                ELogger.log("chapterStartIndex",""+chapterStartIndex);
+                ELogger.log("chapterIndex",""+chapterIndex);
+                ELogger.log("ParagraphIndex",""+ParagraphIndex);
+                ELogger.log("ParagraphIndex",""+ParagraphIndex);
+                ELogger.log("startIndex",""+startIndex);
+                ELogger.log("endIndex",""+endIndex);
+                ELogger.log("章节","===============================================");
+
                 IChapter c = new Chapter(chapterStartIndex, chapterIndex, data, ParagraphIndex, ParagraphIndex, startIndex, endIndex);
                 return c;
             }

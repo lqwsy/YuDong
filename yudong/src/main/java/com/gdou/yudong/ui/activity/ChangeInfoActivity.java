@@ -17,10 +17,12 @@ import butterknife.OnClick;
 
 public class ChangeInfoActivity extends BasicActivity {
 
-    @BindView(R.id.rl_change_info_middle)
-    public LinearLayout rl_change_info_middle;
+    @BindView(R.id.ll_change_info_middle)
+    public LinearLayout ll_change_info_middle;
     @BindView(R.id.btn_change_info_back)
     public Button btn_change_info_back;
+    @BindView(R.id.btn_change_info_confirm)
+    public Button btn_change_info_confirm;
     @BindView(R.id.et_change_info_nickname)
     public EditText et_change_info_nickname;
 
@@ -32,7 +34,7 @@ public class ChangeInfoActivity extends BasicActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick(R.id.rl_change_info_middle)
+    @OnClick(R.id.ll_change_info_middle)
     public void mypageSafeClick() {
         Toast.makeText(this,"上传图片",Toast.LENGTH_SHORT).show();
     }
@@ -46,6 +48,11 @@ public class ChangeInfoActivity extends BasicActivity {
         }else {
             Toast.makeText(this,"请输入用户昵称",Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @OnClick(R.id.btn_change_info_confirm)
+    public void changeInfoConfirmClick() {
+        Toast.makeText(this,"修改成功",Toast.LENGTH_SHORT).show();
     }
 
     /*更改用户信息*/

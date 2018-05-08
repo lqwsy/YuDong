@@ -1,5 +1,6 @@
 package com.gdou.yudong.ui.fragment;
 
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import com.gdou.yudong.ui.activity.ChangeInfoActivity;
 import com.gdou.yudong.ui.activity.HomeActivity;
 import com.gdou.yudong.ui.activity.LoginActivity;
 import com.gdou.yudong.ui.activity.SafeActivity;
+import com.gdou.yudong.utils.ActivityCollector;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,6 +66,7 @@ public class MyPageFragment extends Fragment {
     public void mypageLogoutClick(){
         activity.clearLoginSharedPreferences();//退出登陆，清除本地数据
         startActivity(new Intent(activity, LoginActivity.class));
+        ActivityCollector.delActivity(activity.getClass());
     }
 
     public void setActivity(HomeActivity activity){
