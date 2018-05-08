@@ -52,7 +52,7 @@
                 android:layout_marginRight="60dp"
                 android:text="头像"
                 android:textColor="#000"
-                android:textSize="18sp" />
+                android:textSize="22sp" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_weight="1"
@@ -66,7 +66,7 @@
                 android:layout_width="80dp"
                 android:clickable="false"
                 android:layout_height="80dp"
-                android:background="@drawable/left" />
+                android:src="@drawable/left"/>
         </RelativeLayout>
     </LinearLayout>
 
@@ -75,6 +75,7 @@
         android:id="@+id/ll_change_info_bottom"
         android:layout_width="match_parent"
         android:orientation="horizontal"
+        android:layout_marginTop="5dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:layout_height="wrap_content">
@@ -91,7 +92,7 @@
                 android:layout_marginLeft="10dp"
                 android:text="昵称"
                 android:textColor="#000"
-                android:textSize="18sp" />
+                android:textSize="22sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -108,7 +109,7 @@
                 android:text="一起来看流星雨"
                 android:gravity="right"
                 android:textColor="#000"
-                android:textSize="18sp" />
+                android:textSize="22sp" />
         </RelativeLayout>
     </LinearLayout>
     <RelativeLayout
@@ -119,6 +120,7 @@
         <Button
             android:id="@+id/btn_change_info_confirm"
             android:text="确认"
+            android:textSize="22dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </RelativeLayout>

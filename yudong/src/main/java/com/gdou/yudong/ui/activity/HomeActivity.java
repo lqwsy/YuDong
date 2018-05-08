@@ -3,8 +3,8 @@ package com.gdou.yudong.ui.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.gdou.yudong.R;
 import com.gdou.yudong.adapter.FragmentAdapter;
@@ -17,8 +17,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class HomeActivity extends BasicActivity implements View.OnClickListener{
+public class HomeActivity extends BasicActivity{
 
     @BindView(R.id.iv_bookshelf)
     public ImageView iv_bookshelfe;
@@ -28,6 +29,12 @@ public class HomeActivity extends BasicActivity implements View.OnClickListener{
     public ImageView iv_mypage;
     @BindView(R.id.homeViewPager)
     public ViewPager homeViewPager;
+    @BindView(R.id.rl_navi_bookshelf)
+    public RelativeLayout rl_navi_bookshelf;
+    @BindView(R.id.rl_navi_bookstore)
+    public RelativeLayout rl_navi_bookstore;
+    @BindView(R.id.rl_navi_mypage)
+    public RelativeLayout rl_navi_mypage;
 
     private List<Fragment> fragmentList = new ArrayList<>();
     private BookShelfFragment bookShelfFragment;
@@ -52,17 +59,16 @@ public class HomeActivity extends BasicActivity implements View.OnClickListener{
         homeViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+                setItemSelected(position);
             }
 
             @Override
             public void onPageSelected(int position) {
-
+                setItemSelected(position);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
 
@@ -72,9 +78,6 @@ public class HomeActivity extends BasicActivity implements View.OnClickListener{
      * 初始化界面
      * */
     private void initView(){
-        iv_bookshelfe.setOnClickListener(this);
-        iv_bookstore.setOnClickListener(this);
-        iv_mypage.setOnClickListener(this);
 
         bookShelfFragment = new BookShelfFragment();
         bookStoreFragment = new BookStoreFragment();
@@ -87,28 +90,44 @@ public class HomeActivity extends BasicActivity implements View.OnClickListener{
 
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.iv_bookshelf:
-                homeViewPager.setCurrentItem(0,true);
-                break;
-            case R.id.iv_bookstore:
-                homeViewPager.setCurrentItem(1,true);
-                break;
-            case R.id.iv_mypage:
-                homeViewPager.setCurrentItem(2,true);
-                break;
-            default:
-                break;
-        }
+    @OnClick(R.id.rl_navi_bookshelf)
+    public void bookshelfClick(){
+        homeViewPager.setCurrentItem(0,true);
+    }
+
+    @OnClick(R.id.rl_navi_bookstore)
+    public void bookstoreClick(){
+        homeViewPager.setCurrentItem(1,true);
+    }
+
+    @OnClick(R.id.rl_navi_mypage)
+    public void mypageClick(){
+        homeViewPager.setCurrentItem(2,true);
     }
 
     /**
      * 设置导航栏图标选择状态
      * */
     private void setItemSelected(int position){
-
+        switch (position){
+            case 0:
+                iv_bookshelfe.setImageResource(R.mipmap.shelf_select);
+                iv_bookstore.setImageResource(R.mipmap.shop_normal);
+                iv_mypage.setImageResource(R.mipmap.my_normal);
+                break;
+            case 1:
+                iv_bookshelfe.setImageResource(R.mipmap.shelf_normal);
+                iv_bookstore.setImageResource(R.mipmap.shop_select);
+                iv_mypage.setImageResource(R.mipmap.my_normal);
+                break;
+            case 2:
+                iv_bookshelfe.setImageResource(R.mipmap.shelf_normal);
+                iv_bookstore.setImageResource(R.mipmap.shop_normal);
+                iv_mypage.setImageResource(R.mipmap.my_select);
+                break;
+            default:
+                break;
+        }
     }
 
 

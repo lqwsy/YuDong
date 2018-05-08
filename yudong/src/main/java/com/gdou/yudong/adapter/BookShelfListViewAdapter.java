@@ -90,7 +90,8 @@ public class BookShelfListViewAdapter extends BaseAdapter implements View.OnClic
         int position = (Integer) view.getTag();
         switch(view.getId()){
             case R.id.iv_book_left:
-                String filePath = "/storage/emulated/0/Download/text1.txt";
+//                String filePath = "/storage/emulated/0/Download/test1.txt";
+                String filePath = "/storage/emulated/0/yudong/test1.txt";
                 if (TextUtils.isEmpty(filePath) || !(new File(filePath)).exists()) {
                     Toast.makeText(context,"文件不存在",Toast.LENGTH_SHORT).show();
                 } else {

@@ -17,6 +17,7 @@
     <LinearLayout
         android:id="@+id/ll_home_bottom_navi"
         android:baselineAligned="false"
+        android:background="@mipmap/navi_back"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -25,6 +26,7 @@
         android:paddingTop="5dp">
 
         <RelativeLayout
+            android:id="@+id/rl_navi_bookshelf"
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:layout_height="match_parent">
@@ -32,12 +34,13 @@
             <ImageView
                 android:id="@+id/iv_bookshelf"
                 android:layout_centerInParent="true"
-                android:background="@mipmap/ic_launcher"
-                android:layout_width="40dp"
+                android:clickable="true"
+                android:layout_width="23dp"
                 android:layout_height="40dp" />
 
         </RelativeLayout>
         <RelativeLayout
+            android:id="@+id/rl_navi_bookstore"
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:layout_height="match_parent">
@@ -45,21 +48,22 @@
             <ImageView
                 android:id="@+id/iv_bookstore"
                 android:layout_centerInParent="true"
-                android:background="@mipmap/ic_launcher"
-                android:layout_width="40dp"
+                android:clickable="true"
+                android:layout_width="23dp"
                 android:layout_height="40dp" />
 
         </RelativeLayout>
         <RelativeLayout
+            android:id="@+id/rl_navi_mypage"
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/iv_mypage"
+                android:clickable="true"
                 android:layout_centerInParent="true"
-                android:background="@mipmap/ic_launcher"
-                android:layout_width="40dp"
+                android:layout_width="23dp"
                 android:layout_height="40dp" />
 
         </RelativeLayout>

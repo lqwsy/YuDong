@@ -7,9 +7,9 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:background="#532456"
+        android:background="#0D58A6"
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="200dp">
         <ImageView
             android:id="@+id/iv_mypage_head_img"
             android:layout_centerInParent="true"
@@ -19,7 +19,7 @@
         <TextView
             android:id="@+id/tv_mypage_nickname"
             android:layout_below="@id/iv_mypage_head_img"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:textSize="16sp"
             android:layout_centerHorizontal="true"
             android:text="一起来看流星雨"
@@ -30,7 +30,7 @@
     <RelativeLayout
         android:id="@+id/rl_mypage_change_info"
         android:layout_marginTop="20dp"
-        android:background="#214555"
+        android:background="#689CD2"
         android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="50dp">
@@ -48,7 +48,7 @@
         android:id="@+id/rl_mypage_safe"
         android:clickable="true"
         android:layout_marginTop="20dp"
-        android:background="#214555"
+        android:background="#689CD2"
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <TextView
@@ -64,7 +64,7 @@
 
     <RelativeLayout
         android:layout_marginTop="20dp"
-        android:background="#214555"
+        android:background="#689CD2"
         android:clickable="true"
         android:id="@+id/rl_mapage_aboutus"
         android:layout_width="match_parent"
@@ -85,7 +85,7 @@
         android:id="@+id/rl_mypage_logout"
         android:layout_marginTop="20dp"
         android:layout_gravity="bottom"
-        android:background="@color/colorAccent"
+        android:background="#FF3900"
         android:layout_width="match_parent"
         android:layout_height="50dp">
 
