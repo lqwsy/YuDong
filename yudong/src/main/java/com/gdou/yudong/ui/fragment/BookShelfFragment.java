@@ -15,8 +15,10 @@ import android.widget.Toast;
 import com.gdou.yudong.R;
 import com.gdou.yudong.adapter.BookShelfListViewAdapter;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,8 +31,6 @@ public class BookShelfFragment extends Fragment{
 
     @BindView(R.id.lv_mybooks)
     public ListView lv_books;
-    @BindView(R.id.swip_refresh_layout)
-    public SwipeRefreshLayout srl;
     private List<String[]> imageUrlList;
     private List<String[]> bookUrlList;
     private BookShelfListViewAdapter bookShelfListViewAdapter;
@@ -48,13 +48,12 @@ public class BookShelfFragment extends Fragment{
         imageUrlList = new ArrayList<>();
         bookUrlList = new ArrayList<>();
 
-        String[] imageUrl = {"","",""};
+        String[] imageUrl = {"a.jpg","b.jpg","c.jpg"};
+        String[] bookNames = {"秘密——巴比伦尘封6000年的财富智慧","余华-兄弟","《被毁灭的人》[美] 阿尔弗雷德·贝斯特"};
+        String[] bookUrl = {"book001.txt","book002.txt","book003.txt"};
+
         for(int i=0;i<10;i++){
             imageUrlList.add(imageUrl);
-            String[] bookUrl = new String[3];
-            for(int j=0;j<3;j++){
-                bookUrl[j] = "第"+(i+1)+"行，第"+(j+1)+"个";
-            }
             bookUrlList.add(bookUrl);
         }
 
@@ -63,7 +62,7 @@ public class BookShelfFragment extends Fragment{
 
 
         //初始化下拉控件颜色
-        srl.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
+/*        srl.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
                 android.R.color.holo_orange_light, android.R.color.holo_red_light);
 
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -84,7 +83,25 @@ public class BookShelfFragment extends Fragment{
                     }
                 }.execute();
             }
-        });
+        });*/
+    }
+
+    // 获取当前目录下所有的mp4文件
+    public static List<String> getBookFileName(String fileAbsolutePath) {
+        List<String> vecFile = new ArrayList<>();
+        File file = new File(fileAbsolutePath);
+        File[] subFile = file.listFiles();
+        for (int iFileLength = 0; iFileLength < subFile.length; iFileLength++) {
+            // 判断是否为文件夹
+            if (!subFile[iFileLength].isDirectory()) {
+                String filename = subFile[iFileLength].getName();
+                // 判断是否为txt结尾
+                if (filename.trim().toLowerCase().endsWith(".txt")) {
+                    vecFile.add(filename);
+                }
+            }
+        }
+        return vecFile;
     }
 
 }

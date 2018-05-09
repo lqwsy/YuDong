@@ -2,6 +2,8 @@ package com.gdou.yudong.utils;
 
 import android.os.Environment;
 
+import java.io.File;
+
 /**
  * Created by Administrator on 2018-01-22.
  * 静态变量存储类
@@ -11,13 +13,13 @@ public class Common {
 
     /**
      * 欢迎页停留时间
-     * */
+     */
     public final static int SPLASH_DISPLAY_LENGHT = 2000;  //延迟3秒
 
 
     /**
      * 本地测试URL
-     * */
+     */
     public final static String LOCAL_URL = "http://192.168.1.103:8080/YuDongReader/";
 
 
@@ -42,13 +44,22 @@ public class Common {
     public static final String RESP_DATA_TYPE = "json";
 
     /**
-     * 封面保存路径:/storage/emulated/0/yudong
-     * */
-
-    public static final String BOOK_IMAGE_PATH = Environment.getExternalStorageDirectory()+"/yudong/";
+     * 封面保存路径
+     */
+    public static final String BOOK_IMAGE_PATH = "/storage/emulated/0/Android/data/com.gdou.yudong/files/Picture/";
 
     /**
-     * 图书保存路径
-     * */
-    public static final String BOOK_PATH = "/data/data/com.gdou.yudong/files";
+     * 图书文件保存路径
+     */
+    public static final String FILE_PATH = "/storage/emulated/0/Android/data/com.gdou.yudong/files/Download/";
+
+    /**
+     * 服务器图书图片存放地址
+     */
+    public static final String WEB_BOOK_IMG_URL = "http://172.16.0.26:8080/YuDongReader/static/bookimg/";
+    /**
+     * 服务器图书存放地址
+     */
+    public static final String WEB_BOOK_URL = "http://172.16.0.26:8080/YuDongReader/static/book/";
+
 }

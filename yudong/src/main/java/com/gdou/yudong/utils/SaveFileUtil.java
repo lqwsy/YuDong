@@ -13,40 +13,31 @@ import java.io.IOException;
 
 public class SaveFileUtil {
 
+    private Context context;
+
+    public SaveFileUtil(Context context){
+        this.context = context;
+    }
+
     /**
      * file in sdcard
      * 保存图书封面
+     *  path:/storage/emulated/0/Android/data/com.gdou.yudong/files/Picture/
      * */
-    public static File getCustomPathFile(String fileName){
-        File fileDir = new File(Environment.getExternalStorageDirectory()+"/yudong/");//自定义文件存放路径
-        if(!fileDir.exists()){
-            fileDir.mkdir();//创建新目录
-        }
-        File file = new File(fileDir,fileName);//新建一个名为fileName的文件
-        return file;
+    public File getImageFilePath(String fileName){
+        File filePath = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), fileName);
+//        File filePath = new File(context.getExternalFilesDir("image"), "斗破苍穹.txt");
+        return filePath;
     }
 
     /**
      * file in app launch path
      * 保存图书
+     *  path:/storage/emulated/0/Android/data/com.gdou.yudong/files/image/
      * */
-    public static File getAppLaunchPathFile(Context context,String fileName) throws IOException{
-        File appPath = context.getFilesDir();//获取当前APP运行路径:/data/data/com.github.okhttpctice/files
-        File file = new File(appPath,fileName);
-        file.createNewFile();
-        return file;
-    }
-
-    /**
-     * 判断是否有sdcard
-     * */
-    public static boolean ifExistSdCard(){
-        String status = Environment.getExternalStorageState();
-        if (status.equals(Environment.MEDIA_MOUNTED)) {
-            return true;
-        } else {
-            return false;
-        }
+    public File getBookFilePath(String fileName) throws IOException{
+        File filePath = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), fileName);
+        return filePath;
     }
 
 }

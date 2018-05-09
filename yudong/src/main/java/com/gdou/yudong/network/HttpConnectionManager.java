@@ -1,9 +1,16 @@
 package com.gdou.yudong.network;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
+import com.gdou.yudong.utils.SaveFileUtil;
+
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -61,12 +68,12 @@ public class HttpConnectionManager {
         mOkHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                onLoginSuccess(2,callBack);
+                onLoginCallInHandler(2,callBack);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                onLoginSuccess(Integer.parseInt(response.body().string()),callBack);
+                onLoginCallInHandler(Integer.parseInt(response.body().string()),callBack);
             }
         });
     }
@@ -87,12 +94,12 @@ public class HttpConnectionManager {
         mOkHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                onRegisterSuccess(2,callBack);
+                onRegisterCallInHandler(2,callBack);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                onRegisterSuccess(Integer.parseInt(response.body().string()),callBack);
+                onRegisterCallInHandler(Integer.parseInt(response.body().string()),callBack);
             }
         });
     }
@@ -102,7 +109,7 @@ public class HttpConnectionManager {
      * @param value 服务器返回的json数据
      * @param callBack  自定义的回调接口
      */
-    private void onLoginSuccess(final int value, final LoginResultCallBack callBack) {
+    private void onLoginCallInHandler(final int value, final LoginResultCallBack callBack) {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -118,7 +125,7 @@ public class HttpConnectionManager {
      * @param value 服务器返回的json数据
      * @param callBack  自定义的回调接口
      */
-    private void onRegisterSuccess(final int value, final RegisterResultCallBack callBack) {
+    private void onRegisterCallInHandler(final int value, final RegisterResultCallBack callBack) {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -130,14 +137,74 @@ public class HttpConnectionManager {
     }
 
     /**
-     * 创建接口回调，把okhttp的数据传出来用
+     * 异步更新UI线程,注册成功回调
+     * @param value 服务器返回的json数据
+     * @param callBack  自定义的回调接口
+     */
+    private void onDownloadCallInHandler(final Boolean value, final DownloadBookResultCallBack callBack) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (callBack != null) {
+                    callBack.onResponse(value);//在这里把数据传到前台activity
+                }
+            }
+        });
+    }
+
+    /**
+     * 创建登陆接口回调，把okhttp的数据传出来用
      */
     public interface LoginResultCallBack {
         void onResponse(int result);//具体方法逻辑由自己实现这个接口时定义，可在里面更新UI
     }
-
+    /**
+     * 创建注册接口回调，把okhttp的数据传出来用
+     */
     public interface RegisterResultCallBack {
         void onResponse(int result);//具体方法逻辑由自己实现这个接口时定义，可在里面更新UI
+    }
+    /**
+     * 创建下载图书接口回调，把okhttp的数据传出来用
+     */
+    public interface DownloadBookResultCallBack {
+        void onResponse(Boolean result);//具体方法逻辑由自己实现这个接口时定义，可在里面更新UI
+    }
+
+
+    /**
+     * 下载图书
+     * */
+    public boolean downloadBook(String bookUrl,final Context context, final String bookName,final DownloadBookResultCallBack callBack){
+        boolean result = false;
+        Log.i("yudong",""+bookUrl);
+        Request request = new Request.Builder()
+                .url(bookUrl)
+                .build();
+        mOkHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.i("yudong","下载失败");
+                onDownloadCallInHandler(false,callBack);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                InputStream mInputStream = response.body().byteStream();
+                FileOutputStream mFileOutputStream = null;
+                File file = new SaveFileUtil(context).getBookFilePath(bookName);
+                mFileOutputStream = new FileOutputStream(file);
+                byte[] buffer = new byte[1024];
+                int len = 0;
+                while((len=mInputStream.read(buffer))!=-1){
+                    mFileOutputStream.write(buffer,0,len);
+                }
+                mFileOutputStream.flush();
+                Log.i("yudong","下载成功");
+                onDownloadCallInHandler(true,callBack);
+            }
+        });
+        return result;
     }
 
 
