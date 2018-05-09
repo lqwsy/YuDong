@@ -6,21 +6,26 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.gdou.yudong.R;
 import com.gdou.yudong.adapter.BookStoreGridViewAdapter;
 import com.gdou.yudong.adapter.BookStoreRecyclerViewAdapter;
 import com.gdou.yudong.adapter.RecyclerViewOnClickListener;
+import com.gdou.yudong.bean.Books;
+import com.gdou.yudong.network.HttpConnectionManager;
 import com.gdou.yudong.ui.activity.BookDetailActivity;
 import com.gdou.yudong.ui.activity.BookStoreSearchActivity;
 import com.gdou.yudong.ui.activity.ClassificationLookMoreActivity;
+import com.gdou.yudong.utils.Common;
 import com.gdou.yudong.utils.SpacesItemDecoration;
 
 import org.loader.autohideime.HideIMEUtil;
@@ -72,6 +77,10 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
     public TextView tv_lookmore_management;
     @BindView(R.id.tv_lookmore_motivational)
     public TextView tv_lookmore_motivational;
+    @BindView(R.id.tv_bookstore_load_result)
+    public TextView tv_bookstore_load_result;
+    @BindView(R.id.srl_bookstore_refresh)
+    public ScrollView srl_bookstore_refresh;
 
     @BindView(R.id.rv_today_rank)
     public RecyclerView recyclerView;
@@ -80,6 +89,7 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
     private List<String> bookUrlList;//图书地址列表
     private BookStoreGridViewAdapter bookStoreGridViewAdapter;
     private BookStoreRecyclerViewAdapter bookStoreRecyclerViewAdapter;
+    private HttpConnectionManager httpConnectionManager;
 
     @Nullable
     @Override
@@ -87,20 +97,12 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
         View view = inflater.inflate(R.layout.fragment_bookstore,container,false);
         ButterKnife.bind(this,view);
         HideIMEUtil.wrap(getActivity());
-        initData();
+        httpConnectionManager = HttpConnectionManager.getInstance();
+        loadData(httpConnectionManager);
         return view;
     }
 
-    private void initData(){
-        bookNameList = new ArrayList<>();
-        bookImgUrlList = new ArrayList<>();
-        bookUrlList = new ArrayList<>();
-
-        for(int i=0;i<6;i++){
-            bookNameList.add("bookName:"+i);
-            bookImgUrlList.add("bookUrl:"+i);
-            bookUrlList.add("book:"+i);
-        }
+    private void initData(List<Books> booksList){
 
         //gridview初始化
         bookStoreGridViewAdapter = new BookStoreGridViewAdapter(getActivity(),bookNameList,bookImgUrlList,bookUrlList);
@@ -120,16 +122,17 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
         tv_lookmore_economics.setOnClickListener(this);
         tv_lookmore_management.setOnClickListener(this);
         tv_lookmore_motivational.setOnClickListener(this);
+        tv_bookstore_load_result.setOnClickListener(this);
         //搜索按钮
         btn_search.setOnClickListener(this);
 
         //recyclerview 初始化
-        bookStoreRecyclerViewAdapter = new BookStoreRecyclerViewAdapter(getActivity(),bookUrlList,bookImgUrlList,bookNameList);
+        bookStoreRecyclerViewAdapter = new BookStoreRecyclerViewAdapter(getActivity(),booksList);
         bookStoreRecyclerViewAdapter.setRecyclerViewOnClickListener(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.addItemDecoration(new SpacesItemDecoration(30));
+        recyclerView.addItemDecoration(new SpacesItemDecoration(40));
         recyclerView.setAdapter(bookStoreRecyclerViewAdapter);
     }
 
@@ -157,6 +160,9 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
             case R.id.tv_lookmore_motivational:
                 turnToClassificationLookMore("励志");
                 break;
+            case R.id.tv_bookstore_load_result:
+                loadData(httpConnectionManager);
+                break;
             case R.id.btn_search:
                 String bookName = et_search_book_name.getText().toString();
                 Intent search_intent = new Intent();
@@ -174,9 +180,8 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
     }
 
     @Override
-    public void onItemClick(View view, int position) {
-        String bookName = bookNameList.get(position);
-        turnToBookDetail(bookName);
+    public void onItemClick(List<Books> booksList,View view, int position) {
+        turnToBookDetail(booksList.get(position));
     }
 
     /*点击查看更多，跳转到具体分类的页面*/
@@ -188,11 +193,35 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
     }
 
     /*跳转到图书详情页*/
-    private void turnToBookDetail(String bookName){
+    private void turnToBookDetail(Books book){
         Intent search_intent = new Intent();
         search_intent.setClass(getActivity(),BookDetailActivity.class);
-        search_intent.putExtra("search_book_name",bookName);
+        search_intent.putExtra("book",book);
         startActivity(search_intent);//跳转到图书页面
+    }
+
+    private void loadData(HttpConnectionManager httpConnectionManager){
+        Log.i("yudong","getTodayUrl====="+Common.LOCAL_URL + "getTodayBookRank");
+        httpConnectionManager.getTodayRankBooks(Common.LOCAL_URL + "getTodayBookRank", new HttpConnectionManager.GetTodayBookRankCallBack() {
+            @Override
+            public void onResponse(int result,List<Books> booksList) {
+
+                for(int i=0;i<booksList.size();i++){
+                    Log.i("yudong","bookName"+booksList.get(i).getBookName());
+                    Log.i("yudong","bookImg"+booksList.get(i).getBookCoverPath());
+                    Log.i("yudong","bookAuthor"+booksList.get(i).getBookAuthor());
+                }
+
+                if(result==1 && booksList.size()>0){
+                    srl_bookstore_refresh.setVisibility(View.VISIBLE);
+                    tv_bookstore_load_result.setVisibility(View.GONE);
+                    initData(booksList);
+                }else if(result == 2){
+                    srl_bookstore_refresh.setVisibility(View.GONE);
+                    tv_bookstore_load_result.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
 }

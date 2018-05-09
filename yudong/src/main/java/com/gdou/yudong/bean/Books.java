@@ -1,8 +1,10 @@
 package com.gdou.yudong.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Books {
+public class Books implements Serializable{
+
     private Integer bookId;
 
     private String bookName;

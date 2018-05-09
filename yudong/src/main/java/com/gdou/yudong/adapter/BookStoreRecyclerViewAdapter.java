@@ -2,13 +2,20 @@ package com.gdou.yudong.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.gdou.yudong.R;
+import com.gdou.yudong.bean.Books;
+import com.gdou.yudong.utils.Common;
+import com.gdou.yudong.utils.GlideUitls;
 
 import java.util.List;
 
@@ -19,17 +26,13 @@ import java.util.List;
 public class BookStoreRecyclerViewAdapter extends RecyclerView.Adapter{
 
     public ToDayRecyclerViewHolder toDayRecyclerViewHolder;
-    private List<String> bookUrlList;
-    private List<String> bookImgList;
-    private List<String> bookNameList;
     private Context context;
+    private List<Books> booksList;
     private RecyclerViewOnClickListener recyclerViewOnClickListener;
 
-    public BookStoreRecyclerViewAdapter(Context context,List<String> bookUrlList,List<String> bookImgList,List<String> bookNameList){
+    public BookStoreRecyclerViewAdapter(Context context,List<Books> booksList){
         this.context = context;
-        this.bookUrlList = bookUrlList;
-        this.bookImgList = bookImgList;
-        this.bookNameList = bookNameList;
+        this.booksList = booksList;
     }
 
 
@@ -49,7 +52,7 @@ public class BookStoreRecyclerViewAdapter extends RecyclerView.Adapter{
 
     @Override
     public int getItemCount() {
-        return bookNameList.size();
+        return booksList.size();
     }
 
     public class ToDayRecyclerViewHolder extends RecyclerView.ViewHolder{
@@ -64,12 +67,13 @@ public class BookStoreRecyclerViewAdapter extends RecyclerView.Adapter{
         }
 
         public void setData(final int position){
-            ib_today_book_img.setImageResource(R.drawable.right);
-            tv_today_book_name.setText(bookNameList.get(position));
+            Log.i("yudong","今日排行，图片地址==="+Common.WEB_BOOK_IMG_URL+booksList.get(position).getBookCoverPath());
+            new GlideUitls().setImageResource(Common.WEB_BOOK_IMG_URL+booksList.get(position).getBookCoverPath(),context,ib_today_book_img);
+            tv_today_book_name.setText(booksList.get(position).getBookName());
             ib_today_book_img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    recyclerViewOnClickListener.onItemClick(v,position);
+                    recyclerViewOnClickListener.onItemClick(booksList,v,position);
                 }
             });
         }
@@ -78,5 +82,6 @@ public class BookStoreRecyclerViewAdapter extends RecyclerView.Adapter{
     public void setRecyclerViewOnClickListener(RecyclerViewOnClickListener recyclerViewOnClickListener){
         this.recyclerViewOnClickListener = recyclerViewOnClickListener;
     }
+
 
 }
