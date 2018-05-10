@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gdou.yudong.R;
+import com.gdou.yudong.bean.Books;
 
 import java.util.List;
 
@@ -19,28 +20,24 @@ import java.util.List;
 
 public class BookStoreGridViewAdapter extends BaseAdapter implements View.OnClickListener{
 
-    private List<String> bookNameList;//图书名称列表
-    private List<String> bookUrlList;//图书列表
-    private List<String> bookImgUrlList;//图书封面列表
     private LayoutInflater layoutInflater;
     private Context context;
+    private List<Books> booksList;
 
-    public BookStoreGridViewAdapter(Context context,List<String> bookNameList,List<String> bookImgUrlList,List<String> bookUrlList){
-        this.bookNameList = bookNameList;
-        this.bookImgUrlList = bookImgUrlList;
-        this.bookUrlList = bookUrlList;
+    public BookStoreGridViewAdapter(Context context,List<Books> booksList){
         this.context = context;
+        this.booksList = booksList;
         layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
     public int getCount() {
-        return bookNameList.size();
+        return booksList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return bookNameList.get(position);
+        return booksList.get(position);
     }
 
     @Override
@@ -63,7 +60,7 @@ public class BookStoreGridViewAdapter extends BaseAdapter implements View.OnClic
         gridViewHolder.ib_book_img.setImageResource(R.drawable.middle);
         gridViewHolder.ib_book_img.setTag(position);
         gridViewHolder.ib_book_img.setOnClickListener(this);
-        gridViewHolder.tv_book_name.setText(bookNameList.get(position));
+        gridViewHolder.tv_book_name.setText(booksList.get(position).getBookName());
         return convertView;
     }
 
@@ -72,7 +69,7 @@ public class BookStoreGridViewAdapter extends BaseAdapter implements View.OnClic
         int position = (int) v.getTag();
         switch (v.getId()){
             case R.id.ib_book_img:
-                Toast.makeText(context,bookUrlList.get(position),Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,booksList.get(position).getBookName(),Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;

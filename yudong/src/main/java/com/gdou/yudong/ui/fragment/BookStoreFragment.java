@@ -1,9 +1,12 @@
 package com.gdou.yudong.ui.fragment;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,8 +16,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gdou.yudong.R;
 import com.gdou.yudong.adapter.BookStoreGridViewAdapter;
@@ -77,16 +82,14 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
     public TextView tv_lookmore_management;
     @BindView(R.id.tv_lookmore_motivational)
     public TextView tv_lookmore_motivational;
-    @BindView(R.id.tv_bookstore_load_result)
-    public TextView tv_bookstore_load_result;
     @BindView(R.id.srl_bookstore_refresh)
-    public ScrollView srl_bookstore_refresh;
-
+    public SwipeRefreshLayout srl_bookstore_refresh;
     @BindView(R.id.rv_today_rank)
     public RecyclerView recyclerView;
-    private List<String> bookNameList;//图书封面地址列表
-    private List<String> bookImgUrlList;//图书名称地址列表
-    private List<String> bookUrlList;//图书地址列表
+    @BindView(R.id.rl_bookstore_content)
+    public RelativeLayout rl_bookstore_content;
+
+
     private BookStoreGridViewAdapter bookStoreGridViewAdapter;
     private BookStoreRecyclerViewAdapter bookStoreRecyclerViewAdapter;
     private HttpConnectionManager httpConnectionManager;
@@ -99,13 +102,36 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
         HideIMEUtil.wrap(getActivity());
         httpConnectionManager = HttpConnectionManager.getInstance();
         loadData(httpConnectionManager);
+        //初始化下拉控件颜色
+        srl_bookstore_refresh.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
+                android.R.color.holo_orange_light, android.R.color.holo_red_light);
+
+        srl_bookstore_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new AsyncTask<Void, Void, Void>() {
+
+                    @Override
+                    protected Void doInBackground(Void... voids) {
+                        loadData(httpConnectionManager);
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void aVoid) {
+                        Toast.makeText(getActivity(), "下拉刷新成功", Toast.LENGTH_SHORT).show();
+                        srl_bookstore_refresh.setRefreshing(false);
+                    }
+                }.execute();
+            }
+        });
         return view;
     }
 
     private void initData(List<Books> booksList){
 
         //gridview初始化
-        bookStoreGridViewAdapter = new BookStoreGridViewAdapter(getActivity(),bookNameList,bookImgUrlList,bookUrlList);
+        bookStoreGridViewAdapter = new BookStoreGridViewAdapter(getActivity(),booksList);
         gv_classificy_fiction.setAdapter(bookStoreGridViewAdapter);
         gv_classificy_literature.setAdapter(bookStoreGridViewAdapter);
         gv_classificy_biography.setAdapter(bookStoreGridViewAdapter);
@@ -122,7 +148,6 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
         tv_lookmore_economics.setOnClickListener(this);
         tv_lookmore_management.setOnClickListener(this);
         tv_lookmore_motivational.setOnClickListener(this);
-        tv_bookstore_load_result.setOnClickListener(this);
         //搜索按钮
         btn_search.setOnClickListener(this);
 
@@ -132,7 +157,7 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.addItemDecoration(new SpacesItemDecoration(40));
+//        recyclerView.addItemDecoration(new SpacesItemDecoration(40));
         recyclerView.setAdapter(bookStoreRecyclerViewAdapter);
     }
 
@@ -159,9 +184,6 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
                 break;
             case R.id.tv_lookmore_motivational:
                 turnToClassificationLookMore("励志");
-                break;
-            case R.id.tv_bookstore_load_result:
-                loadData(httpConnectionManager);
                 break;
             case R.id.btn_search:
                 String bookName = et_search_book_name.getText().toString();
@@ -201,25 +223,20 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
     }
 
     private void loadData(HttpConnectionManager httpConnectionManager){
-        Log.i("yudong","getTodayUrl====="+Common.LOCAL_URL + "getTodayBookRank");
         httpConnectionManager.getTodayRankBooks(Common.LOCAL_URL + "getTodayBookRank", new HttpConnectionManager.GetTodayBookRankCallBack() {
             @Override
             public void onResponse(int result,List<Books> booksList) {
-
-                for(int i=0;i<booksList.size();i++){
-                    Log.i("yudong","bookName"+booksList.get(i).getBookName());
-                    Log.i("yudong","bookImg"+booksList.get(i).getBookCoverPath());
-                    Log.i("yudong","bookAuthor"+booksList.get(i).getBookAuthor());
+                if(booksList!=null){
+                    if(result==1 && booksList.size()>0){
+                        rl_bookstore_content.setVisibility(View.VISIBLE);
+                        initData(booksList);
+                    }else if(result == 2){
+                        rl_bookstore_content.setVisibility(View.GONE);
+                    }
+                }else{
+                    rl_bookstore_content.setVisibility(View.GONE);
                 }
 
-                if(result==1 && booksList.size()>0){
-                    srl_bookstore_refresh.setVisibility(View.VISIBLE);
-                    tv_bookstore_load_result.setVisibility(View.GONE);
-                    initData(booksList);
-                }else if(result == 2){
-                    srl_bookstore_refresh.setVisibility(View.GONE);
-                    tv_bookstore_load_result.setVisibility(View.VISIBLE);
-                }
             }
         });
     }

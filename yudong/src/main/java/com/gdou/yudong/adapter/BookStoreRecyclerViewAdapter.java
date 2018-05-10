@@ -67,7 +67,6 @@ public class BookStoreRecyclerViewAdapter extends RecyclerView.Adapter{
         }
 
         public void setData(final int position){
-            Log.i("yudong","今日排行，图片地址==="+Common.WEB_BOOK_IMG_URL+booksList.get(position).getBookCoverPath());
             new GlideUitls().setImageResource(Common.WEB_BOOK_IMG_URL+booksList.get(position).getBookCoverPath(),context,ib_today_book_img);
             tv_today_book_name.setText(booksList.get(position).getBookName());
             ib_today_book_img.setOnClickListener(new View.OnClickListener() {
