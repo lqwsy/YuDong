@@ -22,6 +22,8 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Order;
 
+import org.loader.autohideime.HideIMEUtil;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -66,6 +68,7 @@ public class ForgetPasswordActivity extends BasicActivity implements Validator.V
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgetpassword);
+        HideIMEUtil.wrap(this);
         ButterKnife.bind(this);//对绑定的成员赋值
         validator = new Validator(this);//初始化UI校验
         validator.setValidationListener(this);

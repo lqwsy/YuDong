@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -87,7 +88,7 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
     @BindView(R.id.rv_today_rank)
     public RecyclerView recyclerView;
     @BindView(R.id.rl_bookstore_content)
-    public RelativeLayout rl_bookstore_content;
+    public LinearLayout rl_bookstore_content;
 
 
     private BookStoreGridViewAdapter bookStoreGridViewAdapter;
