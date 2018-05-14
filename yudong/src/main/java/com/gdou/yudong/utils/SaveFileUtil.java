@@ -2,6 +2,7 @@ package com.gdou.yudong.utils;
 
 import android.content.Context;
 import android.os.Environment;
+import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,7 +38,21 @@ public class SaveFileUtil {
      * */
     public File getBookFilePath(String fileName) throws IOException{
         File filePath = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), fileName);
+
+        Log.i("yudong","download book filePath === "+filePath);
+
         return filePath;
+    }
+
+    /**
+     * 是否已存在文件
+    * */
+    public boolean ifFileExit(String fileName){
+        File filePath = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), fileName);
+        if(filePath.exists()){
+            return true;
+        }
+        return false;
     }
 
 }

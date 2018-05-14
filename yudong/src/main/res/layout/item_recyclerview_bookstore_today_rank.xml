@@ -8,7 +8,7 @@
 
     <ImageButton
         android:id="@+id/ib_today_book_img"
-        android:background="@drawable/left"
+        android:scaleType="fitXY"
         android:layout_width="80dp"
         android:layout_height="110dp" />
 
@@ -20,7 +20,6 @@
         android:layout_below="@id/ib_today_book_img"
         android:ellipsize="end"
         android:maxLines="2"
-        android:text="论语和我论语和我论语和我论语和我论语和我论语和我"
         android:textSize="14sp" />
 
 

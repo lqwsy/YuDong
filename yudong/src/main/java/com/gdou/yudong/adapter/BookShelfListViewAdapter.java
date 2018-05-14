@@ -78,9 +78,9 @@ public class BookShelfListViewAdapter extends BaseAdapter implements View.OnClic
         imageViewHolder.iv_book_right.setTag(position);
 
         GlideUitls glideUitls = new GlideUitls();
-        glideUitls.setImageResource(Common.WEB_BOOK_IMG_URL+imageUrlList.get(position)[0],context,imageViewHolder.iv_book_left);
-        glideUitls.setImageResource(Common.WEB_BOOK_IMG_URL+imageUrlList.get(position)[1],context,imageViewHolder.iv_book_middle);
-        glideUitls.setImageResource(Common.WEB_BOOK_IMG_URL+imageUrlList.get(position)[2],context,imageViewHolder.iv_book_right);
+        glideUitls.setImageCacheResource(Common.WEB_BOOK_IMG_URL+imageUrlList.get(position)[0],context,imageViewHolder.iv_book_left);
+        glideUitls.setImageCacheResource(Common.WEB_BOOK_IMG_URL+imageUrlList.get(position)[1],context,imageViewHolder.iv_book_middle);
+        glideUitls.setImageCacheResource(Common.WEB_BOOK_IMG_URL+imageUrlList.get(position)[2],context,imageViewHolder.iv_book_right);
 
         return convertView;
     }

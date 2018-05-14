@@ -2,6 +2,7 @@ package com.gdou.yudong.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -15,6 +16,10 @@ import com.gdou.yudong.bean.Books;
 import com.gdou.yudong.network.HttpConnectionManager;
 import com.gdou.yudong.utils.Common;
 import com.gdou.yudong.utils.GlideUitls;
+import com.gdou.yudong.utils.SaveFileUtil;
+import com.hw.txtreaderlib.ui.HwTxtPlayActivity;
+
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,6 +42,7 @@ public class BookDetailActivity extends AppCompatActivity {
     @BindView(R.id.btn_bookdetail_download)
     public Button btn_bookdetail_download;
     private Books book;
+    private SaveFileUtil saveFileUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +55,19 @@ public class BookDetailActivity extends AppCompatActivity {
 
     private void initData(){
         new GlideUitls().setImageResource(Common.WEB_BOOK_IMG_URL+book.getBookCoverPath(),this,iv_bookdetail_img);
-        tv_bookdetail_name.setText(book.getBookName());
-        tv_bookdetail_author.setText(book.getBookAuthor());
-        tv_bookdetail_count.setText(book.getBookDownloads());
-        tv_bookdetail_intro.setText(book.getBookIntroduction());
+        saveFileUtil = new SaveFileUtil(this);
+        Log.i("yudong",""+book.getBookDownloads());
+
+        tv_bookdetail_name.setText("书名："+book.getBookName());
+        tv_bookdetail_author.setText("作者："+book.getBookAuthor());
+        tv_bookdetail_count.setText("阅读量："+book.getBookDownloads().toString());
+        tv_bookdetail_intro.setText("简介："+book.getBookIntroduction());
+
+        if(saveFileUtil.ifFileExit(book.getBookName()+".txt")){
+            btn_bookdetail_download.setText("阅读");
+        }else{
+            btn_bookdetail_download.setText("下载");
+        }
 
         ib_bookdetail_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,19 +80,27 @@ public class BookDetailActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_bookdetail_download)
     public void downloadClick(){
-        String bookUrl = "http://172.16.0.26:8080/YuDongReader/static/books/"+book.getBookLocation();
-        HttpConnectionManager.getInstance().downloadBook(bookUrl,this, book.getBookName(),
-                new HttpConnectionManager.DownloadBookResultCallBack() {
-            @Override
-            public void onResponse(Boolean result) {
-                if(result){
-                    Toast.makeText(BookDetailActivity.this,"下载成功",Toast.LENGTH_SHORT).show();
-                    btn_bookdetail_download.setText("阅读");
-                }else {
-                    Toast.makeText(BookDetailActivity.this,"下载失败",Toast.LENGTH_SHORT).show();
-                }
+        if(btn_bookdetail_download.getText().equals("下载")){
+            String bookUrl = Common.WEB_BOOK_URL+book.getBookLocation();
+            HttpConnectionManager.getInstance().downloadBook(bookUrl,this, book.getBookName()+".txt",
+                    new HttpConnectionManager.DownloadBookResultCallBack() {
+                        @Override
+                        public void onResponse(Boolean result) {
+                            if(result){
+                                Toast.makeText(BookDetailActivity.this,"下载成功",Toast.LENGTH_SHORT).show();
+                                btn_bookdetail_download.setText("阅读");
+                            }else {
+                                Toast.makeText(BookDetailActivity.this,"下载失败",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+        }else if(btn_bookdetail_download.getText().equals("阅读")){
+            try {
+                HwTxtPlayActivity.loadTxtFile(this, saveFileUtil.getBookFilePath(book.getBookName()+".txt").toString());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        });
+        }
     }
 
 }

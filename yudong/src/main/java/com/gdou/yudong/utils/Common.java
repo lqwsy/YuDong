@@ -44,12 +44,12 @@ public class Common {
     public static final String RESP_DATA_TYPE = "json";
 
     /**
-     * 封面保存路径
+     * 封面本地保存路径
      */
     public static final String BOOK_IMAGE_PATH = "/storage/emulated/0/Android/data/com.gdou.yudong/files/Picture/";
 
     /**
-     * 图书文件保存路径
+     * 图书文件本地保存路径
      */
     public static final String FILE_PATH = "/storage/emulated/0/Android/data/com.gdou.yudong/files/Download/";
 
@@ -60,6 +60,6 @@ public class Common {
     /**
      * 服务器图书存放地址
      */
-    public static final String WEB_BOOK_URL = "http://172.16.0.26:8080/YuDongReader/static/book/";
+    public static final String WEB_BOOK_URL = "http://172.16.0.26:8080/YuDongReader/static/books/";
 
 }
