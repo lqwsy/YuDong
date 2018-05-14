@@ -83,12 +83,12 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
     public TextView tv_lookmore_management;
     @BindView(R.id.tv_lookmore_motivational)
     public TextView tv_lookmore_motivational;
-    @BindView(R.id.srl_bookstore_refresh)
-    public SwipeRefreshLayout srl_bookstore_refresh;
+    @BindView(R.id.sv_bookstore_refresh)
+    public ScrollView sv_bookstore_refresh;
     @BindView(R.id.rv_today_rank)
     public RecyclerView recyclerView;
     @BindView(R.id.rl_bookstore_content)
-    public LinearLayout rl_bookstore_content;
+    public RelativeLayout rl_bookstore_content;
 
 
     private BookStoreGridViewAdapter bookStoreGridViewAdapter;
@@ -103,29 +103,7 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
         HideIMEUtil.wrap(getActivity());
         httpConnectionManager = HttpConnectionManager.getInstance();
         loadData(httpConnectionManager);
-        //初始化下拉控件颜色
-        srl_bookstore_refresh.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
-                android.R.color.holo_orange_light, android.R.color.holo_red_light);
 
-        srl_bookstore_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                new AsyncTask<Void, Void, Void>() {
-
-                    @Override
-                    protected Void doInBackground(Void... voids) {
-                        loadData(httpConnectionManager);
-                        return null;
-                    }
-
-                    @Override
-                    protected void onPostExecute(Void aVoid) {
-                        Toast.makeText(getActivity(), "下拉刷新成功", Toast.LENGTH_SHORT).show();
-                        srl_bookstore_refresh.setRefreshing(false);
-                    }
-                }.execute();
-            }
-        });
         return view;
     }
 

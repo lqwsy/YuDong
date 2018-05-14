@@ -164,6 +164,9 @@ public class HttpConnectionManager {
                 Log.i("yudong","今日getToday Success");
                 if(response!=null&&response.isSuccessful()){
                     List<Books> booksList = JSON.parseArray(response.body().string(),Books.class);
+
+                    Log.i("yudong","listSize is === " + booksList.size());
+
                     onGetTodayBookRankCallInHandler(1,booksList,callBack);//把数据传出去
                 }
             }
