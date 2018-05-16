@@ -88,7 +88,7 @@
                 <LinearLayout
                     android:id="@+id/ll_bookstore_fiction"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="400dp"
                     android:layout_marginTop="20dp"
                     android:background="#fff"
                     android:orientation="vertical">
@@ -141,7 +141,7 @@
                 <LinearLayout
                     android:id="@+id/ll_bookstore_literature"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="400dp"
                     android:layout_below="@id/ll_bookstore_fiction"
                     android:layout_marginTop="20dp"
                     android:background="#fff"

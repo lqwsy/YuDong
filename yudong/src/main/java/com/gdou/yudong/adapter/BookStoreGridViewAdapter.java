@@ -1,6 +1,7 @@
 package com.gdou.yudong.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,9 @@ import android.widget.Toast;
 
 import com.gdou.yudong.R;
 import com.gdou.yudong.bean.Books;
+import com.gdou.yudong.ui.activity.BookDetailActivity;
+import com.gdou.yudong.utils.Common;
+import com.gdou.yudong.utils.GlideUitls;
 
 import java.util.List;
 
@@ -51,13 +55,13 @@ public class BookStoreGridViewAdapter extends BaseAdapter implements View.OnClic
         if(convertView == null){
             gridViewHolder = new GridViewHolder();
             convertView = layoutInflater.inflate(R.layout.item_gridview_bookstore,null);
-            gridViewHolder.ib_book_img = (ImageButton) convertView.findViewById(R.id.ib_book_img);
-            gridViewHolder.tv_book_name = (TextView) convertView.findViewById(R.id.tv_book_name);
+            gridViewHolder.ib_book_img = convertView.findViewById(R.id.ib_book_img);
+            gridViewHolder.tv_book_name = convertView.findViewById(R.id.tv_book_name);
             convertView.setTag(gridViewHolder);
         }else{
             gridViewHolder = (GridViewHolder) convertView.getTag();
         }
-        gridViewHolder.ib_book_img.setImageResource(R.drawable.middle);
+        new GlideUitls().setImageResource(Common.WEB_BOOK_IMG_URL+booksList.get(position).getBookCoverPath(),context,gridViewHolder.ib_book_img);
         gridViewHolder.ib_book_img.setTag(position);
         gridViewHolder.ib_book_img.setOnClickListener(this);
         gridViewHolder.tv_book_name.setText(booksList.get(position).getBookName());
@@ -69,7 +73,7 @@ public class BookStoreGridViewAdapter extends BaseAdapter implements View.OnClic
         int position = (int) v.getTag();
         switch (v.getId()){
             case R.id.ib_book_img:
-                Toast.makeText(context,booksList.get(position).getBookName(),Toast.LENGTH_SHORT).show();
+                turnToBookDetail(booksList.get(position));
                 break;
             default:
                 break;
@@ -81,6 +85,14 @@ public class BookStoreGridViewAdapter extends BaseAdapter implements View.OnClic
         public ImageButton ib_book_img;
         public TextView tv_book_name;
 
+    }
+
+    /*跳转到图书详情页*/
+    private void turnToBookDetail(Books book){
+        Intent search_intent = new Intent();
+        search_intent.setClass(context,BookDetailActivity.class);
+        search_intent.putExtra("book",book);
+        context.startActivity(search_intent);//跳转到图书页面
     }
 
 

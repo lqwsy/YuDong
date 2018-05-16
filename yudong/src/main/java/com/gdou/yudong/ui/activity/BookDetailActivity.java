@@ -56,8 +56,6 @@ public class BookDetailActivity extends AppCompatActivity {
     private void initData(){
         new GlideUitls().setImageResource(Common.WEB_BOOK_IMG_URL+book.getBookCoverPath(),this,iv_bookdetail_img);
         saveFileUtil = new SaveFileUtil(this);
-        Log.i("yudong",""+book.getBookDownloads());
-
         tv_bookdetail_name.setText("书名："+book.getBookName());
         tv_bookdetail_author.setText("作者："+book.getBookAuthor());
         tv_bookdetail_count.setText("阅读量："+book.getBookDownloads().toString());
@@ -69,12 +67,12 @@ public class BookDetailActivity extends AppCompatActivity {
             btn_bookdetail_download.setText("下载");
         }
 
-        ib_bookdetail_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+    }
+
+    @OnClick(R.id.ib_bookdetail_back)
+    public void bookDetailBackClick(){
+        iv_bookdetail_img.setBackgroundResource(0);
+        onBackPressed();
     }
 
 
