@@ -175,16 +175,16 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
                 turnToClassificationLookMore("励志");
                 break;
             case R.id.btn_search:
-
                 String bookName = et_search_book_name.getText().toString();
-                Intent search_intent = new Intent();
-                search_intent.setClass(getActivity(),BookStoreSearchActivity.class);
-                search_intent.putExtra("search_book_name",bookName);
-                startActivity(search_intent);//跳转到图书搜索页
-                /*if(!bookName.equals("")){
+                if(!bookName.equals("")){
+                    Intent search_intent = new Intent();
+                    search_intent.setClass(getActivity(),BookStoreSearchActivity.class);
+                    search_intent.putExtra("search_book_name",bookName);
+                    startActivity(search_intent);//跳转到图书搜索页
                 }else{
                     Toast.makeText(getActivity(),"请输入图书名称",Toast.LENGTH_SHORT).show();
-                }*/
+                }
+
                 break;
             default:
                 break;

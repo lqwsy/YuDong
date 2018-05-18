@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class BookStoreSearchActivity extends BasicActivity {
 
@@ -32,7 +33,6 @@ public class BookStoreSearchActivity extends BasicActivity {
     @BindView(R.id.lv_bookstore_search_result)
     public ListView result_listview;
     private SearchResultListViewAdapter searchResultListViewAdapter;
-    private List<Books> searchBooks = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +41,10 @@ public class BookStoreSearchActivity extends BasicActivity {
         ButterKnife.bind(this);
         HideIMEUtil.wrap(this);
         String search_book_name = getIntent().getExtras().get("search_book_name").toString();
-        initData(search_book_name);
+        getSearchBooks(search_book_name, Common.LOCAL_URL+"getSearchBooks");
     }
 
-    private void initData(String search_book_name){
-        searchBooks = getSearchBooks(search_book_name, Common.LOCAL_URL+"getSearchBooks");
-
+    private void initData(final List<Books> searchBooks){
         searchResultListViewAdapter = new SearchResultListViewAdapter(this,searchBooks);
         result_listview.setAdapter(searchResultListViewAdapter);
 
@@ -71,20 +69,28 @@ public class BookStoreSearchActivity extends BasicActivity {
 
     }
 
+    @OnClick(R.id.btn_result_search)
+    public void btnSearchClick(){
+        String search_book_name = et_search_book_name.getText().toString().trim();
+        if(!search_book_name.equals("")){
+            getSearchBooks(search_book_name, Common.LOCAL_URL+"getSearchBooks");
+        }else {
+            Toast.makeText(this,"请输入书名",Toast.LENGTH_SHORT).show();
+        }
+    }
+
     //从服务器获取搜索图书
-    private List<Books> getSearchBooks(String searchBookName,String url){
-        final List<Books> booksList = new ArrayList<>();
+    private void getSearchBooks(String searchBookName,String url){
         HttpConnectionManager.getInstance().getSearchBooks(searchBookName,url,new HttpConnectionManager.GetSearchBookCallBack(){
             @Override
             public void onResponse(int result, List<Books> booksList) {
                 if(result == 1){
-                    booksList = booksList;
+                    initData(booksList);
                 }else if(result ==2){
                     Log.i("yudong","get searchBook failed");
                 }
             }
         });
-        return booksList;
     }
 
 
