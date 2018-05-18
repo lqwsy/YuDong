@@ -13,6 +13,15 @@ import com.gdou.yudong.R;
 
 public class GlideUtils {
 
+    public static GlideUtils glideUtils;
+
+    public static GlideUtils getInstence(){
+        if(glideUtils==null){
+            glideUtils = new GlideUtils();
+        }
+        return glideUtils;
+    }
+
     /**
      * 禁用缓存
      * 用glide加载网络图片

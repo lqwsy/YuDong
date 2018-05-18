@@ -1,6 +1,8 @@
 package com.gdou.yudong.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -9,6 +11,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 import com.gdou.yudong.R;
 import com.gdou.yudong.adapter.SearchResultListViewAdapter;
+import com.gdou.yudong.bean.Books;
+import com.gdou.yudong.network.HttpConnectionManager;
+import com.gdou.yudong.utils.Common;
+
 import org.loader.autohideime.HideIMEUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +32,7 @@ public class BookStoreSearchActivity extends BasicActivity {
     @BindView(R.id.lv_bookstore_search_result)
     public ListView result_listview;
     private SearchResultListViewAdapter searchResultListViewAdapter;
+    private List<Books> searchBooks = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,32 +40,25 @@ public class BookStoreSearchActivity extends BasicActivity {
         setContentView(R.layout.activity_bookstore_search);
         ButterKnife.bind(this);
         HideIMEUtil.wrap(this);
-        initData();
+        String search_book_name = getIntent().getExtras().get("search_book_name").toString();
+        initData(search_book_name);
     }
 
-    private void initData(){
-        List<String> bookNameList = new ArrayList<>();
-        List<String> bookAuthorList = new ArrayList<>();
-        List<String> bookIntroList = new ArrayList<>();
-        final List<String> bookUrlList = new ArrayList<>();
-        List<String> bookImgList = new ArrayList<>();
+    private void initData(String search_book_name){
+        searchBooks = getSearchBooks(search_book_name, Common.LOCAL_URL+"getSearchBooks");
 
-        for(int i=0;i<14;i++){
-            bookNameList.add("第"+i+"本书");
-            bookAuthorList.add("作者"+i+"号");
-            bookIntroList.add("第"+i+"个随着新传媒的到来，互联成占据主要上网人员的极大部分之一，网络舆论也正逐渐变成影响大学生思想的主要方式");
-            bookUrlList.add("图书地址"+i+"册");
-            bookImgList.add("第"+i+"本书图标");
-        }
-
-        searchResultListViewAdapter = new SearchResultListViewAdapter(this,bookImgList,bookUrlList,bookNameList,bookAuthorList,bookIntroList);
+        searchResultListViewAdapter = new SearchResultListViewAdapter(this,searchBooks);
         result_listview.setAdapter(searchResultListViewAdapter);
 
         //单击事件
         result_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(BookStoreSearchActivity.this,"点击行 "+bookUrlList.get(position),Toast.LENGTH_SHORT).show();
+                /*跳转到图书详情页*/
+                Intent search_intent = new Intent();
+                search_intent.setClass(BookStoreSearchActivity.this,BookDetailActivity.class);
+                search_intent.putExtra("book",searchBooks.get(position));
+                startActivity(search_intent);//跳转到图书页面
             }
         });
 
@@ -71,6 +71,21 @@ public class BookStoreSearchActivity extends BasicActivity {
 
     }
 
+    //从服务器获取搜索图书
+    private List<Books> getSearchBooks(String searchBookName,String url){
+        final List<Books> booksList = new ArrayList<>();
+        HttpConnectionManager.getInstance().getSearchBooks(searchBookName,url,new HttpConnectionManager.GetSearchBookCallBack(){
+            @Override
+            public void onResponse(int result, List<Books> booksList) {
+                if(result == 1){
+                    booksList = booksList;
+                }else if(result ==2){
+                    Log.i("yudong","get searchBook failed");
+                }
+            }
+        });
+        return booksList;
+    }
 
 
 }

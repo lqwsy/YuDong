@@ -200,7 +200,7 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
     private void turnToClassificationLookMore(String classifyName){
         Intent search_intent = new Intent();
         search_intent.setClass(getActivity(),ClassificationLookMoreActivity.class);
-        search_intent.putExtra("search_book_name",classifyName);
+        search_intent.putExtra("look_book_name",classifyName);
         startActivity(search_intent);//跳转到查看更多页面
     }
 

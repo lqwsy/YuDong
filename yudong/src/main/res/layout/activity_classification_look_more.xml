@@ -19,7 +19,6 @@
 
             <TextView
                 android:id="@+id/tv_classification_lookmore"
-                android:text="分类"
                 android:layout_centerHorizontal="true"
                 android:textSize="24sp"
                 android:gravity="center"

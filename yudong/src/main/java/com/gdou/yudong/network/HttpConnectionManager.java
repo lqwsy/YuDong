@@ -169,10 +169,63 @@ public class HttpConnectionManager {
                 Log.i("yudong","今日getToday Success");
                 if(response!=null&&response.isSuccessful()){
                     List<Books> booksList = JSON.parseArray(response.body().string(),Books.class);
-
-                    Log.i("yudong","listSize is === " + booksList.size());
-
                     onGetTodayBookRankCallInHandler(1,booksList,callBack);//把数据传出去
+                }
+            }
+        });
+    }
+
+    /**
+     * 异步GET请求，返回分类图书的列表
+     * @param url 访问服务器的url
+     * @param callBack 自定义的回调接口，由自己实现具体逻辑
+     * */
+    public void getClassificationBooks(String classificationName,String url,final GetClassificationBookCallBack callBack){
+        FormBody mFormBody = new FormBody.Builder()
+                .add("classificationName", classificationName)
+                .build();
+        final Request request = new Request.Builder().url(url).post(mFormBody).build();
+        mOkHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.i("yudong","获取分类图书 Faild");
+                onGetClassificationBookCallInHandler(2,null,callBack);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.i("yudong","获取分类图书 Success");
+                if(response!=null&&response.isSuccessful()){
+                    List<Books> booksList = JSON.parseArray(response.body().string(),Books.class);
+                    onGetClassificationBookCallInHandler(1,booksList,callBack);//把数据传出去
+                }
+            }
+        });
+    }
+
+    /**
+     * 异步GET请求，返回搜索图书的列表
+     * @param url 访问服务器的url
+     * @param callBack 自定义的回调接口，由自己实现具体逻辑
+     * */
+    public void getSearchBooks(String searchBookName,String url,final GetSearchBookCallBack callBack){
+        FormBody mFormBody = new FormBody.Builder()
+                .add("searchBookName", searchBookName)
+                .build();
+        final Request request = new Request.Builder().url(url).post(mFormBody).build();
+        mOkHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.i("yudong","获取搜索图书 Faild");
+                onGetSearchBookCallInHandler(2,null,callBack);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.i("yudong","获取搜索图书 Success");
+                if(response!=null&&response.isSuccessful()){
+                    List<Books> booksList = JSON.parseArray(response.body().string(),Books.class);
+                    onGetSearchBookCallInHandler(1,booksList,callBack);//把数据传出去
                 }
             }
         });
@@ -239,6 +292,36 @@ public class HttpConnectionManager {
             }
         });
     }
+    /**
+     * 异步更新UI线程,获取分类图书成功回调
+     * @param booksList 服务器返回的图书列表
+     * @param callBack  自定义的回调接口
+     */
+    private void onGetClassificationBookCallInHandler(final int result,final List<Books> booksList, final GetClassificationBookCallBack callBack) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (callBack != null) {
+                    callBack.onResponse(result,booksList);//在这里把数据传到前台activity
+                }
+            }
+        });
+    }
+    /**
+     * 异步更新UI线程,获取搜索图书成功回调
+     * @param booksList 服务器返回的图书列表
+     * @param callBack  自定义的回调接口
+     */
+    private void onGetSearchBookCallInHandler(final int result,final List<Books> booksList, final GetSearchBookCallBack callBack) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (callBack != null) {
+                    callBack.onResponse(result,booksList);//在这里把数据传到前台activity
+                }
+            }
+        });
+    }
 
 
 
@@ -262,9 +345,21 @@ public class HttpConnectionManager {
         void onResponse(Boolean result);//具体方法逻辑由自己实现这个接口时定义，可在里面更新UI
     }
     /**
-     * 创建下载图书接口回调，把okhttp的数据传出来用
+     * 创建获取今日排行图书接口回调，把okhttp的数据传出来用
      */
     public interface GetTodayBookRankCallBack {
+        void onResponse(int result,List<Books> booksList);//具体方法逻辑由自己实现这个接口时定义，可在里面更新UI
+    }
+    /**
+     * 创建获取分类图书接口回调，把okhttp的数据传出来用
+     */
+    public interface GetClassificationBookCallBack {
+        void onResponse(int result,List<Books> booksList);//具体方法逻辑由自己实现这个接口时定义，可在里面更新UI
+    }
+    /**
+     * 创建获取分类图书接口回调，把okhttp的数据传出来用
+     */
+    public interface GetSearchBookCallBack {
         void onResponse(int result,List<Books> booksList);//具体方法逻辑由自己实现这个接口时定义，可在里面更新UI
     }
 
