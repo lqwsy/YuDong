@@ -2,20 +2,18 @@ package com.gdou.yudong.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gdou.yudong.R;
 import com.gdou.yudong.bean.Books;
 import com.gdou.yudong.network.HttpConnectionManager;
+import com.gdou.yudong.ui.fragment.BookShelfFragment;
 import com.gdou.yudong.utils.Common;
-import com.gdou.yudong.utils.GlideUitls;
+import com.gdou.yudong.utils.GlideUtils;
 import com.gdou.yudong.utils.SaveFileUtil;
 import com.hw.txtreaderlib.ui.HwTxtPlayActivity;
 
@@ -54,7 +52,7 @@ public class BookDetailActivity extends AppCompatActivity {
     }
 
     private void initData(){
-        new GlideUitls().setImageResource(Common.WEB_BOOK_IMG_URL+book.getBookCoverPath(),this,iv_bookdetail_img);
+        new GlideUtils().setImageResource(Common.WEB_BOOK_IMG_URL+book.getBookCoverPath(),this,iv_bookdetail_img);
         saveFileUtil = new SaveFileUtil(this);
         tv_bookdetail_name.setText("书名："+book.getBookName());
         tv_bookdetail_author.setText("作者："+book.getBookAuthor());
@@ -80,15 +78,30 @@ public class BookDetailActivity extends AppCompatActivity {
     public void downloadClick(){
         if(btn_bookdetail_download.getText().equals("下载")){
             String bookUrl = Common.WEB_BOOK_URL+book.getBookLocation();
-            HttpConnectionManager.getInstance().downloadBook(bookUrl,this, book.getBookName()+".txt",
+            String bookImgUrl = Common.WEB_BOOK_IMG_URL + book.getBookCoverPath();
+            //下载电子书
+            HttpConnectionManager.getInstance().downloadBook(1,bookUrl,this, book.getBookName()+".txt",
                     new HttpConnectionManager.DownloadBookResultCallBack() {
                         @Override
                         public void onResponse(Boolean result) {
                             if(result){
                                 Toast.makeText(BookDetailActivity.this,"下载成功",Toast.LENGTH_SHORT).show();
                                 btn_bookdetail_download.setText("阅读");
+                                BookShelfFragment.getInstence().notifiDataChange();
                             }else {
                                 Toast.makeText(BookDetailActivity.this,"下载失败",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+            //下载封面
+            HttpConnectionManager.getInstance().downloadBook(2,bookImgUrl,this, book.getBookName()+".jpg",
+                    new HttpConnectionManager.DownloadBookResultCallBack() {
+                        @Override
+                        public void onResponse(Boolean result) {
+                            if(result){
+                                Toast.makeText(BookDetailActivity.this,"下载封面成功",Toast.LENGTH_SHORT).show();
+                            }else {
+                                Toast.makeText(BookDetailActivity.this,"下载封面失败",Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

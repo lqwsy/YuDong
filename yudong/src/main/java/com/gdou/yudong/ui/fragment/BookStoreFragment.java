@@ -1,5 +1,6 @@
 package com.gdou.yudong.ui.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,8 +12,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -94,6 +97,10 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
     private BookStoreGridViewAdapter bookStoreGridViewAdapter;
     private BookStoreRecyclerViewAdapter bookStoreRecyclerViewAdapter;
     private HttpConnectionManager httpConnectionManager;
+    /**
+     * 输入法管理器
+     */
+    private InputMethodManager mInputMethodManager;
 
     @Nullable
     @Override
@@ -108,6 +115,9 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
     }
 
     private void initData(List<Books> booksList){
+        //输入法管理器初始化
+        mInputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+
 
         //gridview初始化
         bookStoreGridViewAdapter = new BookStoreGridViewAdapter(getActivity(),booksList);
@@ -165,6 +175,7 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
                 turnToClassificationLookMore("励志");
                 break;
             case R.id.btn_search:
+
                 String bookName = et_search_book_name.getText().toString();
                 Intent search_intent = new Intent();
                 search_intent.setClass(getActivity(),BookStoreSearchActivity.class);

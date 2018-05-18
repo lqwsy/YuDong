@@ -8,13 +8,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.gdou.yudong.R;
 import com.gdou.yudong.bean.Books;
 import com.gdou.yudong.ui.activity.BookDetailActivity;
 import com.gdou.yudong.utils.Common;
-import com.gdou.yudong.utils.GlideUitls;
+import com.gdou.yudong.utils.GlideUtils;
 
 import java.util.List;
 
@@ -61,7 +60,7 @@ public class BookStoreGridViewAdapter extends BaseAdapter implements View.OnClic
         }else{
             gridViewHolder = (GridViewHolder) convertView.getTag();
         }
-        new GlideUitls().setImageResource(Common.WEB_BOOK_IMG_URL+booksList.get(position).getBookCoverPath(),context,gridViewHolder.ib_book_img);
+        new GlideUtils().setImageResource(Common.WEB_BOOK_IMG_URL+booksList.get(position).getBookCoverPath(),context,gridViewHolder.ib_book_img);
         gridViewHolder.ib_book_img.setTag(position);
         gridViewHolder.ib_book_img.setOnClickListener(this);
         gridViewHolder.tv_book_name.setText(booksList.get(position).getBookName());

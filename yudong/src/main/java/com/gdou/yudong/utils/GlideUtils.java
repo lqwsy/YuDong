@@ -11,7 +11,7 @@ import com.gdou.yudong.R;
  * Created by admin on 2018/5/9.
  */
 
-public class GlideUitls {
+public class GlideUtils {
 
     /**
      * 禁用缓存
@@ -49,9 +49,9 @@ public class GlideUitls {
      * 禁用缓存
      * 用glide加载本地图片
      * */
-    public void setLocalImageResource(String url, Context context, ImageView imageView){
+    public void setLocalImageResource(String localUrl, Context context, ImageView imageView){
         Glide.with(context)
-                .load(url)//可以是网络url，本地图片，应用资源，二进制流，uri对象等
+                .load(localUrl)//可以是网络url，本地图片，应用资源，二进制流，uri对象等
                 //.asGif()//制定加载动态图片，非动态则显示error
                 //.asBitmap()//指定加载静态图片，gif图只显示第一帧
                 .override(80,110)//指定加载图片的大小，不管imageview的大小

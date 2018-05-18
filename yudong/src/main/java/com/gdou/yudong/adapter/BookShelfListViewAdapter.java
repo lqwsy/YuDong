@@ -10,11 +10,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.gdou.yudong.R;
 import com.gdou.yudong.utils.Common;
-import com.gdou.yudong.utils.GlideUitls;
+import com.gdou.yudong.utils.GlideUtils;
 import com.hw.txtreaderlib.ui.HwTxtPlayActivity;
 
 import java.io.File;
@@ -71,16 +69,16 @@ public class BookShelfListViewAdapter extends BaseAdapter implements View.OnClic
         imageViewHolder.iv_book_middle.setOnClickListener(this);
         imageViewHolder.iv_book_right.setOnClickListener(this);
 
-        imageViewHolder.relativeLayout = (RelativeLayout) imageViewHolder.iv_book_left.getParent();
-        imageViewHolder.relativeLayout.setTag(position);
+//        imageViewHolder.relativeLayout = (RelativeLayout) imageViewHolder.iv_book_left.getParent();
+//        imageViewHolder.relativeLayout.setTag(position);
         imageViewHolder.iv_book_left.setTag(position);
         imageViewHolder.iv_book_middle.setTag(position);
         imageViewHolder.iv_book_right.setTag(position);
 
-        GlideUitls glideUitls = new GlideUitls();
-        glideUitls.setLocalImageResource(Common.WEB_BOOK_IMG_URL+imageUrlList.get(position)[0],context,imageViewHolder.iv_book_left);
-        glideUitls.setLocalImageResource(Common.WEB_BOOK_IMG_URL+imageUrlList.get(position)[1],context,imageViewHolder.iv_book_middle);
-        glideUitls.setLocalImageResource(Common.WEB_BOOK_IMG_URL+imageUrlList.get(position)[2],context,imageViewHolder.iv_book_right);
+        GlideUtils glideUtils = new GlideUtils();
+        glideUtils.setLocalImageResource(Common.BOOK_IMAGE_PATH+imageUrlList.get(position)[0],context,imageViewHolder.iv_book_left);
+        glideUtils.setLocalImageResource(Common.BOOK_IMAGE_PATH+imageUrlList.get(position)[1],context,imageViewHolder.iv_book_middle);
+        glideUtils.setLocalImageResource(Common.BOOK_IMAGE_PATH+imageUrlList.get(position)[2],context,imageViewHolder.iv_book_right);
 
         return convertView;
     }
@@ -89,7 +87,7 @@ public class BookShelfListViewAdapter extends BaseAdapter implements View.OnClic
      * 利用holder缓存
      * */
     private static class ImageViewHolder{
-        RelativeLayout relativeLayout;
+//        RelativeLayout relativeLayout;
         ImageView iv_book_left;
         ImageView iv_book_middle;
         ImageView iv_book_right;
@@ -117,9 +115,9 @@ public class BookShelfListViewAdapter extends BaseAdapter implements View.OnClic
      * 点击图书封面，进入阅读
      * */
     private void readBook(int position,int secondPosition){
-        String filePath = Common.WEB_BOOK_URL + bookUrlList.get(position)[secondPosition];
+        String filePath = Common.FILE_PATH + bookUrlList.get(position)[secondPosition];
         if (TextUtils.isEmpty(filePath) || !(new File(filePath)).exists()) {
-            Toast.makeText(context,"文件不存在",Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context,"文件不存在",Toast.LENGTH_SHORT).show();
         } else {
             HwTxtPlayActivity.loadTxtFile(context, filePath);
         }

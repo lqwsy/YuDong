@@ -2,20 +2,16 @@ package com.gdou.yudong.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.gdou.yudong.R;
 import com.gdou.yudong.bean.Books;
 import com.gdou.yudong.utils.Common;
-import com.gdou.yudong.utils.GlideUitls;
+import com.gdou.yudong.utils.GlideUtils;
 
 import java.util.List;
 
@@ -67,7 +63,7 @@ public class BookStoreRecyclerViewAdapter extends RecyclerView.Adapter{
         }
 
         public void setData(final int position){
-            new GlideUitls().setImageResource(Common.WEB_BOOK_IMG_URL+booksList.get(position).getBookCoverPath(),context,ib_today_book_img);
+            new GlideUtils().setImageResource(Common.WEB_BOOK_IMG_URL+booksList.get(position).getBookCoverPath(),context,ib_today_book_img);
             tv_today_book_name.setText(booksList.get(position).getBookName());
             ib_today_book_img.setOnClickListener(new View.OnClickListener() {
                 @Override

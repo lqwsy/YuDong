@@ -46,7 +46,7 @@ public class Common {
     /**
      * 封面本地保存路径
      */
-    public static final String BOOK_IMAGE_PATH = "/storage/emulated/0/Android/data/com.gdou.yudong/files/Picture/";
+    public static final String BOOK_IMAGE_PATH = "/storage/emulated/0/Android/data/com.gdou.yudong/files/Pictures/";
 
     /**
      * 图书文件本地保存路径
@@ -61,5 +61,11 @@ public class Common {
      * 服务器图书存放地址
      */
     public static final String WEB_BOOK_URL = "http://172.16.0.26:8080/YuDongReader/static/books/";
+
+
+    /**
+     * glide本地图片缓存大小 20M
+     * */
+    public static final int GLIDE_CACHE_SIZE = 1024 * 1024 * 20;
 
 }

@@ -111,9 +111,9 @@ public class HttpConnectionManager {
      * 异步下载图书
      * @param bookUrl 图书下载地址
      * @param context context
-     * @param  bookName 图书名称
+     * @param  fileName 文件名称
      * */
-    public boolean downloadBook(String bookUrl,final Context context, final String bookName,final DownloadBookResultCallBack callBack){
+    public boolean downloadBook(final int type,String bookUrl,final Context context, final String fileName,final DownloadBookResultCallBack callBack){
         boolean result = false;
         Log.i("yudong",""+bookUrl);
         Request request = new Request.Builder()
@@ -130,7 +130,12 @@ public class HttpConnectionManager {
             public void onResponse(Call call, Response response) throws IOException {
                 InputStream mInputStream = response.body().byteStream();
                 FileOutputStream mFileOutputStream = null;
-                File file = new SaveFileUtil(context).getBookFilePath(bookName);
+                File file = new File("");
+                if(type == 1){
+                    file = new SaveFileUtil(context).getBookFilePath(fileName);
+                }else if (type == 2){
+                    file = new SaveFileUtil(context).getImageFilePath(fileName);
+                }
                 mFileOutputStream = new FileOutputStream(file);
                 byte[] buffer = new byte[1024];
                 int len = 0;
