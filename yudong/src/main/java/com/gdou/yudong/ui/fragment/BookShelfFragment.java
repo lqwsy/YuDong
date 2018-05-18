@@ -6,6 +6,7 @@ import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.gdou.yudong.R;
 import com.gdou.yudong.adapter.BookShelfListViewAdapter;
+import com.gdou.yudong.utils.Common;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -48,7 +50,7 @@ public class BookShelfFragment extends Fragment{
         imageUrlList = new ArrayList<>();
         bookUrlList = new ArrayList<>();
 
-        String[] imageUrl = {"a.jpg","b.jpg","c.jpg"};
+        String[] imageUrl = {"a.jpg","b.jpg","cc.jpg"};
         String[] bookNames = {"秘密——巴比伦尘封6000年的财富智慧","余华-兄弟","《被毁灭的人》[美] 阿尔弗雷德·贝斯特"};
         String[] bookUrl = {"book001.txt","book002.txt","book003.txt"};
 
@@ -57,33 +59,16 @@ public class BookShelfFragment extends Fragment{
             bookUrlList.add(bookUrl);
         }
 
+        List<String> fileList = getBookFileName(Common.FILE_PATH);
+        if(fileList!=null && fileList.size()>0){
+            for(int i=0;i<fileList.size();i++){
+                Log.i("yudong","fileName is === " + fileList.get(i));
+            }
+        }
+
         bookShelfListViewAdapter = new BookShelfListViewAdapter(getActivity(),imageUrlList,bookUrlList);
         lv_books.setAdapter(bookShelfListViewAdapter);
 
-
-        //初始化下拉控件颜色
-/*        srl.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
-                android.R.color.holo_orange_light, android.R.color.holo_red_light);
-
-        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                new AsyncTask<Void, Void, Void>() {
-
-                    @Override
-                    protected Void doInBackground(Void... voids) {
-                        SystemClock.sleep(2000);
-                        return null;
-                    }
-
-                    @Override
-                    protected void onPostExecute(Void aVoid) {
-                        Toast.makeText(getActivity(), "下拉刷新成功", Toast.LENGTH_SHORT).show();
-                        srl.setRefreshing(false);
-                    }
-                }.execute();
-            }
-        });*/
     }
 
     // 获取当前目录下所有的mp4文件
@@ -91,15 +76,19 @@ public class BookShelfFragment extends Fragment{
         List<String> vecFile = new ArrayList<>();
         File file = new File(fileAbsolutePath);
         File[] subFile = file.listFiles();
-        for (int iFileLength = 0; iFileLength < subFile.length; iFileLength++) {
-            // 判断是否为文件夹
-            if (!subFile[iFileLength].isDirectory()) {
-                String filename = subFile[iFileLength].getName();
-                // 判断是否为txt结尾
-                if (filename.trim().toLowerCase().endsWith(".txt")) {
-                    vecFile.add(filename);
+        if(subFile!=null){
+            for (int iFileLength = 0; iFileLength < subFile.length; iFileLength++) {
+                // 判断是否为文件夹
+                if (!subFile[iFileLength].isDirectory()) {
+                    String filename = subFile[iFileLength].getName();
+                    // 判断是否为txt结尾
+                    if (filename.trim().toLowerCase().endsWith(".txt")) {
+                        vecFile.add(filename);
+                    }
                 }
             }
+        }else {
+            Log.i("yudong","subFile is == null");
         }
         return vecFile;
     }
