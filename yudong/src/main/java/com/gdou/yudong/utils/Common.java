@@ -20,7 +20,7 @@ public class Common {
     /**
      * 本地测试URL
      */
-    public final static String LOCAL_URL = "http://172.16.0.26:8080/YuDongReader/";
+    public final static String LOCAL_URL = "http://192.168.0.6:8080/YuDongReader/";
 
 
     /**
@@ -56,11 +56,11 @@ public class Common {
     /**
      * 服务器图书图片存放地址
      */
-    public static final String WEB_BOOK_IMG_URL = "http://172.16.0.26:8080/YuDongReader/static/bookimg/";
+    public static final String WEB_BOOK_IMG_URL = "http://192.168.0.6:8080/YuDongReader/static/bookimg/";
     /**
      * 服务器图书存放地址
      */
-    public static final String WEB_BOOK_URL = "http://172.16.0.26:8080/YuDongReader/static/books/";
+    public static final String WEB_BOOK_URL = "http:/192.168.0.6:8080/YuDongReader/static/books/";
 
 
     /**

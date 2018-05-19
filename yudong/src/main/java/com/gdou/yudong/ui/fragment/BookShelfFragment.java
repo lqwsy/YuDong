@@ -56,7 +56,6 @@ public class BookShelfFragment extends Fragment{
 
         bookShelfListViewAdapter = new BookShelfListViewAdapter(getActivity(),imageUrlList,bookUrlList);
         lv_books.setAdapter(bookShelfListViewAdapter);
-        bookShelfListViewAdapter.notifyDataSetChanged();
 
     }
 
@@ -135,7 +134,8 @@ public class BookShelfFragment extends Fragment{
 
     //下载图书时,更新数据
     public void notifiDataChange(){
-        getData(bookUrlList,imageUrlList);
-        bookShelfListViewAdapter.notifyDataSetChanged();
+//        getData(bookUrlList,imageUrlList);
+//        bookShelfListViewAdapter.notifyDataSetChanged();
+        initData();
     }
 }

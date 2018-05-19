@@ -39,6 +39,7 @@ import com.gdou.yudong.utils.SpacesItemDecoration;
 
 import org.loader.autohideime.HideIMEUtil;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,6 +94,14 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
     @BindView(R.id.rl_bookstore_content)
     public RelativeLayout rl_bookstore_content;
 
+    public List<Books> fictionBooks;
+    public List<Books> literatureBooks;
+    public List<Books> historyBooks;
+    public List<Books> biographyBooks;
+    public List<Books> economicsBooks;
+    public List<Books> managementBooks;
+    public List<Books> motivationalBooks;
+
 
     private BookStoreGridViewAdapter bookStoreGridViewAdapter;
     private BookStoreRecyclerViewAdapter bookStoreRecyclerViewAdapter;
@@ -114,20 +123,9 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
         return view;
     }
 
-    private void initData(List<Books> booksList){
+    private void initTodayRankData(List<Books> booksList){
         //输入法管理器初始化
         mInputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-
-
-        //gridview初始化
-        bookStoreGridViewAdapter = new BookStoreGridViewAdapter(getActivity(),booksList);
-        gv_classificy_fiction.setAdapter(bookStoreGridViewAdapter);
-        gv_classificy_literature.setAdapter(bookStoreGridViewAdapter);
-        gv_classificy_biography.setAdapter(bookStoreGridViewAdapter);
-        gv_classificy_history.setAdapter(bookStoreGridViewAdapter);
-        gv_classificy_economics.setAdapter(bookStoreGridViewAdapter);
-        gv_classificy_management.setAdapter(bookStoreGridViewAdapter);
-        gv_classificy_motivational.setAdapter(bookStoreGridViewAdapter);
 
         //textview初始化
         tv_lookmore_fiction.setOnClickListener(this);
@@ -150,29 +148,72 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
         recyclerView.setAdapter(bookStoreRecyclerViewAdapter);
     }
 
+    private void initFictionData(){
+        //gridview初始化
+        bookStoreGridViewAdapter = new BookStoreGridViewAdapter(getActivity(),fictionBooks);
+        gv_classificy_fiction.setAdapter(bookStoreGridViewAdapter);
+    }
+
+    private void initLiteratureData(){
+        //gridview初始化
+        bookStoreGridViewAdapter = new BookStoreGridViewAdapter(getActivity(),literatureBooks);
+        gv_classificy_literature.setAdapter(bookStoreGridViewAdapter);
+    }
+
+    private void initBiographyData(){
+        //gridview初始化
+        bookStoreGridViewAdapter = new BookStoreGridViewAdapter(getActivity(),biographyBooks);
+        gv_classificy_biography.setAdapter(bookStoreGridViewAdapter);
+    }
+
+    private void initHistoryData(){
+        //gridview初始化
+        bookStoreGridViewAdapter = new BookStoreGridViewAdapter(getActivity(),historyBooks);
+        gv_classificy_history.setAdapter(bookStoreGridViewAdapter);
+    }
+
+    private void initEconomicsData(){
+        //gridview初始化
+        bookStoreGridViewAdapter = new BookStoreGridViewAdapter(getActivity(),economicsBooks);
+        gv_classificy_economics.setAdapter(bookStoreGridViewAdapter);
+    }
+
+    private void initManagementData(){
+        //gridview初始化
+        bookStoreGridViewAdapter = new BookStoreGridViewAdapter(getActivity(),managementBooks);
+        gv_classificy_management.setAdapter(bookStoreGridViewAdapter);
+    }
+
+    private void initMotivationalData(){
+        //gridview初始化
+        bookStoreGridViewAdapter = new BookStoreGridViewAdapter(getActivity(),motivationalBooks);
+        gv_classificy_motivational.setAdapter(bookStoreGridViewAdapter);
+    }
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_lookmore_fiction:
-                turnToClassificationLookMore("小说");
+                turnToClassificationLookMore("小说",fictionBooks);
                 break;
             case R.id.tv_lookmore_literature:
-                turnToClassificationLookMore("文学");
+                turnToClassificationLookMore("文学",literatureBooks);
                 break;
             case R.id.tv_lookmore_biography:
-                turnToClassificationLookMore("传记");
+                turnToClassificationLookMore("传记",biographyBooks);
                 break;
             case R.id.tv_lookmore_history:
-                turnToClassificationLookMore("历史");
+                turnToClassificationLookMore("历史",historyBooks);
                 break;
             case R.id.tv_lookmore_economics:
-                turnToClassificationLookMore("经济");
+                turnToClassificationLookMore("经济",economicsBooks);
                 break;
             case R.id.tv_lookmore_management:
-                turnToClassificationLookMore("管理");
+                turnToClassificationLookMore("管理",managementBooks);
                 break;
             case R.id.tv_lookmore_motivational:
-                turnToClassificationLookMore("励志");
+                turnToClassificationLookMore("励志",motivationalBooks);
                 break;
             case R.id.btn_search:
                 String bookName = et_search_book_name.getText().toString();
@@ -197,10 +238,11 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
     }
 
     /*点击查看更多，跳转到具体分类的页面*/
-    private void turnToClassificationLookMore(String classifyName){
+    private void turnToClassificationLookMore(String classifyName,List<Books> classificationBooks){
         Intent search_intent = new Intent();
         search_intent.setClass(getActivity(),ClassificationLookMoreActivity.class);
         search_intent.putExtra("look_book_name",classifyName);
+        search_intent.putExtra("classificationBooks",(Serializable) classificationBooks);
         startActivity(search_intent);//跳转到查看更多页面
     }
 
@@ -219,7 +261,7 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
                 if(booksList!=null){
                     if(result==1 && booksList.size()>0){
                         rl_bookstore_content.setVisibility(View.VISIBLE);
-                        initData(booksList);
+                        initTodayRankData(booksList);
                     }else if(result == 2){
                         rl_bookstore_content.setVisibility(View.GONE);
                     }
@@ -227,6 +269,83 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
                     rl_bookstore_content.setVisibility(View.GONE);
                 }
 
+            }
+        });
+        httpConnectionManager.getClassificationBooks("小说",Common.LOCAL_URL + "getClassificationBooks", new HttpConnectionManager.GetClassificationBookCallBack() {
+            @Override
+            public void onResponse(int result, List<Books> booksList) {
+                if(booksList!=null){
+                    if(result == 1){
+                        fictionBooks = booksList;
+                        initFictionData();
+                    }
+                }
+            }
+        });
+        httpConnectionManager.getClassificationBooks("文学",Common.LOCAL_URL + "getClassificationBooks", new HttpConnectionManager.GetClassificationBookCallBack() {
+            @Override
+            public void onResponse(int result, List<Books> booksList) {
+                if(booksList!=null){
+                    if(result == 1){
+                        literatureBooks = booksList;
+                        initLiteratureData();
+                    }
+                }
+            }
+        });
+        httpConnectionManager.getClassificationBooks("传记",Common.LOCAL_URL + "getClassificationBooks", new HttpConnectionManager.GetClassificationBookCallBack() {
+            @Override
+            public void onResponse(int result, List<Books> booksList) {
+                if(booksList!=null){
+                    if(result == 1){
+                        biographyBooks = booksList;
+                        initBiographyData();
+                    }
+                }
+            }
+        });
+        httpConnectionManager.getClassificationBooks("历史",Common.LOCAL_URL + "getClassificationBooks", new HttpConnectionManager.GetClassificationBookCallBack() {
+            @Override
+            public void onResponse(int result, List<Books> booksList) {
+                if(booksList!=null){
+                    if(result == 1){
+                        historyBooks = booksList;
+                        initHistoryData();
+                    }
+                }
+            }
+        });
+        httpConnectionManager.getClassificationBooks("经济",Common.LOCAL_URL + "getClassificationBooks", new HttpConnectionManager.GetClassificationBookCallBack() {
+            @Override
+            public void onResponse(int result, List<Books> booksList) {
+                if(booksList!=null){
+                    if(result == 1){
+                        economicsBooks = booksList;
+                        initEconomicsData();
+                    }
+                }
+            }
+        });
+        httpConnectionManager.getClassificationBooks("管理",Common.LOCAL_URL + "getClassificationBooks", new HttpConnectionManager.GetClassificationBookCallBack() {
+            @Override
+            public void onResponse(int result, List<Books> booksList) {
+                if(booksList!=null){
+                    if(result == 1){
+                        managementBooks = booksList;
+                        initManagementData();
+                    }
+                }
+            }
+        });
+        httpConnectionManager.getClassificationBooks("励志",Common.LOCAL_URL + "getClassificationBooks", new HttpConnectionManager.GetClassificationBookCallBack() {
+            @Override
+            public void onResponse(int result, List<Books> booksList) {
+                if(booksList!=null){
+                    if(result == 1){
+                        motivationalBooks = booksList;
+                        initMotivationalData();
+                    }
+                }
             }
         });
     }

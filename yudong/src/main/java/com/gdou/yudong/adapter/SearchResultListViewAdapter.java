@@ -53,10 +53,10 @@ public class SearchResultListViewAdapter extends BaseAdapter{
             imageViewHolder = new ImageViewHolder();
             convertView = layoutInflater.inflate(R.layout.item_listview_search_result,null);
 
-            imageViewHolder.ib_result_book_img = convertView.findViewById(R.id.ib_result_book_img);
-            imageViewHolder.tv_result_book_name = convertView.findViewById(R.id.tv_result_book_name);
-            imageViewHolder.tv_result_book_author = convertView.findViewById(R.id.tv_result_book_author);
-            imageViewHolder.tv_result_book_introduce = convertView.findViewById(R.id.tv_result_book_introduce);
+            imageViewHolder.ib_result_book_img = (ImageButton) convertView.findViewById(R.id.ib_result_book_img);
+            imageViewHolder.tv_result_book_name = (TextView) convertView.findViewById(R.id.tv_result_book_name);
+            imageViewHolder.tv_result_book_author = (TextView) convertView.findViewById(R.id.tv_result_book_author);
+            imageViewHolder.tv_result_book_introduce = (TextView) convertView.findViewById(R.id.tv_result_book_introduce);
 
             convertView.setTag(imageViewHolder);
         }else{

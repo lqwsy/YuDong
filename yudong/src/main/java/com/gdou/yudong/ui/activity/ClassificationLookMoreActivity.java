@@ -34,6 +34,7 @@ public class ClassificationLookMoreActivity extends AppCompatActivity {
     @BindView(R.id.lv_classification_lookmore)
     public ListView lv_classification_lookmore;
     private SearchResultListViewAdapter searchResultListViewAdapter;
+    private List<Books> classificationBooks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,9 @@ public class ClassificationLookMoreActivity extends AppCompatActivity {
         HideIMEUtil.wrap(this);
         String classificationName = getIntent().getExtras().get("look_book_name").toString();
         tv_classification_lookmore.setText(classificationName);
-        getClassificationBooks(classificationName, Common.LOCAL_URL+"getClassificationBooks");
+//        getClassificationBooks(classificationName, Common.LOCAL_URL+"getClassificationBooks");
+        classificationBooks = (List<Books>) getIntent().getSerializableExtra("classificationBooks");
+        initData(classificationBooks);
     }
 
 
@@ -74,7 +77,7 @@ public class ClassificationLookMoreActivity extends AppCompatActivity {
     }
 
     //从服务器获取分类图书
-    private List<Books> getClassificationBooks(String classificationName,String url){
+/*    private List<Books> getClassificationBooks(String classificationName,String url){
         final List<Books> booksList = new ArrayList<>();
         HttpConnectionManager.getInstance().getClassificationBooks(classificationName,url,new HttpConnectionManager.GetClassificationBookCallBack(){
             @Override
@@ -87,7 +90,7 @@ public class ClassificationLookMoreActivity extends AppCompatActivity {
             }
         });
         return booksList;
-    }
+    }*/
 
 
 

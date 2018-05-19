@@ -35,6 +35,9 @@ public class BookStoreGridViewAdapter extends BaseAdapter implements View.OnClic
 
     @Override
     public int getCount() {
+        if(booksList.size()>8){
+            return 8;
+        }
         return booksList.size();
     }
 
@@ -54,8 +57,8 @@ public class BookStoreGridViewAdapter extends BaseAdapter implements View.OnClic
         if(convertView == null){
             gridViewHolder = new GridViewHolder();
             convertView = layoutInflater.inflate(R.layout.item_gridview_bookstore,null);
-            gridViewHolder.ib_book_img = convertView.findViewById(R.id.ib_book_img);
-            gridViewHolder.tv_book_name = convertView.findViewById(R.id.tv_book_name);
+            gridViewHolder.ib_book_img = (ImageButton) convertView.findViewById(R.id.ib_book_img);
+            gridViewHolder.tv_book_name = (TextView) convertView.findViewById(R.id.tv_book_name);
             convertView.setTag(gridViewHolder);
         }else{
             gridViewHolder = (GridViewHolder) convertView.getTag();
