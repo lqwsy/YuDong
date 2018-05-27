@@ -144,10 +144,14 @@ public class RegisterActivity extends BasicActivity implements Validator.Validat
                     //result,1:success 2:networkError 3:AccountExit
                     if (result == 1) {
                         //在SharedPreferences中保存登录用户数据，下次自动登录
-                        saveLoginToSharedPreferences(username, password);
+                        /*saveLoginToSharedPreferences(username, password);
                         startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
                         ActivityCollector.delActivity(RegisterActivity.class);
-                        ActivityCollector.delActivity(LoginActivity.class);
+                        ActivityCollector.delActivity(LoginActivity.class);*/
+                        Toast.makeText(RegisterActivity.this, "注册成功，请重新登录", Toast.LENGTH_LONG).show();
+                        edt_username.setText("");
+                        edt_password.setText("");
+                        edt_verificationCode.setText("");
                     } else if (result == 2) {
                         Toast.makeText(RegisterActivity.this, "连接失败，请检查网络", Toast.LENGTH_SHORT).show();
                     } else if (result == 3) {

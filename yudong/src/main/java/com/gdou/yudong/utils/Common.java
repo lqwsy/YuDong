@@ -56,11 +56,15 @@ public class Common {
     /**
      * 服务器图书图片存放地址
      */
-    public static final String WEB_BOOK_IMG_URL = "http://192.168.0.6:8080/YuDongReader/static/bookimg/";
+    public static final String WEB_BOOK_IMG_URL = LOCAL_URL + "static/bookimg/";
     /**
      * 服务器图书存放地址
      */
-    public static final String WEB_BOOK_URL = "http:/192.168.0.6:8080/YuDongReader/static/books/";
+    public static final String WEB_BOOK_URL = LOCAL_URL + "static/books/";
+    /**
+     * 服务器头像存放地址
+     */
+    public static final String WEB_HEAD_URL = LOCAL_URL + "static/img/";
 
 
     /**

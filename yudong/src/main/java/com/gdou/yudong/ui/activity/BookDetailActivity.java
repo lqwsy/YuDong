@@ -2,6 +2,7 @@ package com.gdou.yudong.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -77,19 +78,21 @@ public class BookDetailActivity extends AppCompatActivity {
     @OnClick(R.id.btn_bookdetail_download)
     public void downloadClick(){
         if(btn_bookdetail_download.getText().equals("下载")){
-            String bookUrl = Common.WEB_BOOK_URL+book.getBookLocation();
+            String bookUrl = Common.WEB_BOOK_URL + book.getBookLocation();
             String bookImgUrl = Common.WEB_BOOK_IMG_URL + book.getBookCoverPath();
+            String bookDownloadUrl = Common.LOCAL_URL + "bookDownController";
             //下载电子书
             HttpConnectionManager.getInstance().downloadBook(1,bookUrl,this, book.getBookName()+".txt",
                     new HttpConnectionManager.DownloadBookResultCallBack() {
                         @Override
                         public void onResponse(Boolean result) {
                             if(result){
-                                Toast.makeText(BookDetailActivity.this,"下载成功",Toast.LENGTH_SHORT).show();
+                                Log.i("yudong","下载图书成功");
+                                Toast.makeText(BookDetailActivity.this,"下载成功，刷新书架可查看",Toast.LENGTH_SHORT).show();
                                 btn_bookdetail_download.setText("阅读");
-                                BookShelfFragment.getInstence().notifiDataChange();
+//                                BookShelfFragment.getInstence().notifiDataChange();
                             }else {
-                                Toast.makeText(BookDetailActivity.this,"下载失败",Toast.LENGTH_SHORT).show();
+                                Log.i("yudong","下载图书成功");
                             }
                         }
                     });
@@ -99,9 +102,19 @@ public class BookDetailActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Boolean result) {
                             if(result){
-                                Toast.makeText(BookDetailActivity.this,"下载封面成功",Toast.LENGTH_SHORT).show();
+                                Log.i("yudong","下载封面成功");
                             }else {
-                                Toast.makeText(BookDetailActivity.this,"下载封面失败",Toast.LENGTH_SHORT).show();
+                                Log.i("yudong","下载封面失败");
+                            }
+                        }
+                    });
+            HttpConnectionManager.getInstance().downloadBookController(bookDownloadUrl,this, book.getBookId(),
+                    new HttpConnectionManager.DownloadBookControllerCallBack() {
+                        @Override
+                        public void onResponse(Boolean result) {
+                            if(result){
+                                Log.i("yudong","download count + 1");
+                            }else {
                             }
                         }
                     });

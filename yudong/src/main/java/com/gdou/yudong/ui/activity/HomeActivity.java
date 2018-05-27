@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 
 import com.gdou.yudong.R;
 import com.gdou.yudong.adapter.FragmentAdapter;
+import com.gdou.yudong.bean.Users;
 import com.gdou.yudong.ui.fragment.BookShelfFragment;
 import com.gdou.yudong.ui.fragment.BookStoreFragment;
 import com.gdou.yudong.ui.fragment.MyPageFragment;
@@ -50,8 +51,9 @@ public class HomeActivity extends BasicActivity{
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);//对绑定的成员赋值
 //        clearLoginSharedPreferences();//清除登录数据
+        Users users = (Users) getIntent().getExtras().getSerializable("cur_user");
 
-        initView();
+        initView(users);
         fragmentAdapter = new FragmentAdapter(this.getSupportFragmentManager(),fragmentList);
         homeViewPager.setOffscreenPageLimit(3);
         homeViewPager.setAdapter(fragmentAdapter);
@@ -77,12 +79,13 @@ public class HomeActivity extends BasicActivity{
     /**
      * 初始化界面
      * */
-    private void initView(){
+    private void initView(Users users){
 
         bookShelfFragment = new BookShelfFragment();
         bookStoreFragment = new BookStoreFragment();
         myPageFragment = new MyPageFragment();
         myPageFragment.setActivity(this);
+        myPageFragment.setUser(users);
 
         fragmentList.add(bookShelfFragment);
         fragmentList.add(bookStoreFragment);

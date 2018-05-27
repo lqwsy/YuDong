@@ -2,12 +2,14 @@ package com.gdou.yudong.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.gdou.yudong.R;
+import com.gdou.yudong.bean.Users;
 import com.gdou.yudong.network.HttpConnectionManager;
 import com.gdou.yudong.utils.ActivityCollector;
 import com.gdou.yudong.utils.Common;
@@ -87,24 +89,28 @@ public class LoginActivity extends BasicActivity implements Validator.Validation
         //登录结果返回
         httpConnectionManager.loginConnect(url, username, password, new HttpConnectionManager.LoginResultCallBack() {
             @Override
-            public void onResponse(int result) {
+            public void onResponse(Users users) {
                 //result,1:success 2:networkError 3:noAccount 4:wrongPassword
-                if(result == 1){
+                if(users != null && users.getUserState() == 1){
                     //跳转到主界面
                     Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
                     //缓存头像和个人信息下来
+                    downloadImg(users);
+                    users.setHeadImage(Common.BOOK_IMAGE_PATH+users.getHeadImage());
+                    Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+                    intent.putExtra("cur_user",users);
 
                     //在SharedPreferences中保存登录用户数据，下次自动登录
-                    saveLoginToSharedPreferences(username,password);
-                    startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+                    saveLoginToSharedPreferences(username,password, users.getUserNickName(),users.getHeadImage());
+                    startActivity(intent);
                     ActivityCollector.delActivity(LoginActivity.class);
                 }
-                else if(result == 2){
+                else if(users == null){
                     Toast.makeText(LoginActivity.this, "无法连接网络", Toast.LENGTH_SHORT).show();
-                }else if(result == 3){
+                }else if(users!= null && users.getUserState() == 3){
                     //提示错误信息
                     Toast.makeText(LoginActivity.this, "账号不存在", Toast.LENGTH_SHORT).show();
-                }else if(result == 4){
+                }else if(users!= null && users.getUserState() == 4){
                     //提示错误信息
                     Toast.makeText(LoginActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
                 }
@@ -122,4 +128,20 @@ public class LoginActivity extends BasicActivity implements Validator.Validation
             }
         }
     }
+
+    public void downloadImg(Users users){
+        String imgUrl = Common.WEB_HEAD_URL + users.getHeadImage();
+        HttpConnectionManager.getInstance().downloadBook(2,imgUrl,this, users.getHeadImage(),
+                new HttpConnectionManager.DownloadBookResultCallBack() {
+                    @Override
+                    public void onResponse(Boolean result) {
+                        if(result){
+                            Log.i("yudong","下载头像成功");
+                        }else {
+                            Log.i("yudong","下载头像失败");
+                        }
+                    }
+                });
+    }
+
 }

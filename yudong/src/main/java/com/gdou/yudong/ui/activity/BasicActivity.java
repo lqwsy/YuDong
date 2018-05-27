@@ -32,12 +32,14 @@ public class BasicActivity extends AppCompatActivity {
      * @param username 登录用户名
      *                 00
      */
-    public void saveLoginToSharedPreferences(String username, String password) {
+    public void saveLoginToSharedPreferences(String username, String password,String nickName,String imgUrl) {
         //在SharedPreferences中保存登录用户数据，下次自动登录
         SharedPreferences sharedPreferences = getSharedPreferences("loginUser", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("username", username);//添加用户名密码
         editor.putString("password", password);
+        editor.putString("nickName", nickName);
+        editor.putString("imgUrl",imgUrl);
         editor.commit();//保存到本地
     }
 

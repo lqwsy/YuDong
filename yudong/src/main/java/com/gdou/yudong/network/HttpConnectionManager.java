@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.gdou.yudong.bean.Books;
+import com.gdou.yudong.bean.Users;
 import com.gdou.yudong.utils.SaveFileUtil;
 
 import java.io.File;
@@ -71,12 +72,13 @@ public class HttpConnectionManager {
         mOkHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                onLoginCallInHandler(2,callBack);
+                onLoginCallInHandler(null,callBack);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                onLoginCallInHandler(Integer.parseInt(response.body().string()),callBack);
+                Users user = JSON.parseObject(response.body().string(),Users.class);
+                onLoginCallInHandler(user,callBack);
             }
         });
     }
@@ -145,6 +147,38 @@ public class HttpConnectionManager {
                 mFileOutputStream.flush();
                 Log.i("yudong","下载成功");
                 onDownloadCallInHandler(true,callBack);
+            }
+        });
+        return result;
+    }
+
+    /**
+     * 异步下载图书
+     * @param downloadUrl 图书下载地址
+     * @param context context
+     * @param  bookId 文件名称
+     * */
+    public boolean downloadBookController(final String downloadUrl,final Context context,final int bookId,final DownloadBookControllerCallBack callBack){
+        boolean result = false;
+        FormBody mFormBody = new FormBody.Builder()
+                .add("bookId",""+bookId)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(downloadUrl)
+                .post(mFormBody)
+                .build();
+        mOkHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                onDownloadBookCallBackHandler(false,callBack);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response!=null&&response.isSuccessful()){
+                    onDownloadBookCallBackHandler(true,callBack);
+                }
             }
         });
         return result;
@@ -234,15 +268,15 @@ public class HttpConnectionManager {
 
     /**
      * 异步更新UI线程,登录成功回调
-     * @param value 服务器返回的json数据
+     * @param users 服务器返回的json数据
      * @param callBack  自定义的回调接口
      */
-    private void onLoginCallInHandler(final int value, final LoginResultCallBack callBack) {
+    private void onLoginCallInHandler(final Users users, final LoginResultCallBack callBack) {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
                 if (callBack != null) {
-                    callBack.onResponse(value);//在这里把数据传到前台activity
+                    callBack.onResponse(users);//在这里把数据传到前台activity
                 }
             }
         });
@@ -268,6 +302,21 @@ public class HttpConnectionManager {
      * @param callBack  自定义的回调接口
      */
     private void onDownloadCallInHandler(final Boolean value, final DownloadBookResultCallBack callBack) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (callBack != null) {
+                    callBack.onResponse(value);//在这里把数据传到前台activity
+                }
+            }
+        });
+    }
+    /**
+     * 异步更新UI线程,下载图书成功回调
+     * @param value 服务器返回的json数据
+     * @param callBack  自定义的回调接口
+     */
+    private void onDownloadBookCallBackHandler(final Boolean value, final DownloadBookControllerCallBack callBack) {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -330,7 +379,7 @@ public class HttpConnectionManager {
      * 创建登陆接口回调，把okhttp的数据传出来用
      */
     public interface LoginResultCallBack {
-        void onResponse(int result);//具体方法逻辑由自己实现这个接口时定义，可在里面更新UI
+        void onResponse(Users users);//具体方法逻辑由自己实现这个接口时定义，可在里面更新UI
     }
     /**
      * 创建注册接口回调，把okhttp的数据传出来用
@@ -342,6 +391,12 @@ public class HttpConnectionManager {
      * 创建下载图书接口回调，把okhttp的数据传出来用
      */
     public interface DownloadBookResultCallBack {
+        void onResponse(Boolean result);//具体方法逻辑由自己实现这个接口时定义，可在里面更新UI
+    }
+    /**
+     * 创建下载图书接口回调，通过ID下载图书
+     */
+    public interface DownloadBookControllerCallBack {
         void onResponse(Boolean result);//具体方法逻辑由自己实现这个接口时定义，可在里面更新UI
     }
     /**

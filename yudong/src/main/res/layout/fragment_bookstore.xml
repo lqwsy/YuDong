@@ -56,6 +56,7 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:background="#50c0c0c0"
                         android:layout_width="match_parent"
                         android:layout_height="50dp">
 
@@ -98,6 +99,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
+                        android:background="#50c0c0c0"
                         android:orientation="horizontal">
 
                         <TextView
@@ -160,6 +162,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
+                            android:background="#50c0c0c0"
                             android:orientation="horizontal">
 
                             <TextView
@@ -214,6 +217,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
+                        android:background="#50c0c0c0"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="wrap_content"
@@ -262,6 +266,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
+                        android:background="#50c0c0c0"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="wrap_content"
@@ -310,6 +315,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
+                        android:background="#50c0c0c0"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="wrap_content"
@@ -358,6 +364,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
+                        android:background="#50c0c0c0"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="wrap_content"
@@ -407,6 +414,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
+                        android:background="#50c0c0c0"
                         android:orientation="horizontal">
 
                         <TextView
