@@ -51,7 +51,7 @@ public class BookShelfFragment extends Fragment{
         return view;
     }
 
-    private void initData(){
+    public void initData(){
         getData(bookUrlList,imageUrlList);
 
         bookShelfListViewAdapter = new BookShelfListViewAdapter(getActivity(),imageUrlList,bookUrlList);
@@ -134,8 +134,12 @@ public class BookShelfFragment extends Fragment{
 
     //下载图书时,更新数据
     public void notifiDataChange(){
-//        getData(bookUrlList,imageUrlList);
-//        bookShelfListViewAdapter.notifyDataSetChanged();
-        initData();
+        getData(bookUrlList,imageUrlList);
+        if(bookShelfListViewAdapter!=null){
+            bookShelfListViewAdapter.notifyDataSetChanged();
+        }else{
+            bookShelfListViewAdapter = new BookShelfListViewAdapter(getActivity(),imageUrlList,bookUrlList);
+            lv_books.setAdapter(bookShelfListViewAdapter);
+        }
     }
 }

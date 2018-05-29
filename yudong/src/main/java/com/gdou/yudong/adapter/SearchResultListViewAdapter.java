@@ -65,7 +65,7 @@ public class SearchResultListViewAdapter extends BaseAdapter{
         GlideUtils.getInstence().setImageResource(Common.WEB_BOOK_IMG_URL+booksList.get(position).getBookCoverPath(),context,imageViewHolder.ib_result_book_img);
         imageViewHolder.tv_result_book_name.setText("书名："+booksList.get(position).getBookName());
         imageViewHolder.tv_result_book_author.setText("作者："+booksList.get(position).getBookAuthor());
-        imageViewHolder.tv_result_book_introduce.setText("阅读量："+booksList.get(position).getBookIntroduction());
+        imageViewHolder.tv_result_book_introduce.setText("简介："+booksList.get(position).getBookIntroduction());
 
         return convertView;
     }

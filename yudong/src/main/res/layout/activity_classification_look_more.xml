@@ -15,7 +15,7 @@
                 android:id="@+id/ib_classification_lookmore_back"
                 android:text="返回"
                 android:layout_height="wrap_content"
-                android:layout_width="55dp" />
+                android:layout_width="58dp" />
 
             <TextView
                 android:id="@+id/tv_classification_lookmore"

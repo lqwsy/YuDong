@@ -27,7 +27,7 @@ import butterknife.OnClick;
 public class BookDetailActivity extends AppCompatActivity {
 
     @BindView(R.id.ib_bookdetail_back)
-    public ImageButton ib_bookdetail_back;
+    public Button ib_bookdetail_back;
     @BindView(R.id.iv_bookdetail_img)
     public ImageView iv_bookdetail_img;
     @BindView(R.id.tv_bookdetail_name)
@@ -53,7 +53,7 @@ public class BookDetailActivity extends AppCompatActivity {
     }
 
     private void initData(){
-        new GlideUtils().setImageResource(Common.WEB_BOOK_IMG_URL+book.getBookCoverPath(),this,iv_bookdetail_img);
+        GlideUtils.getInstence().setImageResource(Common.WEB_BOOK_IMG_URL+book.getBookCoverPath(),this,iv_bookdetail_img);
         saveFileUtil = new SaveFileUtil(this);
         tv_bookdetail_name.setText("书名："+book.getBookName());
         tv_bookdetail_author.setText("作者："+book.getBookAuthor());
@@ -88,7 +88,7 @@ public class BookDetailActivity extends AppCompatActivity {
                         public void onResponse(Boolean result) {
                             if(result){
                                 Log.i("yudong","下载图书成功");
-                                Toast.makeText(BookDetailActivity.this,"下载成功，刷新书架可查看",Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(BookDetailActivity.this,"下载成功，刷新书架可查看",Toast.LENGTH_SHORT).show();
                                 btn_bookdetail_download.setText("阅读");
 //                                BookShelfFragment.getInstence().notifiDataChange();
                             }else {

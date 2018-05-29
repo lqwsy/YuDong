@@ -62,6 +62,9 @@ public class HomeActivity extends BasicActivity{
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 setItemSelected(position);
+                if(position==0){
+                    bookShelfFragment.notifiDataChange();
+                }
             }
 
             @Override
