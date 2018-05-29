@@ -5,5 +5,5 @@ package com.gdou.yudong.adapter;
  */
 
 public interface MyLongClickListener {
-    void onItemLongClick(String filePaht,String imgPath);
+    void onItemLongClick(String filePath,String imgPath);
 }
