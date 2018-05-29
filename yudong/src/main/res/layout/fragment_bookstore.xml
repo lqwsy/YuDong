@@ -140,7 +140,6 @@
                             android:layout_height="match_parent"
                             android:columnWidth="90dp"
                             android:gravity="center"
-                            android:horizontalSpacing="10dp"
                             android:numColumns="4"
                             android:stretchMode="spacingWidthUniform"
                             android:verticalSpacing="25dp"></GridView>
@@ -202,7 +201,6 @@
                                 android:layout_height="match_parent"
                                 android:columnWidth="90dp"
                                 android:gravity="center"
-                                android:horizontalSpacing="10dp"
                                 android:numColumns="4"
                                 android:stretchMode="spacingWidthUniform"
                                 android:verticalSpacing="25dp"></GridView>

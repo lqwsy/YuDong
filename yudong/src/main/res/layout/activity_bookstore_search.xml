@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="#689AD3"
+    android:background="#5EC4CD"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,30 +13,33 @@
         <RelativeLayout
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:background="#689AD3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/ib_search_result_back"
                 android:text="返回"
-                android:layout_height="wrap_content"
-                android:layout_width="55dp" />
+                android:layout_height="55dp"
+                android:layout_width="58dp" />
             <Button
                 android:id="@+id/btn_result_search"
-                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_alignParentRight="true"
-                android:layout_alignBaseline="@id/ib_search_result_back"
+                android:textColor="@color/black"
                 android:layout_width="60dp"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:text="搜索" />
             <EditText
                 android:id="@+id/et_result_search_book_name"
                 android:layout_toRightOf="@id/ib_search_result_back"
                 android:layout_toLeftOf="@id/btn_result_search"
+                android:textColor="@color/black"
+                android:background="#50ffffff"
+                android:paddingLeft="8dp"
+                android:hint="请输入书名或作者名"
+                android:layout_marginTop="5dp"
                 android:layout_centerHorizontal="true"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="45dp" />
             <ListView
                 android:id="@+id/lv_bookstore_search_result"
                 android:layout_marginTop="3dp"
