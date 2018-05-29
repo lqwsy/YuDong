@@ -1,5 +1,6 @@
 package com.gdou.yudong.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.gdou.yudong.R;
+import com.gdou.yudong.ui.fragment.BookShelfFragment;
 import com.gdou.yudong.utils.Common;
 import com.gdou.yudong.utils.GlideUtils;
 import com.hw.txtreaderlib.ui.HwTxtPlayActivity;
@@ -22,12 +24,14 @@ import java.util.List;
  * Created by Administrator on 2018-04-22.
  */
 
-public class BookShelfListViewAdapter extends BaseAdapter implements View.OnClickListener{
+public class BookShelfListViewAdapter extends BaseAdapter implements View.OnClickListener,View.OnLongClickListener{
 
     private List<String[]> imageUrlList;//图书封面地址列表
     private List<String[]> bookUrlList;//图书地址列表
     private LayoutInflater layoutInflater;
     private Context context;
+
+    public  MyLongClickListener myLongClickListener;
 
     public BookShelfListViewAdapter(Context context,List<String[]> imageUrlList,List<String[]> bookUrlList){
         this.imageUrlList = imageUrlList;
@@ -65,9 +69,14 @@ public class BookShelfListViewAdapter extends BaseAdapter implements View.OnClic
             imageViewHolder = (ImageViewHolder) convertView.getTag();
         }
 
+        //点击
         imageViewHolder.iv_book_left.setOnClickListener(this);
         imageViewHolder.iv_book_middle.setOnClickListener(this);
         imageViewHolder.iv_book_right.setOnClickListener(this);
+        //长按
+        imageViewHolder.iv_book_left.setOnLongClickListener(this);
+        imageViewHolder.iv_book_middle.setOnLongClickListener(this);
+        imageViewHolder.iv_book_right.setOnLongClickListener(this);
 
 //        imageViewHolder.relativeLayout = (RelativeLayout) imageViewHolder.iv_book_left.getParent();
 //        imageViewHolder.relativeLayout.setTag(position);
@@ -81,6 +90,33 @@ public class BookShelfListViewAdapter extends BaseAdapter implements View.OnClic
         glideUtils.setLocalImageResource(Common.BOOK_IMAGE_PATH+imageUrlList.get(position)[2],context,imageViewHolder.iv_book_right);
 
         return convertView;
+    }
+
+    @Override
+    public boolean onLongClick(View view) {
+        int position = (Integer) view.getTag();
+        String filePath;
+        String imgPath;
+        switch(view.getId()){
+            case R.id.iv_book_left:
+                filePath = Common.FILE_PATH + bookUrlList.get(position)[0];
+                imgPath = Common.BOOK_IMAGE_PATH + imageUrlList.get(position)[0];
+                myLongClickListener.onItemLongClick(filePath,imgPath);
+                break;
+            case R.id.iv_book_middle:
+                filePath = Common.FILE_PATH + bookUrlList.get(position)[1];
+                imgPath = Common.BOOK_IMAGE_PATH + imageUrlList.get(position)[1];
+                myLongClickListener.onItemLongClick(filePath,imgPath);
+                break;
+            case R.id.iv_book_right:
+                filePath = Common.FILE_PATH + bookUrlList.get(position)[2];
+                imgPath = Common.BOOK_IMAGE_PATH + imageUrlList.get(position)[2];
+                myLongClickListener.onItemLongClick(filePath,imgPath);
+                break;
+            default:
+                break;
+        }
+        return false;
     }
 
     /**
@@ -123,5 +159,8 @@ public class BookShelfListViewAdapter extends BaseAdapter implements View.OnClic
         }
     }
 
+    public void setMyLongClickListener(MyLongClickListener myLongClickListener) {
+        this.myLongClickListener = myLongClickListener;
+    }
 
 }

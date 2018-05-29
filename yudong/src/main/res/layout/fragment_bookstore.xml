@@ -27,6 +27,16 @@
                     android:focusableInTouchMode="true"
                     android:orientation="horizontal">
 
+                    <ImageButton
+                        android:id="@+id/ib_bookstore_reflesh"
+                        android:src="@drawable/scan_icon"
+                        android:background="@null"
+                        android:clickable="true"
+                        android:layout_weight="0.01"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
                     <EditText
                         android:id="@+id/et_search_book_name"
                         android:layout_width="match_parent"
@@ -35,6 +45,7 @@
                         android:background="#50ffffff"
                         android:hint="请输入书名或作者名"
                         android:paddingLeft="8dp"
+                        android:textSize="12sp"
                         android:layout_marginTop="6dp"
                         android:layout_marginBottom="6dp"
                         android:layout_marginLeft="5dp"
@@ -46,7 +57,7 @@
                         android:textColor="@color/black"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_weight="0.05"
+                        android:layout_weight="0.01"
                         android:gravity="right|center_vertical"
                         android:text="搜索" />
                 </LinearLayout>

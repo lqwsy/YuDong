@@ -1,5 +1,7 @@
 package com.gdou.yudong.ui.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import com.gdou.yudong.R;
 import com.gdou.yudong.adapter.BookShelfListViewAdapter;
+import com.gdou.yudong.adapter.MyLongClickListener;
 import com.gdou.yudong.network.HttpConnectionManager;
 import com.gdou.yudong.ui.activity.BookDetailActivity;
 import com.gdou.yudong.utils.Common;
@@ -33,7 +36,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2018-04-05.
  */
 
-public class BookShelfFragment extends Fragment{
+public class BookShelfFragment extends Fragment implements MyLongClickListener{
 
     @BindView(R.id.lv_mybooks)
     public ListView lv_books;
@@ -55,6 +58,7 @@ public class BookShelfFragment extends Fragment{
         getData(bookUrlList,imageUrlList);
 
         bookShelfListViewAdapter = new BookShelfListViewAdapter(getActivity(),imageUrlList,bookUrlList);
+        bookShelfListViewAdapter.setMyLongClickListener(this);
         lv_books.setAdapter(bookShelfListViewAdapter);
 
     }
@@ -132,7 +136,7 @@ public class BookShelfFragment extends Fragment{
         return bookShelfFragment;
     }
 
-    //下载图书时,更新数据
+    //更新数据
     public void notifiDataChange(){
         getData(bookUrlList,imageUrlList);
         if(bookShelfListViewAdapter!=null){
@@ -142,4 +146,29 @@ public class BookShelfFragment extends Fragment{
             lv_books.setAdapter(bookShelfListViewAdapter);
         }
     }
+
+
+    @Override
+    public void onItemLongClick(final String filePath, final String imgPath) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                new File(filePath).delete();
+                new File(imgPath).delete();
+                notifiDataChange();
+            }
+        });
+        builder.setNeutralButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.setTitle("删除提示");
+        builder.setMessage("确定删除此图书？");
+        builder.show();
+    }
+
+
 }

@@ -88,7 +88,7 @@ public class BookDetailActivity extends AppCompatActivity {
                         public void onResponse(Boolean result) {
                             if(result){
                                 Log.i("yudong","下载图书成功");
-//                                Toast.makeText(BookDetailActivity.this,"下载成功，刷新书架可查看",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(BookDetailActivity.this,"下载成功",Toast.LENGTH_SHORT).show();
                                 btn_bookdetail_download.setText("阅读");
 //                                BookShelfFragment.getInstence().notifiDataChange();
                             }else {

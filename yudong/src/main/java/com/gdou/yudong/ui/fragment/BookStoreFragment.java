@@ -19,6 +19,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -93,6 +94,8 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
     public RecyclerView recyclerView;
     @BindView(R.id.rl_bookstore_content)
     public RelativeLayout rl_bookstore_content;
+    @BindView(R.id.ib_bookstore_reflesh)
+    public ImageButton ib_bookstore_reflesh;
 
     public List<Books> fictionBooks;
     public List<Books> literatureBooks;
@@ -119,7 +122,6 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
         HideIMEUtil.wrap(getActivity());
         httpConnectionManager = HttpConnectionManager.getInstance();
         loadData(httpConnectionManager);
-
         return view;
     }
 
@@ -137,6 +139,7 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
         tv_lookmore_motivational.setOnClickListener(this);
         //搜索按钮
         btn_search.setOnClickListener(this);
+        ib_bookstore_reflesh.setOnClickListener(this);
 
         //recyclerview 初始化
         bookStoreRecyclerViewAdapter = new BookStoreRecyclerViewAdapter(getActivity(),booksList);
@@ -214,6 +217,12 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener,
                 break;
             case R.id.tv_lookmore_motivational:
                 turnToClassificationLookMore("励志",motivationalBooks);
+                break;
+            case R.id.ib_bookstore_reflesh:
+                //重新刷新数据
+                httpConnectionManager = HttpConnectionManager.getInstance();
+                loadData(httpConnectionManager);
+                Toast.makeText(getActivity(),"刷新成功",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_search:
                 String bookName = et_search_book_name.getText().toString();
