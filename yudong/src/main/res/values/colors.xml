@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorWhite">#fff</color>
+    <color name="colorWhite">#ffffff</color>
     <color name="colorEditText">#64AAD0</color>
     <color name="colorLoginBack">#3C9DD0</color>
     <color name="colorLoginText">#06276F</color>

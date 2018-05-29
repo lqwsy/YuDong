@@ -101,7 +101,7 @@ public class LoginActivity extends BasicActivity implements Validator.Validation
                     intent.putExtra("cur_user",users);
 
                     //在SharedPreferences中保存登录用户数据，下次自动登录
-                    saveLoginToSharedPreferences(username,password, users.getUserNickName(),users.getHeadImage());
+                    saveLoginToSharedPreferences(users.getUserId(),username,password, users.getUserNickName(),users.getHeadImage());
                     startActivity(intent);
                     ActivityCollector.delActivity(LoginActivity.class);
                 }

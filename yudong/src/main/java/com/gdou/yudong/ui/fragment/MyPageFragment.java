@@ -2,9 +2,11 @@ package com.gdou.yudong.ui.fragment;
 
 import android.app.ActivityManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by Administrator on 2018-04-05.
  * 我的页面
@@ -46,7 +50,6 @@ public class MyPageFragment extends Fragment {
     @BindView(R.id.tv_mypage_nickname)
     public TextView tv_mypage_nickname;
     private HomeActivity activity;
-    private Users user;
 
     @Nullable
     @Override
@@ -58,8 +61,9 @@ public class MyPageFragment extends Fragment {
     }
 
     private void initData(){
-        GlideUtils.getInstence().setLocalImageResource(user.getHeadImage(),activity,iv_mypage_head_img);
-        tv_mypage_nickname.setText(user.getUserNickName());
+        activity = (HomeActivity) getActivity();
+        GlideUtils.getInstence().setLocalImageResource(activity.getUserInfo("imgUrl",""),activity,iv_mypage_head_img);
+        tv_mypage_nickname.setText(activity.getUserInfo("nickName",""));
     }
 
     @OnClick(R.id.rl_mapage_aboutus)
@@ -88,13 +92,11 @@ public class MyPageFragment extends Fragment {
         this.activity = activity;
     }
 
-
-    public Users getUser() {
-        return user;
-    }
-
-    public void setUser(Users user) {
-        this.user = user;
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.i("yudong"," mypage fragment onstart");
+        initData();
     }
 
 }

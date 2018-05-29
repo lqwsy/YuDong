@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorWhite"
     tools:context="com.gdou.yudong.ui.activity.ChangeInfoActivity">
 
@@ -52,7 +51,7 @@
                 android:layout_marginRight="60dp"
                 android:text="头像"
                 android:textColor="#000"
-                android:textSize="22sp" />
+                android:textSize="18sp" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_weight="1"
@@ -65,8 +64,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_width="80dp"
                 android:clickable="false"
-                android:layout_height="80dp"
-                android:src="@drawable/left"/>
+                android:layout_height="80dp"/>
         </RelativeLayout>
     </LinearLayout>
 
@@ -92,7 +90,7 @@
                 android:layout_marginLeft="10dp"
                 android:text="昵称"
                 android:textColor="#000"
-                android:textSize="22sp" />
+                android:textSize="18sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -106,10 +104,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="一起来看流星雨"
                 android:gravity="right"
                 android:textColor="#000"
-                android:textSize="22sp" />
+                android:textSize="18sp" />
         </RelativeLayout>
     </LinearLayout>
     <RelativeLayout

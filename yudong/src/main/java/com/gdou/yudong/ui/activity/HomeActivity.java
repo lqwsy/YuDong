@@ -85,7 +85,6 @@ public class HomeActivity extends BasicActivity{
         bookStoreFragment = new BookStoreFragment();
         myPageFragment = new MyPageFragment();
         myPageFragment.setActivity(this);
-        myPageFragment.setUser(users);
 
         fragmentList.add(bookShelfFragment);
         fragmentList.add(bookStoreFragment);

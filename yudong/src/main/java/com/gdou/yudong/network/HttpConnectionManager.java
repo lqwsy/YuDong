@@ -265,6 +265,65 @@ public class HttpConnectionManager {
         });
     }
 
+    /**
+     * 异步GET请求，返回搜索图书的列表
+     * @param url 访问服务器的url
+     * @param callBack 自定义的回调接口，由自己实现具体逻辑
+     * */
+    public void updatePassword(final int userId,final String newPassword,final String password,String url,final UpdatePasswordCallBack callBack){
+        FormBody mFormBody = new FormBody.Builder()
+                .add("userId", ""+userId)
+                .add("password", password)
+                .add("newPassword", newPassword)
+                .build();
+        final Request request = new Request.Builder().url(url).post(mFormBody).build();
+        mOkHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.i("yudong","修改密码 Faild");
+                onUpdatePasswordCallInHandler(2,callBack);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.i("yudong","修改密码 Success");
+                if(response!=null&&response.isSuccessful()){
+                    String result = response.body().string();
+                    onUpdatePasswordCallInHandler(Integer.parseInt(result),callBack);
+                }
+            }
+        });
+    }
+
+    /**
+     * 异步GET请求，返回搜索图书的列表
+     * @param url 访问服务器的url
+     * @param callBack 自定义的回调接口，由自己实现具体逻辑
+     * */
+    public void updateUserInfo(int userId,String nickName,String url,final UpdateUserInfoCallBack callBack){
+        FormBody mFormBody = new FormBody.Builder()
+                .add("userId", ""+userId)
+                .add("nickName", nickName)
+                .build();
+        final Request request = new Request.Builder().url(url).post(mFormBody).build();
+        mOkHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.i("yudong","修改用户信息 Faild");
+                onUpdateUserInfoCallInHandler(2,callBack);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response!=null&&response.isSuccessful()){
+                    Log.i("yudong","修改用户信息 Success"+response.body().string());
+                    String result = response.body().string();
+                    onUpdateUserInfoCallInHandler(Integer.parseInt(result),callBack);
+                }
+            }
+        });
+    }
+
 
     /**
      * 异步更新UI线程,登录成功回调
@@ -372,6 +431,36 @@ public class HttpConnectionManager {
         });
     }
 
+    /**
+     * 异步更新UI线程,获取搜索图书成功回调
+     * @param callBack  自定义的回调接口
+     */
+    private void onUpdatePasswordCallInHandler(final int result,final UpdatePasswordCallBack callBack) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (callBack != null) {
+                    callBack.onResponse(result);//在这里把数据传到前台activity
+                }
+            }
+        });
+    }
+
+    /**
+     * 异步更新UI线程,获取搜索图书成功回调
+     * @param callBack  自定义的回调接口
+     */
+    private void onUpdateUserInfoCallInHandler(final int result,final UpdateUserInfoCallBack callBack) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (callBack != null) {
+                    callBack.onResponse(result);//在这里把数据传到前台activity
+                }
+            }
+        });
+    }
+
 
 
 
@@ -412,10 +501,24 @@ public class HttpConnectionManager {
         void onResponse(int result,List<Books> booksList);//具体方法逻辑由自己实现这个接口时定义，可在里面更新UI
     }
     /**
-     * 创建获取分类图书接口回调，把okhttp的数据传出来用
+     * 创建获取搜索图书接口回调，把okhttp的数据传出来用
      */
     public interface GetSearchBookCallBack {
         void onResponse(int result,List<Books> booksList);//具体方法逻辑由自己实现这个接口时定义，可在里面更新UI
+    }
+
+    /**
+     * 创建获取搜索图书接口回调，把okhttp的数据传出来用
+     */
+    public interface UpdatePasswordCallBack {
+        void onResponse(int result);//具体方法逻辑由自己实现这个接口时定义，可在里面更新UI
+    }
+
+    /**
+     * 创建获取搜索图书接口回调，把okhttp的数据传出来用
+     */
+    public interface UpdateUserInfoCallBack {
+        void onResponse(int result);//具体方法逻辑由自己实现这个接口时定义，可在里面更新UI
     }
 
 }
