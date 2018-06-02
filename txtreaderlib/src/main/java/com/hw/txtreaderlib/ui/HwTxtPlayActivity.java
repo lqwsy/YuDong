@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hw.txtreaderlib.R;
+import com.hw.txtreaderlib.bean.Chapter;
 import com.hw.txtreaderlib.bean.TxtMsg;
 import com.hw.txtreaderlib.interfaces.IChapter;
 import com.hw.txtreaderlib.interfaces.ILoadListener;
@@ -28,6 +30,7 @@ import com.hw.txtreaderlib.main.TxtConfig;
 import com.hw.txtreaderlib.main.TxtReaderView;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * Created by bifan-wei
@@ -179,16 +182,26 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         }
         //章节初始化
         if (mTxtReaderView.getChapters() != null) {
+
+            List<IChapter> chapterList = mTxtReaderView.getChapters();
+            for(IChapter chapter : chapterList){
+                Log.i("yudong","HwTxtPlayActivity chapter StartParagraphIndex is === "+chapter.getStartParagraphIndex());
+            }
+
             WindowManager m = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
             DisplayMetrics metrics = new DisplayMetrics();
             m.getDefaultDisplay().getMetrics(metrics);
             int ViewHeight = metrics.heightPixels - mTopDecoration.getHeight();
+
+            Log.i("yudong","HwTxtPlayActivity allCharNum is === " + mTxtReaderView.getTxtReaderContext().getParagraphData().getCharNum());
+
             mChapterListPop = new ChapterList(this, ViewHeight, mTxtReaderView.getChapters(), mTxtReaderView.getTxtReaderContext().getParagraphData().getCharNum());
             mChapterListPop.getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     IChapter chapter = (IChapter) mChapterListPop.getAdapter().getItem(i);
                     mChapterListPop.dismiss();
+                    Log.i("yudong","HwTxtPlayActivity chapterlist chapter startparagraphindex is ==== " + chapter.getStartParagraphIndex());
                     mTxtReaderView.loadFromProgress(chapter.getStartParagraphIndex(), 0);
                 }
             });
@@ -463,6 +476,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         mTxtReaderView.getTxtReaderContext().Clear();
         mHandler.removeCallbacksAndMessages(null);
         if (mChapterListPop != null) {
+
             if (mChapterListPop.isShowing()) {
                 mChapterListPop.dismiss();
             }

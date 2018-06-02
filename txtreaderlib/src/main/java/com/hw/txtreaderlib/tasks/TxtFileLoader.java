@@ -27,10 +27,10 @@ public class TxtFileLoader {
             loadListener.onFail(TxtMsg.FileNoExist);
             return;
         }
-        loadListener.onMessage("initFile start");
+        loadListener.onMessage("TxtFileLoader initFile start");
         initFile(filePath, fileName, readerContext);
-        ELogger.log(tag, "initFile done");
-        loadListener.onMessage("initFile done");
+        ELogger.log(tag, "TxtFileLoader initFile done");
+        loadListener.onMessage("TxtFileLoader initFile done");
         ITxtTask txtTask = new FileDataLoadTask();
         txtTask.Run(loadListener, readerContext);
 
@@ -45,6 +45,7 @@ public class TxtFileLoader {
 
         fileMsg.CurrentParagraphIndex = 0;
         fileMsg.CurrentParagraphIndex = 0;
+        fileMsg.CurrentCharIndex = 0;
         fileMsg.PreParagraphIndex = 0;
         fileMsg.PreCharIndex = 0;
         if (fileName == null||fileName.trim().length()==0) {

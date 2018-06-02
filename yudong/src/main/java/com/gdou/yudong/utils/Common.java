@@ -14,13 +14,14 @@ public class Common {
     /**
      * 欢迎页停留时间
      */
-    public final static int SPLASH_DISPLAY_LENGHT = 2000;  //延迟3秒
+    public final static int SPLASH_DISPLAY_LENGHT = 2000;  //延迟2秒
 
 
     /**
      * 本地测试URL
      */
-    public final static String LOCAL_URL = "http://192.168.0.3:8080/YuDongReader/";
+//    public final static String LOCAL_URL = "http://192.168.0.2:8080/YuDongReader/";
+    public final static String LOCAL_URL = "http://192.168.43.247:8080/YuDongReader/";
 
 
     /**

@@ -1,5 +1,7 @@
 package com.hw.txtreaderlib.tasks;
 
+import android.util.Log;
+
 import com.hw.txtreaderlib.interfaces.ILoadListener;
 import com.hw.txtreaderlib.interfaces.IPage;
 import com.hw.txtreaderlib.interfaces.ITxtTask;

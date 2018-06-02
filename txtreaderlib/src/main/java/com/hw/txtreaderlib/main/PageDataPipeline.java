@@ -1,6 +1,7 @@
 package com.hw.txtreaderlib.main;
 
 import android.graphics.Paint;
+import android.util.Log;
 
 import com.hw.txtreaderlib.bean.EnChar;
 import com.hw.txtreaderlib.bean.NumChar;
@@ -30,6 +31,7 @@ public class PageDataPipeline implements IPageDataPipeline {
 
     @Override
     public IPage getPageStartFromProgress(int paragraphIndex, int charIndex) {
+
         IParagraphData data = readerContext.getParagraphData();
         int PageLineNum = readerContext.getPageParam().PageLineNum;
         int CurrentPaIndex = paragraphIndex;

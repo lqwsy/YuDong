@@ -28,7 +28,7 @@ public class ChapterList extends PopupWindow {
     private ListView mRootView;
     private MyAdapter mAdapter;
     private List<IChapter> mChapters;
-    private int CurrentIndex = -1;
+    private  int CurrentIndex = -1;
     private int AllCharNum = 0;
     private int ViewHeight;
 

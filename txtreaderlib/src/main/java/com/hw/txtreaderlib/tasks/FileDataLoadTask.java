@@ -53,11 +53,8 @@ public class FileDataLoadTask implements ITxtTask {
     private Boolean ReadData(String filePath, String Charset, IParagraphData paragraphData, List<IChapter> chapters) {
         File file = new File(filePath);
         BufferedReader bufferedReader = null;
-        ELogger.log(tag, "start to  ReadData");
-        ELogger.log(tag, "--file Charset:" + Charset);
         try {
-            bufferedReader = new BufferedReader(
-                    new InputStreamReader(new FileInputStream(file), Charset));
+            bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file), Charset));
             try {
                 String data;
                 int index = 0;
@@ -75,18 +72,14 @@ public class FileDataLoadTask implements ITxtTask {
                 }
                 return true;
             } catch (IOException e) {
-                ELogger.log(tag, "IOException:" + e.toString());
             }
         } catch (UnsupportedEncodingException e) {
-            ELogger.log(tag, "UnsupportedEncodingException:" + e.toString());
         } catch (FileNotFoundException e) {
-            ELogger.log(tag, "FileNotFoundException:" + e.toString());
         } finally {
             if (bufferedReader != null) {
                 try {
                     bufferedReader.close();
                 } catch (IOException e) {
-
                     e.printStackTrace();
                 }
             }
@@ -109,16 +102,6 @@ public class FileDataLoadTask implements ITxtTask {
             while (matcher.find()) {
                 int startIndex = 0;
                 int endIndex = data.length();
-
-                ELogger.log("章节","===============================================");
-                ELogger.log("chapterStartIndex",""+chapterStartIndex);
-                ELogger.log("chapterIndex",""+chapterIndex);
-                ELogger.log("ParagraphIndex",""+ParagraphIndex);
-                ELogger.log("ParagraphIndex",""+ParagraphIndex);
-                ELogger.log("startIndex",""+startIndex);
-                ELogger.log("endIndex",""+endIndex);
-                ELogger.log("章节","===============================================");
-
                 IChapter c = new Chapter(chapterStartIndex, chapterIndex, data, ParagraphIndex, ParagraphIndex, startIndex, endIndex);
                 return c;
             }
